@@ -1,0 +1,49 @@
+return {
+  "lewis6991/gitsigns.nvim",
+  events = "BufEnter",
+  opts = {
+    signs = {
+      add          = { text = '│' },
+      change       = { text = '│' },
+      delete       = { text = '_' },
+      topdelete    = { text = '‾' },
+      changedelete = { text = '~' },
+      untracked    = { text = '┆' },
+    },
+    attach_to_untracked = false,
+    on_attach = function()
+      local gs = package.loaded.gitsigns
+      local map = require("ff.map")
+
+      map.t({
+        group = { "<leader>g", "GitSigns" },
+        u = { gs.undo_stage_hunk, "[Git] Undo stage hunk" },
+        p = { gs.preview_hunk, "[Git] Preview hunk" },
+        b = { gs.blame_line, "[Git] Blame line" },
+        t = { gs.toggle_current_line_blame, "[Git] Toggle current line blame" },
+        d = { gs.diffthis, "[Git] Diff current line" },
+        x = { gs.toggle_deleted, "[Git] Toggle deleted" },
+        l = { gs.next_hunk, "[Git] Next hunk" },
+        h = { gs.prev_hunk, "[Git] Previous hunk" },
+        D = { function() gs.diffthis("~") end, "[Git] Diff" },
+        S = { gs.stage_buffer, "[Git] Stage buffer" },
+        s = { gs.stage_hunk, "[Git] Stage hunk" },
+        r = { gs.reset_hunk, "[Git] Reset hunk" },
+        R = { gs.reset_buffer, "[Git] Reset buffer" },
+        {
+          mode = "v",
+          s = { function()
+            gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+          end, "[Git] Stage hunk range" },
+          r = { function()
+            gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+          end, "[Git] Reset hunk range" },
+        }
+      })
+    end,
+  },
+  config = function(_, opts)
+    require('gitsigns').setup(opts)
+    require("scrollbar.handlers.gitsigns").setup()
+  end
+}
