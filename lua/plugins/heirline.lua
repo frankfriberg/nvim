@@ -16,7 +16,7 @@ return {
       dark_bg = utils.get_highlight("NeoTreeNormal").bg,
       bright_bg = utils.get_highlight("Folded").bg,
       bright_fg = utils.get_highlight("Folded").fg,
-      red = utils.get_highlight("DiagnosticError").fg,
+      red = utils.get_highlight("Red").fg,
       dark_red = utils.get_highlight("DiffDelete").bg,
       green = utils.get_highlight("GreenSign").fg,
       blue = utils.get_highlight("BlueSign").fg,

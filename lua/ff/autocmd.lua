@@ -60,7 +60,7 @@ autocmd("FileType", {
   group = bufcheck,
   pattern = { "Gitcommit", "git", "man", "help", "startuptime", "qf", "lspinfo", "fugitive", "fugitiveblame" },
   callback = function()
-    map.n("q", function() vim.api.nvim_win_close(0, true) end, { buffer = true })
+    map.n("q", function() vim.api.nvim_win_close(0, true) end, "Close win", { buffer = true })
   end
 })
 
@@ -71,21 +71,21 @@ autocmd('VimResized', {
   desc = 'Automatically resize windows when the host window size changes.'
 })
 
-autocmd('FocusLost', {
-  group = bufcheck,
-  pattern = '*',
-  callback = function(_)
-    require("tint").toggle()
-  end
-})
-
-autocmd('FocusGained', {
-  group = bufcheck,
-  pattern = '*',
-  callback = function(_)
-    require("tint").toggle()
-  end
-})
+-- autocmd('FocusLost', {
+--   group = bufcheck,
+--   pattern = '*',
+--   callback = function(_)
+--     require("tint").toggle()
+--   end
+-- })
+--
+-- autocmd('FocusGained', {
+--   group = bufcheck,
+--   pattern = '*',
+--   callback = function(_)
+--     require("tint").toggle()
+--   end
+-- })
 
 local function branch_name()
   local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")

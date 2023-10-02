@@ -3,7 +3,6 @@ return {
   dependencies = {
     "nvim-tree/nvim-web-devicons",
     "MunifTanjim/nui.nvim",
-    "mrbjarksen/neo-tree-diagnostics.nvim",
   },
   opts = function()
     local m = require("ff.map")
@@ -62,9 +61,7 @@ return {
 
     return {
       open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "edgy" },
-      width = "fit_content",
-      max_width = "20%",
-      min_width = "10%",
+      popup_border_style = "rounded",
       follow_current_file = true,
       filesystem = {
         window = {

@@ -121,7 +121,11 @@ M.t({
   group = { "<leader>u", "Utils" },
   s = { function()
     vim.o.spell = not vim.o.spell
-    vim.notify("Spellcheck " .. (vim.o.spell and "enabled" or "disabled"))
+    vim.notify(
+      vim.o.spell and "Enabled" or "Disabled",
+      vim.log.levels.INFO,
+      { title = "Spellcheck" }
+    )
   end, "Toggle spellcheck" },
 })
 

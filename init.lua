@@ -14,11 +14,13 @@ vim.g.mapleader = " "
 require("lazy").setup("plugins", {
   change_detection = {
     notify = false,
+    dev = {
+      path = "~/dev"
+    }
   },
 })
 require("ff.map")
 require("ff.set")
 require("ff.autocmd")
 require("ff.signcolumn")
-vim.cmd([[colorscheme neverforest]])
-
+vim.cmd([[colorscheme everforest]])

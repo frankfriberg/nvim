@@ -10,9 +10,9 @@ return function(client, bufnr)
       options = { buffer = bufnr },
       gD = { lsp.declaration, "[LSP] Declaration" },
       K = { lsp.hover, "[LSP] Hover" },
-      gr = { "<CMD>Glance references<CR>", "[LSP] References" },
-      gd = { "<CMD>Glance definitions<CR>", "[LSP] Definitions" },
-      gi = { "<CMD>Glance implementations<CR>", "[LSP] Goto Implementation" },
+      gr = { tb.lsp_references, "[LSP] References" },
+      gd = { tb.lsp_definitions, "[LSP] Definitions" },
+      gi = { tb.lsp_implementations, "[LSP] Goto Implementation" },
       c_s = { lsp.signature_help, "[LSP] Signature Help" },
     }
   })
@@ -22,8 +22,10 @@ return function(client, bufnr)
     {
       options = { buffer = bufnr },
       s = { lsp.signature_help, "[LSP] Signature Help" },
-      d = { "<CMD>Glance definitions", "[LSP] Definition" },
-      D = { "<CMD>Glance type_definitions", "[LSP] Type Definition" },
+      S = { tb.lsp_document_symbols, "[LSP] Document Symbols" },
+      W = { tb.lsp_workspace_symbols, "[LSP] Workspace Symbols" },
+      d = { tb.lsp_definitions, "[LSP] Definition" },
+      D = { tb.lsp_type_definitions, "[LSP] Type Definition" },
       r = { lsp.rename, "[LSP] Rename" },
       c = { lsp.code_action, "[LSP] Code Actions" },
       f = { format.format, "[LSP] Format" },

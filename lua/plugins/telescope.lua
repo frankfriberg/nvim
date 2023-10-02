@@ -1,23 +1,13 @@
 return {
   "nvim-telescope/telescope.nvim",
   dependencies = {
-    "Slotos/telescope-lsp-handlers.nvim",
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope-media-files.nvim",
-    "nvim-telescope/telescope-ui-select.nvim",
   },
   config = function()
     local telescope = require("telescope")
     local tb = require("telescope.builtin")
     local ta = require("telescope.actions")
-    local borders = require("plugins.ui.borders").t_borders
-    local layouts = require('telescope.pickers.layout_strategies')
-
-    layouts.flex_merged = function(picker, max_columns, max_lines, layout_config)
-      local layout = layouts.flex(picker, max_columns, max_lines, layout_config)
-      layout.preview.col = layout.preview.col + 1
-      return layout
-    end
 
     local function buf_vtext()
       local a_orig = vim.fn.getreg('a')
@@ -94,6 +84,7 @@ return {
       c_g = { function() pickers.cycle(3, true) end, "[T] Live grep" },
       c_p = { tb.resume, "[T] Resume" },
       c_c = { tb.grep_string, "[T] Grep cursor" },
+      c_b = { tb.git_branches, "[T] Git branches" },
       {
         mode = "v",
         c_c = { function()
@@ -121,9 +112,8 @@ return {
             ["<esc>"] = ta.close,
           },
         },
-        borderchars = borders,
         path_display = { "smart" },
-        layout_strategy = "flex_merged",
+        layout_strategy = "flex",
         layout_config = {
           cursor = {
             height = 0.3,
@@ -141,7 +131,6 @@ return {
       pickers = {
         lsp_references = {
           theme = "dropdown",
-          borderchars = borders,
           path_display = function(_, path)
             local tail = require("telescope.utils").path_tail(path)
             return vim.fn.fnamemodify(path, ":p:h:t") .. "/" .. tail
@@ -152,7 +141,6 @@ return {
           previewer = false,
           sort_mru = true,
           ignore_current_buffer = true,
-          borderchars = borders,
           mappings = {
             i = {
               ["<C-d>"] = "delete_buffer"
@@ -163,7 +151,6 @@ return {
           theme = "dropdown",
           previewer = false,
           sort_mru = true,
-          borderchars = borders,
         }
       },
       extensions = {
@@ -176,6 +163,5 @@ return {
     })
 
     telescope.load_extension("media_files")
-    telescope.load_extension("notify")
   end,
 }

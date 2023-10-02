@@ -8,7 +8,6 @@ return {
     "jose-elias-alvarez/typescript.nvim",
     "folke/neodev.nvim",
     "b0o/schemastore.nvim",
-    "glepnir/lspsaga.nvim"
   },
   opts = {
     autoformat = false,
@@ -21,10 +20,8 @@ return {
       "tailwindcss",
       "bashls",
       "jsonls",
-      "prismals",
       "html",
       "taplo",
-      "phpactor",
       "marksman",
     }
 

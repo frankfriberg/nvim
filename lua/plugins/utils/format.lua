@@ -15,8 +15,7 @@ function M.toggle()
   else
     M.opts.autoformat = not M.opts.autoformat
   end
-  vim.notify("Autoformat " .. (M.opts.autoformat and "enabled" or "disabled"), "info",
-    { title = "Autoformat" })
+  vim.notify(M.opts.autoformat and "Enabled" or "Disabled", vim.log.levels.INFO, { title = "Autoformat" })
 end
 
 function M.format(opts)
