@@ -8,9 +8,13 @@ return {
     "jose-elias-alvarez/typescript.nvim",
     "folke/neodev.nvim",
     "b0o/schemastore.nvim",
+    {
+      "pmizio/typescript-tools.nvim",
+      dependencies = { "nvim-lua/plenary.nvim" },
+    }
   },
   opts = {
-    autoformat = false,
+    autoformat = true,
   },
   config = function(_, opts)
     local on_attach = require("plugins.lsp.on-attach")
@@ -41,17 +45,12 @@ return {
     local capabilities = cmp.default_capabilities() or vim.lsp.protocol.make_client_capabilities()
     capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-    capabilities.textDocument.foldingRange = {
-      dynamicRegistration = false,
-      lineFoldingOnly = true
-    }
-
     require("mason-lspconfig").setup_handlers({
       function(server_name)
         require("lspconfig")[server_name].setup({ on_attach, capabilities })
       end,
       ["tsserver"] = function()
-        require("plugins.lsp.tsserver").setup(on_attach, capabilities)
+        require("plugins.lsp.typescript-tools").setup(on_attach, capabilities)
       end,
       ["lua_ls"] = function()
         require("plugins.lsp.lua_ls").setup(on_attach, capabilities)
