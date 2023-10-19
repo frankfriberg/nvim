@@ -1,4 +1,13 @@
-return {
+local M = {}
+
+M.diagnostics = {
+  HINT = "󰘥",
+  INFO = "󱨧",
+  WARN = "󰗖",
+  ERROR = "󰅚",
+}
+
+M.symbol_kinds = {
   Array = "󰅪 ",
   Object = "󰅩 ",
   Text = " ",
@@ -33,3 +42,5 @@ return {
   Boolean = ' ',
   Key = ' ',
 }
+
+return M
