@@ -1,27 +1,26 @@
 local M = {}
 
-M.opts = {
-  autoformat = false,
-}
+vim.g.autoformat = true
 
 function M.enabled()
-  return M.opts.autoformat
+  return vim.g.autoformat
 end
 
 function M.toggle()
-  if vim.b.autoformat == false then
-    vim.b.autoformat = nil
-    M.opts.autoformat = true
-  else
-    M.opts.autoformat = not M.opts.autoformat
-  end
-  vim.notify(M.opts.autoformat and "Enabled" or "Disabled", vim.log.levels.INFO, { title = "Autoformat" })
+  vim.g.autoformat = not vim.g.autoformat
+  vim.notify(vim.g.autoformat and "Enabled" or "Disabled", vim.log.levels.INFO, { title = "Autoformat", icon = "󰗠" })
 end
 
-function M.format(opts)
-  local buf = vim.api.nvim_get_current_buf()
-  if vim.b.autoformat == false and not (opts and opts.force) then
+function M.format()
+  local buf        = vim.api.nvim_get_current_buf()
+  local conform, _ = pcall(require, "conform")
+
+  if vim.g.autoformat == false then
     return
+  end
+
+  if conform then
+    return require("conform").format({ bufnr = buf })
   end
 
   local formatters = M.get_formatters(buf)
@@ -73,12 +72,11 @@ function M.supports_format(client)
   return client.supports_method("textDocument/formatting") or client.supports_method("textDocument/rangeFormatting")
 end
 
-function M.setup(opts)
-  M.opts = opts
+function M.setup()
   vim.api.nvim_create_autocmd("BufWritePre", {
     group = vim.api.nvim_create_augroup("AutoFormat", {}),
     callback = function()
-      if M.opts.autoformat then
+      if vim.g.autoformat then
         M.format()
       end
     end,

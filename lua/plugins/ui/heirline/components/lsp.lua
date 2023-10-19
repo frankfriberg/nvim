@@ -1,6 +1,27 @@
 local conditions = require("heirline.conditions")
 local Space = require("plugins.ui.heirline.components.universal").Space
 
+local Conform = {
+  condition = function(self)
+    return self.conform
+  end,
+  init = function(self)
+    self.clients = {}
+    local conform = require("conform")
+    local formatters = conform.list_formatters(0)
+    for _, formatter in ipairs(formatters) do
+      table.insert(self.clients, formatter.name)
+    end
+  end,
+  Space,
+  {
+    provider = function(self)
+      return table.concat(self.clients, " ")
+    end,
+    hl = { fg = "blue" }
+  }
+}
+
 local NullLs = {
   condition = function(self)
     return self.null_ls
@@ -116,14 +137,17 @@ return {
     local null_ls, _   = pcall(require, "null-ls")
     local lint, _      = pcall(require, "lint")
     local formatter, _ = pcall(require, "formatter")
+    local conform, _   = pcall(require, "conform")
 
     self.null_ls       = null_ls
     self.lint          = lint
     self.formatter     = formatter
+    self.conform       = conform
     self.clients       = lsp_clients
   end,
   LspClients,
   NullLs,
+  Conform,
   Linters,
   Formatters,
 }
