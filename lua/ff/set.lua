@@ -49,3 +49,4 @@ vim.o.timeout = true
 
 vim.opt.cursorline = true
 vim.opt.cmdheight = 0
+vim.opt.diffopt:append("iwhiteall")
