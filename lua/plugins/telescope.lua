@@ -129,6 +129,11 @@ return {
         },
       },
       pickers = {
+        git_branches = {
+          mappings = {
+            i = { ["cr"] = ta.git_switch_branch }
+          }
+        },
         lsp_references = {
           theme = "dropdown",
           path_display = function(_, path)
