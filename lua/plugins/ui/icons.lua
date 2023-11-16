@@ -37,10 +37,36 @@ M.symbol_kinds = {
   Event = " ",
   Operator = "󱓉 ",
   TypeParameter = "󱄽 ",
-  Copilot = " ",
   Null = " ",
   Boolean = ' ',
   Key = ' ',
+  Copilot = " ",
+}
+
+M.git = {
+  ahead = "󰳢",
+  behind = "󰳜",
+  added = "󰯫",
+  untracked = "󰰧",
+  deleted = "󰯴",
+  modified = "󰰏",
+  conflict = "󰯱",
+}
+
+M.custom = {
+  spellcheck_enabled = "󰸥 ",
+  spellcheck_disabled = "󰸦 ",
+  format_enabled = " ",
+  format_disabled = "󰐙 ",
+  linting_enabled = "󰓏",
+  linting_disabled = "󰦤"
+}
+
+M.spinners = {
+  hourglass = { "󰚭", "󰔟", "󱦟", "󱦠" },
+  circle = { "󰝦", "󰪞", "󰪟", "󰪡", "󰪢", "󰪣", "󰪤", "󰪥" },
+  clock_outline = { "󱑖", "󱑋", "󱑌", "󱑍", "󱑎", "󱑏", "󱑐", "󱑑", "󱑒", "󱑓", "󱑔", "󱑕" },
+  clock_filled = { "󱑊", "󱐿", "󱑀", "󱑁", "󱑂", "󱑃", "󱑄", "󱑅", "󱑆", "󱑇", "󱑈", "󱑉" },
 }
 
 return M

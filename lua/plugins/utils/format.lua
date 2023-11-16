@@ -1,4 +1,5 @@
 local M = {}
+local custom = require("plugins.ui.icons").custom
 
 vim.g.autoformat = true
 

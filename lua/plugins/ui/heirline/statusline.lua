@@ -2,7 +2,8 @@ local format = require("plugins.utils.format")
 local conditions = require("heirline.conditions")
 local utils = require("heirline.utils")
 local u = require("plugins.ui.heirline.components.universal")
-local Align, Space, Spacer, FileFlags = u.Align, u.Space, u.Spacer, u.FileFlags
+local custom = require("plugins.ui.icons").custom
+local git = require("plugins.ui.icons").git
 
 local function padding(self, text, number)
   local width = vim.api.nvim_win_get_width(self.winid)
@@ -259,14 +260,11 @@ local GitStatus = {
         self.git_modified = git_counts.M
         self.git_untracked = git_counts.untracked
       end,
-      capture_stdout = true,
-    })
-  end,
-  gitStatusProvider("git_added", "󰬈", utils.get_highlight("NeoTreeGitAdded").fg),
-  gitStatusProvider("git_conflict", "󰬊", utils.get_highlight("NeoTreeGitConflict").fg),
-  gitStatusProvider("git_deleted", "󰬋", utils.get_highlight("NeoTreeGitDeleted").fg),
-  gitStatusProvider("git_modified", "󰬔", utils.get_highlight("NeoTreeGitModified").fg),
-  gitStatusProvider("git_untracked", "󰬜", utils.get_highlight("NeoTreeGitUntracked").fg),
+  gitStatusProvider("git_added", git.added, "Blue"),
+  gitStatusProvider("git_conflict", git.conflict, "Blue"),
+  gitStatusProvider("git_deleted", git.deleted, "Blue"),
+  gitStatusProvider("git_modified", git.modified, "Orange"),
+  gitStatusProvider("git_untracked", git.untracked, "Purple"),
 }
 
 local GitAheadBehind = {
@@ -320,7 +318,7 @@ local Status = {
   end,
   {
     provider = function(self)
-      return self.spelling and "󰰢 " or "󰰣 "
+      return self.spelling and custom.spellcheck_enabled or custom.spellcheck_disabled
     end,
     hl = function(self)
       return { fg = self.spelling and "blue" or "fg" }
@@ -328,11 +326,12 @@ local Status = {
   },
   {
     provider = function(self)
-      return self.autoformat and "󰯻 " or "󰯼 "
+      return self.autoformat and custom.format_enabled or custom.format_disabled
     end,
     hl = function(self)
       return { fg = self.autoformat and "green" or "fg" }
     end
+      return self.autofix and custom.linting_enabled or custom.linting_disabled
   }
 }
 
