@@ -14,10 +14,11 @@ vim.g.mapleader = " "
 require("lazy").setup("plugins", {
   change_detection = {
     notify = false,
-    dev = {
-      path = "~/dev"
-    }
   },
+  ui = {
+    border = "rounded",
+    title = " Lazy "
+  }
 })
 require("ff.map")
 require("ff.set")
