@@ -12,7 +12,7 @@ _.setup = function(on_attach, capabilities)
         },
         workspace = {
           library = {
-            vim.api.nvim_get_runtime_file("", true),
+            vim.env.VIMRUNTIME
           },
           maxPreload = 100000,
           checkThirdParty = false, -- THIS IS THE IMPORTANT LINE TO ADD
