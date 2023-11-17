@@ -19,17 +19,6 @@ return {
       end,
     })
 
-    dashboard.section.header.val = {
-      [[      `       --._    `-._   `-.   `.     :   /  .'   .-'   _.-'    _.--'                   ]],
-      [[        `--.__     `--._   `-._  `-.  `. `. : .' .'  .-'  _.-'   _.--'     __.--'           ]],
-      [[           __    `--.__    `--._  `-._ `-. `. :/ .' .-' _.-'  _.--'    __.--'    __         ]],
-      [[            `--..__   `--.__   `--._ `-._`-.`_=_'.-'_.-' _.--'   __.--'   __..--'           ]],
-      [[          --..__   `--..__  `--.__  `--._`-q(-_-)p-'_.--'  __.--'  __..--'   __..--         ]],
-      [[                ``--..__  `--..__ `--.__ `-'_) (_`-' __.--' __..--'  __..--''               ]],
-      [[          ...___        ``--..__ `--..__`--/__/  --'__..--' __..--''        ___...          ]],
-      [[                ```---...___    ``--..__`_(<_   _/)_'__..--''    ___...---'''               ]],
-      [[           ```-----....._____```---...___(____|_/__)___...---'''_____.....-----'''          ]],
-    }
     dashboard.section.buttons.val = {
       dashboard.button("f", "󰱽 Find file", ":Telescope find_files <CR>"),
       dashboard.button("g", "󱩾 Find text", ":Telescope live_grep <CR>"),
@@ -60,24 +49,5 @@ return {
     end
 
     require("alpha").setup(dashboard.opts)
-
-    vim.api.nvim_create_autocmd("User", {
-      pattern = "LazyVimStarted",
-      callback = function()
-        local stats = require("lazy").stats()
-        local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-
-        local version = "   v"
-            .. vim.version().major
-            .. "."
-            .. vim.version().minor
-            .. "."
-            .. vim.version().patch
-        local plugins = "Neovim loaded " .. stats.count .. " plugins in " .. ms .. "ms"
-        local footer = "\t" .. version .. "\t" .. plugins .. "\n"
-        dashboard.section.footer.val = footer
-        pcall(vim.cmd.AlphaRedraw)
-      end,
-    })
   end,
 }
