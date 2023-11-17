@@ -1,20 +1,3 @@
-local signs = {
-  Hint = "󰘥",
-  Info = "󱨧",
-  Warn = "󰗖",
-  Error = "󰅚",
-}
-
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-end
-
-local ToggleSpellCheck = function()
-  local status = vim.opt.spell:get()
-  vim.opt.spell = not (status)
-end
-
 vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.clipboard = "unnamedplus"
