@@ -265,39 +265,6 @@ local GitAheadBehind = {
   condition = conditions.is_git_repo,
   update = { "WinNew", "WinClosed", "BufEnter" },
   init = function(self)
-    vim.fn.jobstart({ "git", "rev-list", "--count", "--left-right", "HEAD...@{upstream}" }, {
-      on_stdout = function(_, data)
-        local out = vim.trim(data[1])
-        local ahead, behind = out:match("(%d+)%s+(%d+)")
-
-        if ahead then
-          self.git_ahead = tonumber(ahead)
-        end
-        if behind then
-          self.git_behind = tonumber(behind)
-        end
-      end,
-      capture_stdout = true,
-    })
-  end,
-  Space,
-  gitStatusProvider("git_ahead", "󰳢", utils.get_highlight("Blue").fg),
-  gitStatusProvider("git_behind", "󰳜", utils.get_highlight("Orange").fg),
-}
-
-local Offset = {
-  condition = function(self)
-    local win = vim.api.nvim_tabpage_list_wins(0)[1]
-    local bufnr = vim.api.nvim_win_get_buf(win)
-    self.winid = win
-
-    if vim.bo[bufnr].filetype == "neo-tree" then
-      self.title = ""
-      return true
-    end
-  end,
-  provider = function(self)
-    return padding(self, self.title, 2)
   end,
   gitStatusProvider("git_ahead", git.ahead, "Blue"),
   gitStatusProvider("git_behind", git.behind, "Orange"),
