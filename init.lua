@@ -23,5 +23,4 @@ require("lazy").setup("plugins", {
 require("ff.map")
 require("ff.set")
 require("ff.autocmd")
-require("ff.signcolumn")
 vim.cmd([[colorscheme everforest]])
