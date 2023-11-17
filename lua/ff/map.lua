@@ -14,6 +14,10 @@ M.v = function(key, func, desc, opts)
   return keymap("v", key, func, desc, opts)
 end
 
+M.i = function(key, func, desc, opts)
+  return keymap("i", key, func, desc, opts)
+end
+
 M.nv = function(key, func, desc, opts)
   return keymap({ "n", "v" }, key, func, desc, opts)
 end
