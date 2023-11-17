@@ -77,19 +77,19 @@ local ViMode = {
       none         = 'None'
     },
     mode_colors = {
-      n = "fg",
-      i = "orange",
-      v = "blue",
-      V = "blue",
-      ["\22"] = "blue",
-      c = "green",
-      s = "purple",
-      S = "purple",
-      ["\19"] = "purple",
-      R = "yellow",
-      r = "yellow",
-      ["!"] = "red",
-      t = "red",
+      n = "Fg",
+      i = "Orange",
+      v = "Blue",
+      V = "Blue",
+      ["\22"] = "Blue",
+      c = "Green",
+      s = "Purple",
+      S = "Purple",
+      ["\19"] = "Purple",
+      R = "Yellow",
+      r = "Yellow",
+      ["!"] = "Red",
+      t = "Red",
     },
   },
   provider = function(self)
@@ -97,7 +97,7 @@ local ViMode = {
   end,
   hl = function(self)
     local mode = self.mode:sub(1, 1) -- get only the first mode character
-    return { fg = self.mode_colors[mode] }
+    return self.mode_colors[mode]
   end,
 }
 
@@ -130,25 +130,25 @@ local Diagnostics = {
     provider = function(self)
       return self.errors > 0 and SimpleDiag(self, self.errors)
     end,
-    hl = { fg = "diag_error" },
+    hl = "DiagnosticSignError",
   },
   {
     provider = function(self)
       return self.warnings > 0 and SimpleDiag(self, self.warnings)
     end,
-    hl = { fg = "diag_warn" },
+    hl = "DiagnosticSignWarn",
   },
   {
     provider = function(self)
       return self.info > 0 and SimpleDiag(self, self.info)
     end,
-    hl = { fg = "diag_info" },
+    hl = "DiagnosticSignInfo",
   },
   {
     provider = function(self)
       return self.hints > 0 and SimpleDiag(self, self.hints)
     end,
-    hl = { fg = "diag_hint" },
+    hl = "DiagnosticSignHint",
   },
 }
 
@@ -213,7 +213,7 @@ local Git = {
   provider = function()
     return string.format("󰘬 %s", vim.g.gitsigns_head)
   end,
-  hl = { fg = utils.get_highlight("Aqua").fg },
+  hl = "Aqua",
 }
 
 local gitStatusProvider = function(status, string, highlight)
@@ -224,7 +224,7 @@ local gitStatusProvider = function(status, string, highlight)
     provider = function(self)
       return string.format("%s %s", string, self[status])
     end,
-    hl = { fg = highlight },
+    hl = highlight,
   }
 end
 
@@ -299,9 +299,8 @@ local Offset = {
   provider = function(self)
     return padding(self, self.title, 2)
   end,
-  hl = {
-    bg = "dark_bg",
-  },
+  gitStatusProvider("git_ahead", git.ahead, "Blue"),
+  gitStatusProvider("git_behind", git.behind, "Orange"),
 }
 
 local Status = {
@@ -314,18 +313,16 @@ local Status = {
     provider = function(self)
       return self.spelling and custom.spellcheck_enabled or custom.spellcheck_disabled
     end,
-    hl = function(self)
-      return { fg = self.spelling and "blue" or "fg" }
-    end
+    hl = "Blue"
   },
   {
     provider = function(self)
       return self.autoformat and custom.format_enabled or custom.format_disabled
     end,
-    hl = function(self)
-      return { fg = self.autoformat and "green" or "fg" }
-    end
+    hl = "Green"
+  },
       return self.autofix and custom.linting_enabled or custom.linting_disabled
+    hl = "Yellow"
   }
 }
 
@@ -334,12 +331,12 @@ local MacroRec = {
     return vim.fn.reg_recording() ~= "" and vim.o.cmdheight == 0
   end,
   provider = " ",
-  hl = { fg = "orange", bold = true },
+  hl = "OrangeBold",
   utils.surround({ "[", "]" }, nil, {
     provider = function()
       return vim.fn.reg_recording()
     end,
-    hl = { fg = "green", bold = true },
+    hl = "GreenBold",
   }),
   update = {
     "RecordingEnter",

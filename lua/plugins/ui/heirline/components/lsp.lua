@@ -18,7 +18,7 @@ local Conform = {
     provider = function(self)
       return table.concat(self.clients, " ")
     end,
-    hl = { fg = "blue" }
+      hl = "Blue"
   }
 }
 
@@ -49,7 +49,7 @@ local NullLs = {
     provider = function(self)
       return table.concat(self.clients, " ")
     end,
-    hl = { fg = "blue" },
+      hl = "Blue",
   }
 }
 
@@ -83,7 +83,7 @@ local Linters = {
     provider = function(self)
       return table.concat(self.clients, " ")
     end,
-    hl = { fg = "yellow" },
+      hl = "Yellow",
   }
 }
 
@@ -109,7 +109,7 @@ local Formatters = {
     provider = function(self)
       return table.concat(self.clients, " ")
     end,
-    hl = { fg = "orange" },
+      hl = "Orange",
   }
 }
 
@@ -117,7 +117,7 @@ local LspClients = {
   provider = function(self)
     return table.concat(self.clients, " ")
   end,
-  hl = { fg = "green" }
+  hl = "Green"
 }
 
 return {

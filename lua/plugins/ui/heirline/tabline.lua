@@ -13,9 +13,9 @@ local Tabpage = {
   end,
   hl = function(self)
     if self.is_active then
-      return { fg = "fg" }
+      return "Fg"
     else
-      return { fg = "red", bg = "dark_bg" }
+      return "FloatShadow"
     end
   end,
 }
@@ -39,9 +39,7 @@ local TabLineOffset = {
   provider = function(self)
     return padding(self, self.title, 2)
   end,
-  hl = {
-    bg = "dark_bg"
-  },
+  hl = "FloatShadow",
 }
 
 return { TabLineOffset, BufferLine, TabPages }

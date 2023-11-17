@@ -26,9 +26,9 @@ local BufferFileName = {
   end,
   hl = function(self)
     if self.is_active then
-      return { fg = "bg" }
+      return "Fg"
     else
-      return { fg = "fg" }
+      return "Fg"
     end
   end,
 }
@@ -42,7 +42,7 @@ local BufferFileFlags = {
         return "  "
       end
     end,
-    hl = { fg = "red" },
+    hl = "Red",
   },
   {
     condition = function(self)
@@ -52,7 +52,7 @@ local BufferFileFlags = {
     provider = function()
       return " "
     end,
-    hl = { fg = "orange" },
+    hl = "Orange",
   },
 }
 
@@ -72,9 +72,9 @@ local BufferFileIcon = {
   end,
   hl = function(self)
     if vim.api.nvim_buf_get_option(self.bufnr, "buftype") == "terminal" then
-      return { fg = "orange" }
+      return "Orange"
     elseif self.is_active then
-      return { fg = "bg" }
+      return "Fg"
     else
       return { fg = self.icon_color }
     end
@@ -98,9 +98,9 @@ local BufferlineFileNameBlock = {
   end,
   hl = function(self)
     if self.is_active then
-      return { bg = "fg" }
+      return "Fg"
     else
-      return { bg = "bg" }
+      return "FloatShadow"
     end
   end,
   -- Space,

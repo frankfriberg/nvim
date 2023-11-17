@@ -21,10 +21,6 @@ local Dir = {
     end
     return display
   end,
-  hl = {
-    fg = "gray"
-  }
-}
 
 local FileIcon = {
   init = function(self)
@@ -52,6 +48,7 @@ local FileType = {
   hl = function(self)
     return { fg = self.icon_color }
   end,
+  hl = "Grey"
 }
 
 return {

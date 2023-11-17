@@ -30,7 +30,7 @@ M.FileFlags = {
       return not vim.bo.modifiable or vim.bo.readonly
     end,
     provider = "󰍁 ",
-    hl = { fg = "orange" },
+    hl = "Orange",
   },
 }
 
