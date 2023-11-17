@@ -22,7 +22,10 @@ _.setup = function(on_attach, capabilities)
     end,
     capabilities,
     settings = {
-      publish_diagnostic_on = "change"
+      publish_diagnostic_on = "change",
+      preferences = {
+        importModuleSpecifier = "non-relative",
+      }
     }
   })
 end
