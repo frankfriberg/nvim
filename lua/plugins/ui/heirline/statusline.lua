@@ -339,23 +339,9 @@ local MacroRec = {
     end,
     hl = "GreenBold",
   }),
-
-local FileTypeStatusLine = {
-  init = function(self)
-    local filename = vim.api.nvim_buf_get_name(0)
-    self.filename = vim.fn.fnamemodify(filename, ":t")
-  end,
-  hl = { fg = "fg" },
-  Space,
-  ViMode,
-  FileTypeBlock,
-  Align,
-  Align,
-  Status,
-  Space
 }
 
-local DefaultStatusline = {
+return {
   init = function(self)
     local filename = vim.api.nvim_buf_get_name(0)
     self.filename = vim.fn.fnamemodify(filename, ":t")
