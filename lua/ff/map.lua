@@ -107,7 +107,7 @@ M.t({
   c_d = { "<C-d>zz", "Scroll down" },
   c_c = { "<C-w>c", "Close window" },
   U = { "<C-r>", "Redo undo" },
-  l_w = { ":write<CR>", "Write buffer" },
+  l_w = { ":silent! w <CR>", "Write buffer" },
   esc = { ":nohlsearch<Bar>:echo<CR>", "" },
   {
     mode = "v",
