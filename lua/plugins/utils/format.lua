@@ -3,13 +3,16 @@ local custom = require("plugins.ui.icons").custom
 
 vim.g.autoformat = true
 
-function M.enabled()
-  return vim.g.autoformat
-end
-
 function M.toggle()
   vim.g.autoformat = not vim.g.autoformat
-  vim.notify(vim.g.autoformat and "Enabled" or "Disabled", vim.log.levels.INFO, { title = "Autoformat", icon = "󰗠" })
+  vim.notify(
+    vim.g.autoformat and "Enabled" or "Disabled",
+    vim.log.levels.INFO,
+    {
+      title = "Autoformat",
+      icon = vim.g.autoformat and custom.format_enabled or custom.format_disabled,
+    }
+  )
 end
 
 function M.format()
