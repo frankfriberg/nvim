@@ -72,18 +72,57 @@ autocmd('VimResized', {
 --     require("tint").toggle()
 --   end
 -- })
+local function git_status()
+  local statuses = vim.fn.system("git status -s")
+  local git_counts = {
+    M = 0, A = 0, D = 0, R = 0, C = 0, U = 0, untracked = 0
+  }
 
-local function branch_name()
-  local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
+  for status in statuses:gmatch("(%S+)%s+(%S+)") do
+    if status == "??" then
+      git_counts.untracked = git_counts.untracked + 1
+    elseif git_counts[status] then
+      git_counts[status] = git_counts[status] + 1
+    end
+  end
+
+  return git_counts
+end
+
+local function git_branch()
+  local branch = vim.fn.system("git branch --show-current")
   if branch ~= "" then
-    return branch
+    return branch:gsub("\n", "")
   else
-    return ""
+    return branch
   end
 end
 
-vim.api.nvim_create_autocmd({ "FileType", "BufEnter", "FocusGained" }, {
+local function git_ahead_behind()
+  local data = vim.fn.system("git rev-list --count --left-right HEAD...@{upstream}")
+  local ahead, behind = data:match("(%d+)%s+(%d+)")
+  local ahead_behind = {
+    ahead = tonumber(ahead),
+    behind = tonumber(behind)
+  }
+
+  return ahead_behind
+end
+
+local git_events = {
+  "FileType",
+  "BufEnter",
+  "FocusGained",
+}
+
+vim.api.nvim_create_autocmd(git_events, {
   callback = function()
-    vim.b.branch_name = branch_name()
+    local is_git_repo, _ = vim.loop.fs_stat(vim.loop.cwd() .. "/.git")
+    vim.g.is_git_repo = is_git_repo
+    if is_git_repo then
+      vim.g.git_status = git_status()
+      vim.g.branch_name = git_branch()
+      vim.g.ahead_behind = git_ahead_behind()
+    end
   end
 })
