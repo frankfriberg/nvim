@@ -330,6 +330,7 @@ local MacroRec = {
   condition = function()
     return vim.fn.reg_recording() ~= "" and vim.o.cmdheight == 0
   end,
+  update = { "RecordingEnter", "RecordingLeave" },
   provider = " ",
   hl = "OrangeBold",
   utils.surround({ "[", "]" }, nil, {
@@ -338,11 +339,6 @@ local MacroRec = {
     end,
     hl = "GreenBold",
   }),
-  update = {
-    "RecordingEnter",
-    "RecordingLeave",
-  }
-}
 
 local FileTypeStatusLine = {
   init = function(self)
