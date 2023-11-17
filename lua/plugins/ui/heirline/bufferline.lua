@@ -81,17 +81,6 @@ local BufferFileIcon = {
   end,
 }
 
-local BufferSpacer = {
-  provider = "🮇",
-  hl = function(self)
-    if self.is_active then
-      return { fg = "bg", bg = "bg" }
-    else
-      return { fg = "bg", bg = "dark_bg" }
-    end
-  end,
-}
-
 local BufferlineFileNameBlock = {
   init = function(self)
     self.filename = vim.api.nvim_buf_get_name(self.bufnr)
@@ -103,20 +92,18 @@ local BufferlineFileNameBlock = {
       return "FloatShadow"
     end
   end,
-  -- Space,
   Space,
   Space,
   BufferFileIcon,
   BufferFileName,
   BufferFileFlags,
   Space,
-  -- BufferSpacer,
 }
 
 local BufferLine = utils.make_buflist(
-  BufferlineFileNameBlock,
-  { provider = "←", hl = { fg = "green", bg = "bg" } },
-  { provider = "→", hl = { fg = "green", bg = "bg" } }
+  BufferlineFileNameBlock
+-- { provider = "←", hl = { fg = "green", bg = "bg" } },
+-- { provider = "→", hl = { fg = "green", bg = "bg" } }
 )
 
 return BufferLine

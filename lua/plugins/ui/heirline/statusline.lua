@@ -1,27 +1,30 @@
-local format = require("plugins.utils.format")
 local conditions = require("heirline.conditions")
 local utils = require("heirline.utils")
-local u = require("plugins.ui.heirline.components.universal")
+local U = require("plugins.ui.heirline.components.universal")
 local custom = require("plugins.ui.icons").custom
 local git = require("plugins.ui.icons").git
 
-local function padding(self, text, number)
-  local width = vim.api.nvim_win_get_width(self.winid)
-  local pad = math.ceil((width - #text) / number)
-  return string.rep(" ", pad) .. text .. string.rep(" ", pad)
+local function is_excluded()
+  local excluded = {
+    "neo-tree",
+    "keymenu",
+    "^git.*",
+    "TelescopePrompt",
+  }
+  return conditions.buffer_matches({
+    buftype = { "nofile", "prompt", "help", "quickfix" },
+    filetype = excluded
+  })
+end
+
+local function is_git_repo()
+  return vim.g.is_git_repo
 end
 
 local ViMode = {
+  update = { "ModeChanged" },
   init = function(self)
     self.mode = vim.fn.mode(1)
-
-    if not self.once then
-      vim.api.nvim_create_autocmd("ModeChanged", {
-        pattern = "*:*o",
-        command = "redrawstatus",
-      })
-      self.once = true
-    end
   end,
   static = {
     mode_name = {
@@ -125,7 +128,7 @@ local Diagnostics = {
     self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
   end,
   update = { "DiagnosticChanged", "BufWrite", "BufEnter" },
-  Space,
+  U.Space,
   {
     provider = function(self)
       return self.errors > 0 and SimpleDiag(self, self.errors)
@@ -152,108 +155,61 @@ local Diagnostics = {
   },
 }
 
-
-local FileName = {
-  provider = function(self)
-    return self.filename ~= "" and self.filename or "[No Name]"
-  end,
-  hl = function()
-    return { fg = "fg", sp = "red", underline = vim.bo.modified and true }
-  end,
-}
-
-local FileType = {
-  provider = function(self)
-    local filename = vim.api.nvim_buf_get_name(0)
-    local extension = vim.bo.filetype
-    self.icon, self.icon_color =
-        require("nvim-web-devicons").get_icon_color(filename, extension)
-    return extension
-  end,
-  hl = function(self)
-    return { fg = self.icon_color or "fg" }
-  end,
-}
-
 FileNameBlock = {
-  -- condition = function()
-  --   local excluded = {
-  --     "harpoon",
-  --     "neo-tree",
-  --     "keymenu",
-  --     "^git.*",
-  --     "fugitive",
-  --     "TelescopePrompt",
-  --   }
-  --
-  --   return not conditions.buffer_matches({
-  --     buftype = { "nofile", "prompt", "help", "quickfix" },
-  --     filetype = excluded
-  --   })
-  -- end,
-  Spacer(),
-  FileFlags,
-  FileName,
+  condition = function()
+    return not is_excluded()
+  end,
+  U.FileFlags,
+  U.FileIcon,
+  U.FileName,
   Diagnostics,
 }
 
 FileTypeBlock = {
-  Spacer(),
-  FileType,
+  condition = is_excluded,
+  U.FileType,
 }
 
 
 local Git = {
-  condition = conditions.is_git_repo,
-  init = function(self)
-    ---@diagnostic disable-next-line: undefined-field
-    self.status_dict = vim.b.gitsigns_status_dict
-    self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or self.status_dict.changed ~= 0
-  end,
+  condition = is_git_repo,
+  update = { "WinNew", "WinClosed", "BufEnter", "FocusGained" },
   provider = function()
-    return string.format("󰘬 %s", vim.g.gitsigns_head)
+    ---@diagnostic disable-next-line: undefined-field
+    local branch_name = vim.g.branch_name
+    local editor_width = vim.o.columns
+    local maxLength = math.floor(editor_width * 0.25)
+    if not conditions.width_percent_below(#branch_name, maxLength) then
+      branch_name = string.sub(branch_name, 1, 20) .. "..."
+    end
+    return string.format("󰘬 %s", branch_name)
   end,
   hl = "Aqua",
 }
 
-local gitStatusProvider = function(status, string, highlight)
+local gitStatusProvider = function(status, icon, highlight)
   return {
     condition = function(self)
       return self[status] ~= nil and self[status] > 0
     end,
     provider = function(self)
-      return string.format("%s %s", string, self[status])
+      return icon.format(" %s %s", icon, self[status])
     end,
     hl = highlight,
   }
 end
 
 local GitStatus = {
-  conditions = conditions.is_git_repo,
-  update = { "WinNew", "WinClosed", "BufEnter" },
+  condition = is_git_repo,
+  update = { "BufEnter" },
   init = function(self)
-    vim.fn.jobstart({ "git", "status", "-s" }, {
-      on_stdout = function(_, data)
-        local status_output = table.concat(data, "\n")
-
-        local git_counts = {
-          M = 0, A = 0, D = 0, R = 0, C = 0, U = 0, untracked = 0
-        }
-
-        for status in status_output:gmatch("(%u+)%s+(%S+)") do
-          if status == "??" then
-            git_counts.untracked = git_counts.untracked + 1
-          else
-            git_counts[status] = git_counts[status] + 1
-          end
-        end
-
-        self.git_added = git_counts.A
-        self.git_conflict = git_counts.C
-        self.git_deleted = git_counts.D
-        self.git_modified = git_counts.M
-        self.git_untracked = git_counts.untracked
-      end,
+    local git_counts = vim.g.git_status
+    self.git_added = git_counts.A
+    self.git_conflict = git_counts.C
+    self.git_deleted = git_counts.D
+    self.git_modified = git_counts.M
+    self.git_untracked = git_counts.untracked
+  end,
   gitStatusProvider("git_added", git.added, "Blue"),
   gitStatusProvider("git_conflict", git.conflict, "Blue"),
   gitStatusProvider("git_deleted", git.deleted, "Blue"),
@@ -262,9 +218,13 @@ local GitStatus = {
 }
 
 local GitAheadBehind = {
-  condition = conditions.is_git_repo,
+  condition = is_git_repo,
   update = { "WinNew", "WinClosed", "BufEnter" },
   init = function(self)
+    local ahead_behind = vim.g.ahead_behind
+    self.git_ahead = ahead_behind.ahead
+    self.git_behind = ahead_behind.behind
+    self.git_has_status = ahead_behind.ahead and ahead_behind.behind
   end,
   gitStatusProvider("git_ahead", git.ahead, "Blue"),
   gitStatusProvider("git_behind", git.behind, "Orange"),
@@ -273,8 +233,9 @@ local GitAheadBehind = {
 local Status = {
   init = function(self)
     local spell = vim.opt.spell:get()
-    self.autoformat = format.enabled()
+    self.autoformat = vim.g.autoformat
     self.spelling = spell
+    self.autofix = vim.g.autofix
   end,
   {
     provider = function(self)
@@ -288,7 +249,10 @@ local Status = {
     end,
     hl = "Green"
   },
+  {
+    provider = function(self)
       return self.autofix and custom.linting_enabled or custom.linting_disabled
+    end,
     hl = "Yellow"
   }
 }
@@ -313,41 +277,16 @@ return {
     local filename = vim.api.nvim_buf_get_name(0)
     self.filename = vim.fn.fnamemodify(filename, ":t")
   end,
-
-  hl = function()
-    return { bg = vim.bo.modified and "dark_red", fg = "fg" }
-  end,
-  Offset,
-  {
-    provider = "",
-    hl = function()
-      return {
-        fg = vim.bo.modified and "dark_red" or "bg",
-        bg = "bg"
-      }
-    end
-  },
   MacroRec,
   ViMode,
+  U.Spacer(),
   FileNameBlock,
-  Align,
-  Align,
+  FileTypeBlock,
+  U.Align,
+  U.Align,
   Status,
-  Spacer(conditions.is_git_repo),
-  Spacer(conditions.is_git_repo),
+  U.Spacer(is_git_repo),
   Git,
-  -- GitStatus,
+  GitStatus,
   GitAheadBehind,
-  {
-    provider = "",
-    hl = function()
-      return { fg = vim.bo.modified and "dark_red" or "bg", bg = "bg" }
-    end
-  },
-}
-
-return {
-  fallthrough = false,
-  FileTypeStatusLine,
-  DefaultStatusline,
 }

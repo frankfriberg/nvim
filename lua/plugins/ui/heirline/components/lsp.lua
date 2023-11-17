@@ -6,19 +6,26 @@ local Conform = {
     return self.conform
   end,
   init = function(self)
-    self.clients = {}
+    local conform_clients = {}
     local conform = require("conform")
     local formatters = conform.list_formatters(0)
     for _, formatter in ipairs(formatters) do
-      table.insert(self.clients, formatter.name)
+      table.insert(conform_clients, formatter.name)
     end
+
+    self.conform_clients = conform_clients
   end,
-  Space,
   {
-    provider = function(self)
-      return table.concat(self.clients, " ")
+    condition = function(self)
+      return #self.conform_clients > 0
     end,
+    Space,
+    {
+      provider = function(self)
+        return table.concat(self.conform_clients, " ")
+      end,
       hl = "Blue"
+    }
   }
 }
 
@@ -42,14 +49,19 @@ local NullLs = {
       end
     end
 
-    self.clients = null_clients
+    self.null_clients = null_clients
   end,
-  Space,
   {
-    provider = function(self)
-      return table.concat(self.clients, " ")
+    condition = function(self)
+      return #self.null_clients > 0
     end,
+    Space,
+    {
+      provider = function(self)
+        return table.concat(self.null_clients, " ")
+      end,
       hl = "Blue",
+    }
   }
 }
 
@@ -76,14 +88,19 @@ local Linters = {
       end
     end
 
-    self.clients = linters
+    self.lint_clients = linters
   end,
-  Space,
   {
-    provider = function(self)
-      return table.concat(self.clients, " ")
+    condition = function(self)
+      return #self.lint_clients > 0
     end,
+    Space,
+    {
+      provider = function(self)
+        return table.concat(self.lint_clients, " ")
+      end,
       hl = "Yellow",
+    }
   }
 }
 
@@ -102,20 +119,39 @@ local Formatters = {
       end
     end
 
-    self.clients = formatters
+    self.formatter_clients = formatters
+  end,
+  {
+    condition = function(self)
+      return #self.formatter_clients > 0
+    end,
+    Space,
+    {
+      provider = function(self)
+        return table.concat(self.formatter_clients, " ")
+      end,
+      hl = "Orange",
+    }
+  }
+}
+
+local Copilot = {
+  condition = function(self)
+    return self.copilot
   end,
   Space,
   {
-    provider = function(self)
-      return table.concat(self.clients, " ")
-    end,
-      hl = "Orange",
+    provider = "copilot",
+    hl = "Purple"
   }
 }
 
 local LspClients = {
+  condition = function(self)
+    return #self.lsp_clients > 0
+  end,
   provider = function(self)
-    return table.concat(self.clients, " ")
+    return table.concat(self.lsp_clients, " ")
   end,
   hl = "Green"
 }
@@ -127,9 +163,12 @@ return {
   init = function(self)
     local buf_clients = vim.lsp.get_active_clients({ bufnr = 0 })
     local lsp_clients = {}
+    local copilot = false
 
     for _, client in pairs(buf_clients) do
-      if client.name ~= "copilot" and client.name ~= "null-ls" then
+      if client.name == "copilot" then
+        copilot = true
+      elseif client.name ~= "null-ls" then
         table.insert(lsp_clients, client.name)
       end
     end
@@ -143,11 +182,14 @@ return {
     self.lint          = lint
     self.formatter     = formatter
     self.conform       = conform
-    self.clients       = lsp_clients
+    self.copilot       = copilot
+
+    self.lsp_clients   = lsp_clients
   end,
   LspClients,
   NullLs,
   Conform,
   Linters,
   Formatters,
+  Copilot
 }

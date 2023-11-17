@@ -10,10 +10,12 @@ return {
   opts = function()
     local conditions = require("heirline.conditions")
     local statusLines = require("plugins.ui.heirline.statusline")
-    local winBar = require("plugins.ui.heirline.winbar")
+    local winbar = require("plugins.ui.heirline.winbar")
+    -- local tabline = require("plugins.ui.heirline.tabline")
     return {
       statusline = statusLines,
-      winbar = winBar,
+      winbar = winbar,
+      -- tabline = tabline,
       opts = {
         disable_winbar_cb = function(args)
           return conditions.buffer_matches({

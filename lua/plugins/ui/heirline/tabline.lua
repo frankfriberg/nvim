@@ -1,5 +1,5 @@
 local utils = require("heirline.utils")
-local BufferLine = require("plugins.ui.bufferline")
+local BufferLine = require("plugins.ui.heirline.bufferline")
 
 local function padding(self, text, number)
   local width = vim.api.nvim_win_get_width(self.winid)
