@@ -103,13 +103,11 @@ vim.lsp.handlers["textDocument/hover"] = enhanced_float_handler(vim.lsp.handlers
 vim.lsp.handlers["textDocument/signatureHelp"] = enhanced_float_handler(vim.lsp.handlers.signature_help)
 
 return {
-  "williamboman/mason.nvim",
-  event = "BufReadPre",
+  "neovim/nvim-lspconfig",
   dependencies = {
+    "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
-    "neovim/nvim-lspconfig",
     "hrsh7th/cmp-nvim-lsp",
-    "jose-elias-alvarez/typescript.nvim",
     "folke/neodev.nvim",
     "b0o/schemastore.nvim",
     {
@@ -120,7 +118,7 @@ return {
   opts = {
     autoformat = true,
   },
-  config = function(_, opts)
+  config = function()
     local on_attach = require("plugins.lsp.on-attach")
     local servers = {
       "lua_ls",
@@ -133,12 +131,8 @@ return {
       "marksman",
     }
 
-    require("plugins.utils.format").setup(opts)
-
-    vim.lsp.handlers["textDocument/publishDiagnostics"] =
-        vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { update_in_insert = false })
-
-    require("mason").setup()
+    require("plugins.utils.format").setup()
+    require("plugins.utils.lint").setup()
     require("mason").setup({
       ui = {
         border = "rounded"
