@@ -139,6 +139,11 @@ return {
         vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { update_in_insert = false })
 
     require("mason").setup()
+    require("mason").setup({
+      ui = {
+        border = "rounded"
+      }
+    })
     require("mason-lspconfig").setup({
       ensure_installed = servers,
       automatic_installation = true,
