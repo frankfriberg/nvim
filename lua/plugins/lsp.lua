@@ -179,8 +179,15 @@ return {
       end,
       ["tailwindcss"] = function()
         require("lspconfig").tailwindcss.setup({
-          filetypes = { "html", "markdown", "css", "scss", "javascript", "javascriptreact", "typescript",
-            "typescriptreact", "vue", "svelte" },
+          settings = {
+            tailwindCSS = {
+              experimental = {
+                classRegex = {
+                  "cn\\(([^)]*)\\)",
+                }
+              }
+            }
+          },
           on_attach,
           capabilities
         })
