@@ -20,20 +20,6 @@ autocmd('TextYankPost', {
   end
 })
 
--- Start terminal in insert mode
-autocmd('TermOpen', {
-  group   = bufcheck,
-  pattern = '*',
-  command = 'startinsert | set winfixheight'
-})
-
--- Start git messages in insert mode
-autocmd('FileType', {
-  group   = bufcheck,
-  pattern = { 'gitcommit', 'gitrebase', },
-  command = 'startinsert | 1'
-})
-
 -- Pager mappings for Manual
 autocmd('FileType', {
   group    = bufcheck,
