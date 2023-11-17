@@ -8,10 +8,12 @@ local bufcheck = api.nvim_create_augroup('bufcheck', { clear = true })
 autocmd('TextYankPost', {
   group    = bufcheck,
   pattern  = '*',
-  callback = function() vim.highlight.on_yank { timeout = 500 } end
+  callback = function()
+    vim.highlight.on_yank({ timeout = 500 })
+  end
 })
 
--- Sync clipboards because I'm easily confused
+-- Sync clipboards
 autocmd('TextYankPost', {
   group    = bufcheck,
   pattern  = '*',
@@ -44,7 +46,19 @@ autocmd('BufReadPost', {
 -- windows to close with "q"
 autocmd("FileType", {
   group = bufcheck,
-  pattern = { "Gitcommit", "git", "man", "help", "startuptime", "qf", "lspinfo", "fugitive", "fugitiveblame" },
+  pattern = {
+    "Gitcommit",
+    "git",
+    "man",
+    "help",
+    "startuptime",
+    "qf",
+    "lspinfo",
+    "fugitive",
+    "fugitiveblame",
+    "neotest-summary",
+    "neotest-console",
+  },
   callback = function()
     map.n("q", function() vim.api.nvim_win_close(0, true) end, "Close win", { buffer = true })
   end
@@ -57,21 +71,6 @@ autocmd('VimResized', {
   desc = 'Automatically resize windows when the host window size changes.'
 })
 
--- autocmd('FocusLost', {
---   group = bufcheck,
---   pattern = '*',
---   callback = function(_)
---     require("tint").toggle()
---   end
--- })
---
--- autocmd('FocusGained', {
---   group = bufcheck,
---   pattern = '*',
---   callback = function(_)
---     require("tint").toggle()
---   end
--- })
 local function git_status()
   local statuses = vim.fn.system("git status -s")
   local git_counts = {
