@@ -26,9 +26,12 @@ return function(client, bufnr)
       W = { tb.lsp_workspace_symbols, "[LSP] Workspace Symbols" },
       d = { tb.lsp_definitions, "[LSP] Definition" },
       D = { tb.lsp_type_definitions, "[LSP] Type Definition" },
-      r = { lsp.rename, "[LSP] Rename" },
       c = { lsp.code_action, "[LSP] Code Actions" },
       f = { format.format, "[LSP] Format" },
+      r = { function()
+        lsp.rename()
+        vim.cmd("wa")
+      end, "[LSP] Rename" },
     },
     {
       mode = "v",
