@@ -202,12 +202,6 @@ FileTypeBlock = {
   FileType,
 }
 
-local GhNotifications = {
-  condition = conditions.is_git_repo,
-  provider = function()
-    return require("github-notifications").statusline_notification_count()
-  end,
-}
 
 local Git = {
   condition = conditions.is_git_repo,
@@ -394,7 +388,6 @@ local DefaultStatusline = {
   Align,
   Status,
   Spacer(conditions.is_git_repo),
-  GhNotifications,
   Spacer(conditions.is_git_repo),
   Git,
   -- GitStatus,
