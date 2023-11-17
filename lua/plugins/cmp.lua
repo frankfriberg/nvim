@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 return {
   "hrsh7th/nvim-cmp",
   event = "InsertEnter",
@@ -13,6 +14,7 @@ return {
 
     "rafamadriz/friendly-snippets",
 
+    "js-everts/cmp-tailwind-colors"
   },
   init = function()
     -- Limit number of options for completion
@@ -21,36 +23,47 @@ return {
   end,
   config = function()
     local cmp = require('cmp')
-    local kinds = require("plugins.ui.kinds")
+    local kinds = require("plugins.ui.icons").symbol_kinds
     require("luasnip.loaders.from_vscode").lazy_load()
 
     cmp.setup({
+      enable_alpha = true,
       experimental = {
-        ghost_text = false
+        ghost_text = false,
       },
       snippet = {
-        expand = function(args)
-          require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-        end,
+        expand = function(args) require('luasnip').lsp_expand(args.body) end,
       },
       window = {
         completion = {
-          col_offset = -3,
+          col_offset = -4,
           side_padding = 0,
+          border = "rounded",
+          winhighlight = "Normal:NormalFloat,CursorLine:TelescopeSelectionCaret"
         },
+        documentation = cmp.config.window.bordered(),
       },
       view = {
         entries = "custom",
       },
       formatting = {
         fields = { "kind", "abbr", "menu" },
-        format = function(entry, vim_item)
-          vim_item.menu = vim_item.kind
-          vim_item.kind = " " .. kinds[vim_item.kind]
+        format = function(entry, item)
+          if item.kind == "Color" then
+            item = require("cmp-tailwind-colors").format(entry, item)
+
+            if item.kind ~= "Color" then
+              item.menu = "Color"
+              return item
+            end
+          end
+
+          item.menu = item.kind
+          item.kind = " " .. kinds[item.kind]
           if entry.completion_item.detail ~= nil and entry.completion_item.detail ~= "" then
-            vim_item.menu = entry.completion_item.detail
+            item.menu = entry.completion_item.detail
           else
-            vim_item.menu = ({
+            item.menu = ({
               copilot = "[Copilot]",
               path = "[Path]",
               nvim_lsp = "[LSP]",
@@ -59,7 +72,7 @@ return {
               treesitter = "[TreeSitter]"
             })[entry.source.name]
           end
-          return vim_item
+          return item
         end,
       },
       preselect = cmp.PreselectMode.None,
