@@ -16,7 +16,10 @@ return {
         "fugitive",
         "harpoon",
         "neo-tree-popup",
-        "alpha"
+        "alpha",
+        "NeogitStatus",
+        "NeogitPopup",
+        "DressingInput"
       },
       handlers = {
         cursor = true,
@@ -32,7 +35,7 @@ return {
           gui = nil,
           color = nil,
           cterm = nil,
-          color_nr = nil,   -- cterm
+          color_nr = nil,
           highlight = "Normal",
         },
         Error = {
@@ -41,7 +44,7 @@ return {
           gui = nil,
           color = nil,
           cterm = nil,
-          color_nr = nil,   -- cterm
+          color_nr = nil,
           highlight = "DiagnosticVirtualTextError",
         },
         Warn = {
@@ -50,7 +53,7 @@ return {
           gui = nil,
           color = nil,
           cterm = nil,
-          color_nr = nil,   -- cterm
+          color_nr = nil, -- cterm
           highlight = "DiagnosticVirtualTextWarn",
         },
         Info = {
@@ -59,7 +62,7 @@ return {
           gui = nil,
           color = nil,
           cterm = nil,
-          color_nr = nil,   -- cterm
+          color_nr = nil, -- cterm
           highlight = "DiagnosticVirtualTextInfo",
         },
         Hint = {
@@ -68,7 +71,7 @@ return {
           gui = nil,
           color = nil,
           cterm = nil,
-          color_nr = nil,   -- cterm
+          color_nr = nil, -- cterm
           highlight = "DiagnosticVirtualTextHint",
         },
         GitDelete = {
@@ -77,7 +80,7 @@ return {
           gui = nil,
           color = nil,
           cterm = nil,
-          color_nr = nil,   -- cterm
+          color_nr = nil, -- cterm
           highlight = "GitSignsDelete",
         },
       }
