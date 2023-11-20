@@ -28,10 +28,7 @@ return function(client, bufnr)
       D = { tb.lsp_type_definitions, "[LSP] Type Definition" },
       c = { lsp.code_action, "[LSP] Code Actions" },
       f = { format.format, "[LSP] Format" },
-      r = { function()
-        lsp.rename()
-        vim.cmd("wa")
-      end, "[LSP] Rename" },
+      r = { lsp.rename, "[LSP] Rename" },
     },
     {
       mode = "v",
