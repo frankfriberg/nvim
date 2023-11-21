@@ -1,4 +1,5 @@
 local M = {}
+local devicons = require("nvim-web-devicons")
 
 M.Align = { provider = "%=" }
 M.Space = { provider = " " }
@@ -36,10 +37,8 @@ M.FileFlags = {
 
 M.FileIcon = {
   init = function(self)
-    local filename = vim.api.nvim_buf_get_name(0)
-    local extension = vim.fn.fnamemodify(filename, ":e")
-    self.icon, self.icon_color =
-        require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
+    local extension = vim.bo.filetype
+    self.icon, self.icon_color = devicons.get_icon_color_by_filetype(extension)
   end,
   provider = function(self)
     return self.icon and (self.icon .. " ")
@@ -51,10 +50,8 @@ M.FileIcon = {
 
 M.FileType = {
   provider = function(self)
-    local filename = vim.api.nvim_buf_get_name(0)
     local extension = vim.bo.filetype
-    self.icon, self.icon_color =
-        require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
+    self.icon, self.icon_color = devicons.get_icon_color_by_filetype(extension)
     return extension:gsub("^%l", string.upper)
   end,
   hl = function(self)
