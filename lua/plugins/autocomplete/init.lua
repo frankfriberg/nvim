@@ -9,16 +9,18 @@ return {
     "hrsh7th/cmp-cmdline",
     {
       "L3MON4D3/LuaSnip",
-      build = "make install_jsregexp"
-    }
+      build = "make install_jsregexp",
+    },
   },
   config = function()
-    local cmp = require('cmp')
+    local cmp = require("cmp")
     local luasnip = require("luasnip")
 
     cmp.setup({
       snippet = {
-        expand = function(args) luasnip.lsp_expand(args.body) end,
+        expand = function(args)
+          luasnip.lsp_expand(args.body)
+        end,
       },
       mapping = cmp.mapping.preset.insert({
         ["<C-n>"] = cmp.mapping.scroll_docs(-4),
@@ -43,32 +45,30 @@ return {
           end
         end, { "i", "s" }),
       }),
-      sources = cmp.config.sources(
-        {
-          { name = 'nvim_lsp' },
-          { name = "copilot" },
-          { name = 'luasnip' },
-          { name = "nvim_lua" },
-        }, {
-          { name = 'buffer' },
-        }
-      ),
+      sources = cmp.config.sources({
+        { name = "nvim_lsp" },
+        { name = "copilot" },
+        { name = "luasnip" },
+        { name = "nvim_lua" },
+      }, {
+        { name = "buffer" },
+      }),
     })
 
-    cmp.setup.cmdline({ '/', '?' }, {
+    cmp.setup.cmdline({ "/", "?" }, {
       mapping = cmp.mapping.preset.cmdline(),
       sources = {
-        { name = 'buffer' }
-      }
+        { name = "buffer" },
+      },
     })
 
-    cmp.setup.cmdline(':', {
+    cmp.setup.cmdline(":", {
       mapping = cmp.mapping.preset.cmdline(),
       sources = cmp.config.sources({
-        { name = 'path' }
+        { name = "path" },
       }, {
-        { name = 'cmdline' }
-      })
+        { name = "cmdline" },
+      }),
     })
-  end
+  end,
 }

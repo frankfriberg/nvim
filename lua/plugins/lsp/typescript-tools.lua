@@ -2,7 +2,7 @@ return {
   "pmizio/typescript-tools.nvim",
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "neovim/nvim-lspconfig"
+    "neovim/nvim-lspconfig",
   },
   config = function()
     local m = require("ff.map")
@@ -10,7 +10,7 @@ return {
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     if cmp_ok then
-      capabilities = vim.tbl_deep_extend('force', capabilities, cmp.default_capabilities())
+      capabilities = vim.tbl_deep_extend("force", capabilities, cmp.default_capabilities())
     end
 
     require("typescript-tools").setup({
@@ -35,8 +35,8 @@ return {
         publish_diagnostic_on = "change",
         preferences = {
           importModuleSpecifier = "non-relative",
-        }
-      }
+        },
+      },
     })
-  end
+  end,
 }

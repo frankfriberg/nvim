@@ -7,10 +7,10 @@ return {
       },
       workspace = {
         library = {
-          vim.env.VIMRUNTIME
+          vim.env.VIMRUNTIME,
         },
         maxPreload = 100000,
-        checkThirdParty = false,   -- THIS IS THE IMPORTANT LINE TO ADD
+        checkThirdParty = false,
         preloadFileSize = 10000,
         update_in_insert = false,
       },

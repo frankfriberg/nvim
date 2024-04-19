@@ -2,7 +2,9 @@ local M = {}
 
 local keymap = function(mode, key, func, desc, opts)
   local options = { desc = desc, silent = true, noremap = true }
-  if opts then options = vim.tbl_extend('force', options, opts) end
+  if opts then
+    options = vim.tbl_extend("force", options, opts)
+  end
   return vim.keymap.set(mode, key, func, options)
 end
 
@@ -25,10 +27,10 @@ end
 local group = function(mode, key, desc)
   local ok, wk = pcall(require, "which-key")
 
-  if (ok) then
+  if ok then
     wk.register({
       mode = mode,
-      [key] = { name = desc }
+      [key] = { name = desc },
     })
   end
 end

@@ -17,8 +17,8 @@ require("lazy").setup("plugins", {
   },
   ui = {
     border = "rounded",
-    title = " Lazy "
-  }
+    title = " Lazy ",
+  },
 })
 
 require("ff.map")

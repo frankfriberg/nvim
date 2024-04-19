@@ -12,5 +12,5 @@ return {
 
       return vim.lsp.handlers["window/showMessageRequest"](nil, result)
     end,
-  }
+  },
 }
