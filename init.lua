@@ -15,10 +15,6 @@ require("lazy").setup("plugins", {
   change_detection = {
     notify = false,
   },
-  ui = {
-    border = "rounded",
-    title = " Lazy ",
-  },
 })
 
 require("ff.map")
