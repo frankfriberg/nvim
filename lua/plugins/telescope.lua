@@ -8,7 +8,7 @@ return {
     },
   },
   config = function()
-    local m = require("ff.map")
+    local m = require("helpers.map")
     local telescope = require("telescope")
     local builtin = require("telescope.builtin")
     local actions = require("telescope.actions")

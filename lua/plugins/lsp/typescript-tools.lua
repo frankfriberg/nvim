@@ -5,7 +5,7 @@ return {
     "neovim/nvim-lspconfig",
   },
   config = function()
-    local m = require("ff.map")
+    local m = require("helpers.map")
     local cmp_ok, cmp = pcall(require, "cmp_nvim_lsp")
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()

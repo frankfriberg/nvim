@@ -20,6 +20,5 @@ require("lazy").setup("plugins", {
 })
 
 require("ff.opts")
-require("ff.map")
 
 vim.cmd("colorscheme rose-pine")
