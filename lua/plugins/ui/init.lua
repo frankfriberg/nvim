@@ -3,4 +3,5 @@ return {
   require("plugins.ui.indent-blankline"),
   require("plugins.ui.notif"),
   require("plugins.ui.confir"),
+  require("plugins.ui.dressing"),
 }
