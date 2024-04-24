@@ -5,4 +5,5 @@ return {
   require("plugins.ui.notif"),
   require("plugins.ui.confir"),
   require("plugins.ui.dressing"),
+  require("plugins.ui.mini-files"),
 }
