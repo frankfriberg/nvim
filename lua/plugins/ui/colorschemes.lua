@@ -16,11 +16,15 @@ return {
     name = "rose-pine",
     lazy = false,
     priority = 1000,
-    opts = {
-      dark_variant = "moon",
-      highlight_groups = {
-        Normal = { bg = "none" },
-      },
-    },
+    config = function()
+      require("rose-pine").setup({
+        dark_variant = "moon",
+        highlight_groups = {
+          Normal = { bg = "none" },
+        },
+      })
+
+      vim.cmd("colorscheme rose-pine")
+    end,
   },
 }
