@@ -6,4 +6,5 @@ return {
   require("plugins.ui.confir"),
   require("plugins.ui.dressing"),
   require("plugins.ui.mini-files"),
+  require("plugins.ui.heirline"),
 }
