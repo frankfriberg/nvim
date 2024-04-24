@@ -8,6 +8,7 @@ return {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
+      "b0o/schemastore.nvim",
 
       { "folke/neodev.nvim", opts = {} },
     },
@@ -29,6 +30,8 @@ return {
       local servers = {
         lua_ls = require("plugins.lsp.servers.lua_ls"),
         eslint = require("plugins.lsp.servers.eslint"),
+        tailwindcss = require("plugins.lsp.servers.tailwindcss"),
+        jsonls = require("plugins.lsp.servers.jsonls"),
       }
 
       require("mason").setup()
