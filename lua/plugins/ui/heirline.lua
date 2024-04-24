@@ -1,6 +1,6 @@
 return {
   "rebelot/heirline.nvim",
-  event = "VimEnter",
+  event = "UiEnter",
   dependencies = {
     "nvim-tree/nvim-web-devicons",
   },
