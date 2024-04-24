@@ -1,6 +1,7 @@
 local api = vim.api
 local autocmd = api.nvim_create_autocmd
-local map = require("ff.map")
+local map = require("helpers.map")
+local git = require("helpers.git")
 
 local bufcheck = api.nvim_create_augroup("bufcheck", { clear = true })
 
@@ -27,8 +28,8 @@ autocmd("FileType", {
   group = bufcheck,
   pattern = "man",
   callback = function()
-    vim.keymap.set("n", "<enter>", "K", { buffer = true })
-    vim.keymap.set("n", "<backspace>", "<c-o>", { buffer = true })
+    map.n("<enter>", "K", "Manual page", { buffer = true })
+    map.n("<backspace>", "<c-o>", "Manual page", { buffer = true })
   end,
 })
 
@@ -63,5 +64,21 @@ autocmd("FileType", {
     map.n("q", function()
       vim.api.nvim_win_close(0, true)
     end, "Close win", { buffer = true })
+  end,
+})
+
+autocmd({
+  "FileType",
+  "BufEnter",
+  "FocusGained",
+}, {
+  callback = function()
+    local is_git_repo, _ = vim.loop.fs_stat(vim.loop.cwd() .. "/.git")
+    vim.g.is_git_repo = is_git_repo
+    if is_git_repo then
+      vim.g.is_git_rebase = git.is_rebase()
+      vim.g.branch_name = git.current_branch()
+      vim.g.ahead_behind = git.ahead_behind()
+    end
   end,
 })
