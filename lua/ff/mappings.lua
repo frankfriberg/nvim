@@ -13,6 +13,7 @@ map.t({
   l_Q = { ":silent! %bd <CR>", "Quit all buffers" },
   U = { "<C-r>", "Redo undo" },
   esc = { ":nohlsearch<Bar>:echo<CR>", "" },
+  vv = { "V", "Visual line mode" },
   {
     mode = "v",
     J = { ":move '>+1<CR>gv-gv", "Move selection up" },
