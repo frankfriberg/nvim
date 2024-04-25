@@ -34,6 +34,39 @@ return {
         map.n("<C-w>c", "q", "Close mini files", { buffer = args.data.buf_id, remap = true })
       end,
     })
+
+    local function lsp_notify(data, method)
+      local clients = vim.lsp.get_clients({ method = method })
+      for _, client in pairs(clients) do
+        client.notify(method, {
+          files = {
+            oldUri = data.from,
+            newUri = data.to,
+          },
+        })
+      end
+    end
+
+    vim.api.nvim_create_autocmd("User", {
+      pattern = { "MiniFilesActionRename", "MiniFilesActionMove" },
+      callback = function(data)
+        lsp_notify(data, "workspace/didRenameFiles")
+      end,
+    })
+
+    vim.api.nvim_create_autocmd("User", {
+      pattern = { "MiniFilesActionCreate", "MiniFilesActionCopy" },
+      callback = function(data)
+        lsp_notify(data, "workspace/didCreateFiles")
+      end,
+    })
+
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "MiniFilesActionDelete",
+      callback = function(data)
+        lsp_notify(data, "workspace/didDeleteFiles")
+      end,
+    })
   end,
   config = true,
 }
