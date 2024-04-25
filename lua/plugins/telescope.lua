@@ -26,6 +26,7 @@ return {
     end
 
     m.t({
+      ["<leader><tab>"] = { builtin.buffers, "[T] Buffers" },
       c_f = { builtin.find_files, "[T] Find files" },
       c_g = { builtin.live_grep, "[T] Live grep" },
       c_p = { builtin.resume, "[T] Resume" },
@@ -65,6 +66,10 @@ return {
       pickers = {
         find_files = {
           hidden = true,
+        },
+        buffers = {
+          ignore_current_buffer = true,
+          sort_mru = true,
         },
       },
     })
