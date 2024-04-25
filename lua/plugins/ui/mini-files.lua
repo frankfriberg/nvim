@@ -68,5 +68,11 @@ return {
       end,
     })
   end,
-  config = true,
+  opts = {
+    content = {
+      filter = function(fs_entry)
+        return not vim.startswith(fs_entry.name, ".DS_Store")
+      end,
+    },
+  },
 }
