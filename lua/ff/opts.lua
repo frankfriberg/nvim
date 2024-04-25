@@ -1,3 +1,5 @@
+vim.g.mapleader = " "
+
 vim.o.clipboard = "unnamedplus" -- Use system clipboard
 vim.o.showmode = false -- Don't show mode
 vim.o.tabstop = 2 -- Number of spaces tabs count for

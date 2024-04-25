@@ -1,4 +1,6 @@
-vim.g.mapleader = " "
+require("ff.opts")
+require("ff.mappings")
+require("ff.autocmd")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -18,7 +20,3 @@ require("lazy").setup("plugins", {
     notify = false,
   },
 })
-
-require("ff.opts")
-require("ff.mappings")
-require("ff.autocmd")
