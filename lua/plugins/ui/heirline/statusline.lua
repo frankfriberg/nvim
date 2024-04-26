@@ -11,12 +11,16 @@ local MacroRec = {
   end,
   update = { "RecordingEnter", "RecordingLeave" },
   provider = " ",
-  hl = "OrangeBold",
+  hl = {
+    fg = "warn",
+  },
   utils.surround({ "[", "]" }, nil, {
     provider = function()
       return vim.fn.reg_recording()
     end,
-    hl = "GreenBold",
+    hl = {
+      fg = "info",
+    },
   }),
 }
 

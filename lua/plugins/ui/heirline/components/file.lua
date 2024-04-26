@@ -16,21 +16,12 @@ local function is_excluded()
 end
 
 M.Flags = {
-  -- {
-  --   condition = function()
-  --     return vim.bo.modifiable
-  --   end,
-  --   provider = " ",
-  --   hl = function()
-  --     return vim.bo.modified and "Red" or "Green"
-  --   end
-  -- },
   {
     condition = function()
       return not vim.bo.modifiable or vim.bo.readonly
     end,
     provider = "󰍁 ",
-    hl = { fg = "diag_error" },
+    hl = { fg = "error" },
   },
 }
 
