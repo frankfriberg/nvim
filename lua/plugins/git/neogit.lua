@@ -21,12 +21,19 @@ return {
       callback = function()
         local current_win = vim.fn.expand("<afile>") + 0
         local current_buf = vim.api.nvim_win_get_buf(current_win)
-        local filetype = vim.api.nvim_buf_get_option(current_buf, "filetype")
+        local filetype = vim.api.nvim_get_option_value("filetype", { buf = current_buf })
         local neogit_filetype = string.match(filetype, "^Neogit")
 
         if neogit_filetype and not filetype ~= "NeogitStatus" and neogit.status.status_buffer then
           neogit.status.status_buffer:focus()
         end
+      end,
+    })
+
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "NeogitCommitMessage",
+      callback = function()
+        map.n("<CR>", ":wq <CR>", "Finish commit")
       end,
     })
   end,
