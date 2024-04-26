@@ -1,6 +1,7 @@
 require("ff.opts")
 require("ff.mappings")
 require("ff.autocmd")
+require("ff.diagnostics")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
