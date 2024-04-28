@@ -21,6 +21,7 @@ return {
         dark_variant = "moon",
         highlight_groups = {
           Normal = { bg = "none" },
+          StatusLine = { bg = "none" },
         },
       })
 
