@@ -18,3 +18,4 @@ vim.o.undodir = os.getenv("HOME") .. "/.vim/undodir" -- Directory for undo files
 vim.o.updatetime = 50 -- Time before CursorHold autocommands are triggered
 vim.o.timeout = true -- Enable timeout of mappings
 vim.o.timeoutlen = 300 -- Time to wait for a mapped sequence to complete
+vim.o.signcolumn = "yes" -- Always show sign column
