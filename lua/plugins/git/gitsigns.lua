@@ -2,14 +2,6 @@ return {
   "lewis6991/gitsigns.nvim",
   event = "BufEnter",
   opts = {
-    signs = {
-      add = { text = "│" },
-      change = { text = "│" },
-      delete = { text = "_" },
-      topdelete = { text = "‾" },
-      changedelete = { text = "~" },
-      untracked = { text = "┆" },
-    },
     attach_to_untracked = false,
     on_attach = function()
       local gs = package.loaded.gitsigns
