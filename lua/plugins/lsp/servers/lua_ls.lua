@@ -12,7 +12,6 @@ return {
         maxPreload = 100000,
         checkThirdParty = false,
         preloadFileSize = 10000,
-        update_in_insert = false,
       },
     },
   },
