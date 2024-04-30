@@ -72,6 +72,7 @@ autocmd({
   "BufEnter",
   "FocusGained",
 }, {
+  desc = "Update git status",
   callback = function()
     local is_git_repo, _ = vim.loop.fs_stat(vim.loop.cwd() .. "/.git")
     vim.g.is_git_repo = is_git_repo
@@ -80,5 +81,12 @@ autocmd({
       vim.g.branch_name = git.current_branch()
       vim.g.ahead_behind = git.ahead_behind()
     end
+  end,
+})
+
+autocmd("CursorMoved", {
+  desc = "Show diagnostics under cursor",
+  callback = function()
+    vim.diagnostic.open_float()
   end,
 })
