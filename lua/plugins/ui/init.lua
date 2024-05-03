@@ -8,4 +8,5 @@ return {
   require("plugins.ui.mini-files"),
   require("plugins.ui.heirline"),
   require("plugins.ui.scrollbar"),
+  require("plugins.ui.incline"),
 }
