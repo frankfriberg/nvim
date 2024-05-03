@@ -1,8 +1,5 @@
 return {
   {
-    require("plugins.lsp.typescript-tools"),
-  },
-  {
     "neovim/nvim-lspconfig",
     dependencies = {
       "williamboman/mason.nvim",
@@ -14,7 +11,7 @@ return {
     },
     config = function()
       local cmp_ok, cmp = pcall(require, "cmp_nvim_lsp")
-      local on_attach = require("plugins.lsp.on-attach")
+      local on_attach = require("helpers.on-attach")
 
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
@@ -37,7 +34,7 @@ return {
       require("mason").setup({
         ui = {
           border = "rounded",
-        }
+        },
       })
 
       local ensure_installed = vim.tbl_keys(servers or {})

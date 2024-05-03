@@ -1,5 +1,4 @@
 return {
-  require("plugins.autocomplete.copilot"),
   {
     "hrsh7th/nvim-cmp",
     event = { "InsertEnter", "CmdlineEnter" },
