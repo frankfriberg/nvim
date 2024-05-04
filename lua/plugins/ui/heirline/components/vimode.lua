@@ -1,5 +1,16 @@
 local utils = require("heirline.utils")
 
+local mode_icons = {
+  normal = "󰬕 ",
+  op = "󰬖 ",
+  visual = "󰬝 ",
+  select = "󰬚 ",
+  insert = "󰬐 ",
+  replace = "󰬙 ",
+  command = "󰬊 ",
+  terminal = "󰬛 ",
+}
+
 return {
   update = { "ModeChanged" },
   init = function(self)
@@ -40,18 +51,18 @@ return {
       ["null"] = "none",
     },
     mode_label = {
-      normal = "󰰓 Normal",
-      op = "󰲞 Op",
-      visual = "󰰫 Visual",
-      visual_lines = "󰰫 Visual Lines",
-      visual_block = "󰰫 Visual Block",
-      select = "󰰢 Select",
-      block = "󰯯 Block",
-      insert = "􀂥  Insert",
-      replace = "󰰟 Replace",
-      v_replace = "󰰟 V-Replace",
-      command = "󰯲 Command",
-      enter = "󰯸 Enter",
+      normal = mode_icons.normal .. "Normal",
+      op = mode_icons.op .. "Op",
+      visual = mode_icons.visual .. "Visual",
+      visual_lines = mode_icons.visual .. "Visual Lines",
+      visual_block = mode_icons.visual .. "Visual Block",
+      select = mode_icons.select .. "Select",
+      block = "Block",
+      insert = mode_icons.insert .. "Insert",
+      replace = "Replace",
+      v_replace = "V-Replace",
+      command = "Command",
+      enter = "Enter",
       more = "More",
       confirm = "Confirm",
       shell = "Shell",

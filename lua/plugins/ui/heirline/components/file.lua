@@ -26,10 +26,6 @@ M.Flags = {
 }
 
 M.Icon = {
-  init = function(self)
-    local extension = vim.bo.filetype
-    self.icon, self.icon_color = devicons.get_icon_color_by_filetype(extension)
-  end,
   provider = function(self)
     return self.icon and (self.icon .. " ")
   end,
@@ -39,11 +35,6 @@ M.Icon = {
 }
 
 M.Type = {
-  init = function(self)
-    local extension = vim.bo.filetype
-    self.icon, self.icon_color = devicons.get_icon_color_by_filetype(extension)
-    self.filetype = extension:gsub("^%l", string.upper)
-  end,
   hl = function(self)
     return { fg = self.icon_color }
   end,
@@ -68,8 +59,12 @@ M.Name = {
 }
 
 M.NameBlock = {
-  condition = function()
-    return not is_excluded()
+  condition = not is_excluded,
+  init = function(self)
+    self.filename = vim.api.nvim_buf_get_name(0)
+    self.extension = vim.bo.filetype
+    self.icon, self.icon_color = devicons.get_icon_color_by_filetype(self.extension)
+    self.filetype = self.extension:gsub("^%l", string.upper)
   end,
   M.Flags,
   M.Icon,

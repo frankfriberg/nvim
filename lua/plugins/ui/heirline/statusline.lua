@@ -29,12 +29,13 @@ return {
     local filename = vim.api.nvim_buf_get_name(0)
     self.filename = vim.fn.fnamemodify(filename, ":t")
   end,
+  Universal.Align,
   MacroRec,
   ViMode,
   Universal.Spacer(),
   File.NameBlock,
   File.TypeBlock,
-  Universal.Align,
-  Universal.Align,
+  Universal.Spacer(),
   Git,
+  Universal.Align,
 }
