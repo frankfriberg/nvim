@@ -6,7 +6,7 @@ return {
       typescript = { "prettierd" },
       javascriptreact = { "prettierd" },
       typescriptreact = { "prettierd" },
-      json = { "fixjson" },
+      json = { "prettierd" },
       lua = { "stylua" },
     },
     format_on_save = {
