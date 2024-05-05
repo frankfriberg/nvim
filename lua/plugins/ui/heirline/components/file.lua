@@ -51,7 +51,9 @@ M.Type = {
 
 M.Name = {
   provider = function(self)
-    return self.filename == "" and "[No Name]" or vim.fn.fnamemodify(self.filename, ":t")
+    local name = self.filename == "" and "[No Name]" or vim.fn.fnamemodify(self.filename, ":t")
+    local parent = vim.fn.fnamemodify(self.filename, ":p:h:t")
+    return string.format("%s/%s", parent, name)
   end,
   hl = function()
     return vim.bo.modified and "DiagnosticUnderlineError" or "Normal"
