@@ -5,6 +5,13 @@ local git = require("helpers.git")
 
 local bufcheck = api.nvim_create_augroup("bufcheck", { clear = true })
 
+autocmd({ "VimResized", "WinClosed" }, {
+  desc = "Automatically resize windows when the host window size changes or windows close.",
+  group = bufcheck,
+  pattern = "*",
+  command = "wincmd =",
+})
+
 autocmd("TextYankPost", {
   desc = "Highlight yanks",
   group = bufcheck,
