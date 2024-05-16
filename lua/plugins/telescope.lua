@@ -46,7 +46,7 @@ return {
 
     telescope.setup({
       defaults = {
-        file_ignore_patterns = { "vendor" },
+        file_ignore_patterns = { "vendor", "node_modules", "%.git$" },
         selection_caret = "",
         entry_prefix = "",
         prompt_prefix = "",
