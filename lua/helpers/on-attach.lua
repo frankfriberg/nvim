@@ -15,7 +15,6 @@ return function(event)
   end
 
   map.t({
-    K = { vim.lsp.buf.hover, "Hover Documentation" },
     gD = { vim.lsp.buf.declaration, "[G]oto [D]eclaration" },
     {
       group = { "<leader>l", "LSP" },
