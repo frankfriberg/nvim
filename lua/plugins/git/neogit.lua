@@ -24,8 +24,8 @@ return {
         local filetype = vim.api.nvim_get_option_value("filetype", { buf = current_buf })
         local neogit_filetype = string.match(filetype, "^Neogit")
 
-        if neogit_filetype and not filetype ~= "NeogitStatus" and neogit.status.status_buffer then
-          neogit.status.status_buffer:focus()
+        if neogit_filetype and not filetype ~= "NeogitStatus" and neogit.status.is_open() then
+          neogit.status:focus()
         end
       end,
     })
