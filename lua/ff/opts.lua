@@ -9,7 +9,6 @@ vim.o.expandtab = true -- Use spaces instead of tabs
 vim.o.swapfile = false -- No swap file
 vim.o.backup = false -- No backup file
 vim.o.scrolloff = 10 -- Lines above and below cursor before scrolling
-vim.o.cursorline = true -- Highlight current line
 vim.o.cmdheight = 0 -- Height of the command bar
 vim.o.laststatus = 3 -- Always show status line
 vim.o.wrap = false -- Don't wrap lines

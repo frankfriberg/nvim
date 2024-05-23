@@ -97,3 +97,17 @@ autocmd("CursorMoved", {
     vim.diagnostic.open_float()
   end,
 })
+
+autocmd("WinLeave", {
+  desc = "Disable cursorline in unfocused window",
+  callback = function()
+    vim.wo.cursorline = false
+  end,
+})
+
+autocmd({ "WinEnter", "VimEnter" }, {
+  desc = "Enable cursorline for focused window",
+  callback = function()
+    vim.wo.cursorline = true
+  end,
+})
