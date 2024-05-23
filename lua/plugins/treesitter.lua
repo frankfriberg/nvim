@@ -2,9 +2,8 @@
 return {
   "nvim-treesitter/nvim-treesitter",
   dependencies = {
-    "JoosepAlviste/nvim-ts-context-commentstring",
     "windwp/nvim-ts-autotag",
-    "nvim-treesitter/nvim-treesitter-textobjects"
+    "nvim-treesitter/nvim-treesitter-textobjects",
   },
   build = ":TSUpdate",
   config = function()
@@ -16,10 +15,10 @@ return {
         "sql",
       },
       highlight = {
-        enable = true
+        enable = true,
       },
       indent = {
-        enable = true
+        enable = true,
       },
       auto_install = true,
       textobjects = {
