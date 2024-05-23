@@ -18,3 +18,4 @@ vim.opt.updatetime = 50 -- Time before CursorHold autocommands are triggered
 vim.opt.timeout = true -- Enable timeout of mappings
 vim.opt.timeoutlen = 300 -- Time to wait for a mapped sequence to complete
 vim.opt.signcolumn = "yes" -- Always show sign column
+vim.opt.fillchars:append(",eob: ") -- Hide ~ from window
