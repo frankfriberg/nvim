@@ -35,5 +35,8 @@ return {
       telescope = false,
       fzf_lua = false,
     },
+    popup = {
+      kind = "split_above",
+    },
   },
 }
