@@ -13,6 +13,10 @@ return {
         "javascript",
         "lua",
         "sql",
+        "gitcommit",
+        "git_config",
+        "git_rebase",
+        "gitignore",
       },
       highlight = {
         enable = true,
