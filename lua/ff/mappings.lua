@@ -8,7 +8,7 @@ map.t({
   N = { "Nzz", "Previous search result" },
   ["*"] = { "*zz", "Search next" },
   ["#"] = { "#zz", "Search previous" },
-  l_w = { ":silent! w <CR>", "Write buffer" },
+  l_w = { ":silent! wa <CR>", "Write all buffer" },
   l_Q = { ":silent! %bd <CR>", "Quit all buffers" },
   U = { "<C-r>", "Redo undo" },
   esc = { ":nohlsearch<Bar>:echo<CR>", "" },
