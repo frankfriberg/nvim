@@ -7,7 +7,11 @@ return {
       "WhoIsSethDaniel/mason-tool-installer.nvim",
       "b0o/schemastore.nvim",
 
-      { "folke/neodev.nvim", opts = {} },
+      {
+        "folke/lazydev.nvim",
+        ft = "lua",
+        config = true,
+      },
     },
     config = function()
       local cmp_ok, cmp = pcall(require, "cmp_nvim_lsp")
