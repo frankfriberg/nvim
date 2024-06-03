@@ -1,6 +1,7 @@
 local M = {}
 local conditions = require("heirline.conditions")
 local devicons = require("nvim-web-devicons")
+local Universal = require("plugins.ui.heirline.components.universal")
 
 local function is_excluded()
   local excluded = {
@@ -21,7 +22,6 @@ M.Flags = {
       return not vim.bo.modifiable or vim.bo.readonly
     end,
     provider = "󰍁 ",
-    hl = { fg = "error" },
   },
 }
 
@@ -29,34 +29,22 @@ M.Icon = {
   provider = function(self)
     return self.icon and (self.icon .. " ")
   end,
-  hl = function(self)
-    return { fg = self.icon_color }
-  end,
 }
 
 M.Type = {
   hl = function(self)
     return { fg = self.icon_color }
   end,
-  flexible = 1,
-  {
-    provider = function(self)
-      return self.filetype
-    end,
-  },
-  {
-    provider = "",
-  },
+  provider = function(self)
+    return self.filetype
+  end,
 }
 
 M.Name = {
   provider = function(self)
-    local name = self.filename == "" and "[No Name]" or vim.fn.fnamemodify(self.filename, ":t")
-    local parent = vim.fn.fnamemodify(self.filename, ":p:h:t")
+    local name = self.filename == "" and vim.bo.buftype or vim.fn.fnamemodify(self.filename, ":t")
+    local parent = vim.fn.fnamemodify(self.filename, self.filename == "" and ":t" or ":p:h:t")
     return string.format("%s/%s", parent, name)
-  end,
-  hl = function()
-    return vim.bo.modified and "DiagnosticUnderlineError" or "Normal"
   end,
 }
 
@@ -68,9 +56,26 @@ M.NameBlock = {
     self.icon, self.icon_color = devicons.get_icon_color_by_filetype(self.extension)
     self.filetype = self.extension:gsub("^%l", string.upper)
   end,
+  {
+    Universal.LeftSpacer,
+    hl = {
+      fg = "file",
+      bg = "bg",
+    },
+  },
   M.Flags,
   M.Icon,
   M.Name,
+  {
+    Universal.is_git_repo() and Universal.RightSpacer or Universal.RightEnd,
+    hl = {
+      fg = "file",
+      bg = "bg",
+    },
+  },
+  hl = function()
+    return { fg = "bg", bg = "file" }
+  end,
 }
 
 M.TypeBlock = {

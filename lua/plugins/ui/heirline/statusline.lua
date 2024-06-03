@@ -32,10 +32,8 @@ return {
   Universal.Align,
   MacroRec,
   ViMode,
-  Universal.Spacer(),
   File.NameBlock,
   File.TypeBlock,
-  Universal.Spacer(),
   Git,
   Universal.Align,
 }

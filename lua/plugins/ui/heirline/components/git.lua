@@ -1,25 +1,16 @@
+local Universal = require("plugins.ui.heirline.components.universal")
 local git = require("helpers.icons").git
 
-local function is_git_repo()
-  return vim.g.is_git_repo
-end
-
 local GitRebase = {
-  condition = is_git_repo,
   provider = function()
     return vim.g.is_git_rebase and "Rebasing: "
   end,
   hl = {
-    fg = "warn",
+    bold = true,
   },
 }
 
 local GitBranch = {
-  condition = is_git_repo,
-  update = { "BufEnter", "BufLeave", "FocusGained", "WinClosed" },
-  hl = {
-    fg = "ok",
-  },
   {
     provider = "󰘬 ",
   },
@@ -32,7 +23,7 @@ local GitBranch = {
   },
 }
 
-local gitStatusProvider = function(status, icon, highlight)
+local gitStatusProvider = function(status, icon)
   return {
     condition = function(self)
       return self[status] ~= nil and self[status] > 0
@@ -40,32 +31,37 @@ local gitStatusProvider = function(status, icon, highlight)
     provider = function(self)
       return icon.format(" %s %s", icon, self[status])
     end,
-    hl = {
-      fg = highlight,
-    },
   }
 end
 
 local GitAheadBehind = {
-  condition = is_git_repo,
-  update = { "WinNew", "WinClosed", "BufEnter" },
   init = function(self)
     local ahead_behind = vim.g.ahead_behind
     self.git_ahead = ahead_behind.ahead
     self.git_behind = ahead_behind.behind
     self.git_has_status = ahead_behind.ahead and ahead_behind.behind
   end,
-  gitStatusProvider("git_ahead", git.ahead, "info"),
-  gitStatusProvider("git_behind", git.behind, "hint"),
+  gitStatusProvider("git_ahead", git.ahead),
+  gitStatusProvider("git_behind", git.behind),
 }
 
 return {
-  flexible = 1,
+  update = { "BufEnter", "BufLeave", "FocusGained", "WinClosed", "WinNew" },
+  condition = Universal.is_git_repo,
+  Universal.Space,
+  GitBranch,
+  GitAheadBehind,
   {
-    GitBranch,
-    GitAheadBehind,
+    Universal.RightEnd,
+    hl = {
+      fg = vim.g.is_git_rebase and "warn" or "ok",
+      bg = "bg",
+    },
   },
-  {
-    GitBranch,
-  },
+  hl = function()
+    return {
+      fg = "bg",
+      bg = vim.g.is_git_rebase and "warn" or "ok",
+    }
+  end,
 }

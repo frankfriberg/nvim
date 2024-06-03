@@ -11,6 +11,8 @@ return {
     local function setup_colors()
       return {
         normal = utils.get_highlight("Normal").fg,
+        background = utils.get_highlight("Normal").bg,
+        file = utils.get_highlight("Normal").fg,
         warn = utils.get_highlight("DiagnosticWarn").fg,
         error = utils.get_highlight("DiagnosticError").fg,
         hint = utils.get_highlight("DiagnosticHint").fg,
