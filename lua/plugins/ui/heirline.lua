@@ -6,7 +6,9 @@ return {
   },
   opts = function()
     local statuslines = require("plugins.ui.heirline.statusline")
+    local winbar = require("plugins.ui.heirline.winbar")
     local utils = require("heirline.utils")
+    local conditions = require("heirline.conditions")
 
     local function setup_colors()
       return {
@@ -35,8 +37,15 @@ return {
     return {
       opts = {
         colors = setup_colors(),
+        disable_winbar_cb = function(args)
+          return conditions.buffer_matches({
+            buftype = { "nofile", "prompt", "help", "quickfix" },
+            filetype = { "^git.*", "fugitive", "Trouble", "dashboard" },
+          }, args.buf)
+        end,
       },
       statusline = statuslines,
+      winbar = winbar,
     }
   end,
 }
