@@ -24,6 +24,21 @@ local MacroRec = {
   }),
 }
 
+local StatusLineFile = {
+  utils.surround(
+    {
+      Universal.LeftSpacer.provider,
+      Universal.is_git_repo() and Universal.RightSpacer.provider or Universal.RightEnd.provider,
+    },
+    "file",
+    {
+      File.NameBlock,
+      File.TypeBlock,
+      hl = { fg = "bg", bg = "file" },
+    }
+  ),
+}
+
 return {
   init = function(self)
     local filename = vim.api.nvim_buf_get_name(0)
@@ -32,8 +47,7 @@ return {
   Universal.Align,
   MacroRec,
   ViMode,
-  File.NameBlock,
-  File.TypeBlock,
+  StatusLineFile,
   Git,
   Universal.Align,
 }

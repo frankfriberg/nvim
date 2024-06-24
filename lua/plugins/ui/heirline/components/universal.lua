@@ -1,12 +1,17 @@
 local M = {}
 
+M.RightSpacerChar = "▉"
+M.LeftSpacerChar = "🮋"
+M.LeftEndChar = ""
+M.RightEndChar = ""
+
 M.Align = { provider = "%=" }
 M.Space = { provider = " " }
 M.Empty = { provider = "" }
-M.LeftEnd = { provider = "" }
-M.RightEnd = { provider = "" }
-M.RightSpacer = { provider = "▉" }
-M.LeftSpacer = { provider = "🮋" }
+M.LeftEnd = { provider = M.LeftEndChar }
+M.RightEnd = { provider = M.RightEndChar }
+M.RightSpacer = { provider = M.RightSpacerChar }
+M.LeftSpacer = { provider = M.LeftSpacerChar }
 
 M.Spacer = function(condition)
   if condition then

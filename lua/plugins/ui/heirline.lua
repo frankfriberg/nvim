@@ -20,7 +20,7 @@ return {
         hint = utils.get_highlight("DiagnosticHint").fg,
         info = utils.get_highlight("DiagnosticInfo").fg,
         ok = utils.get_highlight("DiagnosticOk").fg,
-        git_del = utils.get_highlight("diffDeleted").fg,
+        git_del = utils.get_highlight("DiffDelete").bg,
         git_add = utils.get_highlight("diffAdded").fg,
         git_change = utils.get_highlight("diffChanged").fg,
       }

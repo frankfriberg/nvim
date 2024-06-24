@@ -56,26 +56,9 @@ M.NameBlock = {
     self.icon, self.icon_color = devicons.get_icon_color_by_filetype(self.extension)
     self.filetype = self.extension:gsub("^%l", string.upper)
   end,
-  {
-    Universal.LeftSpacer,
-    hl = {
-      fg = "file",
-      bg = "bg",
-    },
-  },
   M.Flags,
   M.Icon,
   M.Name,
-  {
-    Universal.is_git_repo() and Universal.RightSpacer or Universal.RightEnd,
-    hl = {
-      fg = "file",
-      bg = "bg",
-    },
-  },
-  hl = function()
-    return { fg = "bg", bg = "file" }
-  end,
 }
 
 M.TypeBlock = {

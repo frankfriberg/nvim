@@ -53,10 +53,12 @@ return {
   GitAheadBehind,
   {
     Universal.RightEnd,
-    hl = {
-      fg = vim.g.is_git_rebase and "warn" or "ok",
-      bg = "bg",
-    },
+    hl = function()
+      return {
+        fg = vim.g.is_git_rebase and "warn" or "ok",
+        bg = "bg",
+      }
+    end,
   },
   hl = function()
     return {
