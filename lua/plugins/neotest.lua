@@ -4,7 +4,7 @@ return {
   dependencies = {
     "nvim-neotest/nvim-nio",
     "nvim-lua/plenary.nvim",
-    "frankfriberg/neotest-jest",
+    "nvim-neotest/neotest-jest",
     "nvim-treesitter/nvim-treesitter",
   },
   event = "BufEnter",
