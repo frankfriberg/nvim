@@ -111,3 +111,8 @@ autocmd({ "WinEnter", "VimEnter" }, {
     vim.wo.cursorline = true
   end,
 })
+
+autocmd({ "VimResized" }, {
+  desc = "Balance windows when vim is resized",
+  command = "wincmd =",
+})
