@@ -48,19 +48,22 @@ return {
       defaults = {
         file_ignore_patterns = { "vendor", "node_modules", "%.git$" },
         path_display = function(_, path)
-          local tail = require("telescope.utils").path_tail(path)
+          local utils = require("telescope.utils")
+
+          local smart_path = utils.path_smart(path)
+          local tail = utils.path_tail(path)
 
           local highlights = {
             {
               {
                 0, -- highlight start position
-                #path - #tail, -- highlight end position
+                #smart_path - #tail, -- highlight end position
               },
               "Comment", -- highlight group name
             },
           }
 
-          return path, highlights
+          return smart_path, highlights
         end,
         selection_caret = "",
         entry_prefix = "",
