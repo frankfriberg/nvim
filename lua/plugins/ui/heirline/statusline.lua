@@ -10,18 +10,22 @@ local MacroRec = {
     return vim.fn.reg_recording() ~= "" and vim.o.cmdheight == 0
   end,
   update = { "RecordingEnter", "RecordingLeave" },
-  provider = " ",
-  hl = {
-    fg = "warn",
+  {
+    provider = Universal.LeftEndChar,
+    hl = {
+      fg = "hint",
+    },
   },
-  utils.surround({ "[", "]" }, nil, {
+  {
     provider = function()
-      return vim.fn.reg_recording()
+      local label = vim.fn.reg_recording()
+      return string.format("%s[%s] ", "", label)
     end,
     hl = {
-      fg = "info",
+      fg = "bg",
+      bg = "hint",
     },
-  }),
+  },
 }
 
 local StatusLineFile = {

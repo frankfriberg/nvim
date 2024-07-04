@@ -12,7 +12,7 @@ local mode_icons = {
 }
 
 return {
-  update = { "ModeChanged" },
+  update = { "ModeChanged", "RecordingEnter", "RecordingLeave" },
   init = function(self)
     self.mode = vim.fn.mode(1)
   end,
@@ -86,7 +86,9 @@ return {
     },
   },
   {
-    provider = "",
+    provider = function()
+      return vim.fn.reg_recording() ~= "" and Universal.LeftSpacerChar or Universal.LeftEndChar
+    end,
     hl = function(self)
       local mode = self.mode:sub(1, 1)
       return {
