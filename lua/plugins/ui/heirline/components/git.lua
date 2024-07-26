@@ -46,7 +46,14 @@ local GitAheadBehind = {
 }
 
 return {
-  update = { "BufEnter", "BufLeave", "FocusGained", "WinClosed", "WinNew" },
+  update = {
+    "BufEnter",
+    "BufLeave",
+    "FocusGained",
+    "WinClosed",
+    "WinLeave",
+    "WinEnter",
+  },
   condition = Universal.is_git_repo,
   Universal.Space,
   GitBranch,

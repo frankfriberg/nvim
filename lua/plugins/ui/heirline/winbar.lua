@@ -16,13 +16,16 @@ local DiagnosticItem = function(severity, next, icon, hl)
     hl = hl,
     {
       provider = function(self)
-        local next_diag = 0
+        if next == nil then
+          return Universal.RightEndChar
+        end
 
+        local next_diag = 0
         for _, v in ipairs(next) do
           next_diag = next_diag + self[v]
         end
 
-        return next ~= nil and next_diag > 0 and Universal.RightSpacerChar or Universal.RightEndChar
+        return next_diag > 0 and Universal.RightSpacerChar or Universal.RightEndChar
       end,
       hl = {
         bg = hl.fg,
@@ -46,14 +49,14 @@ local Diagnostics = {
   DiagnosticItem("info", nil, "󰬏", { bg = "info", fg = "bg" }),
 }
 
-local WinbarFile = {
-  update = { "DiagnosticChanged", "BufEnter" },
+local Winbar = {
+  update = { "DiagnosticChanged", "BufEnter", "ModeChanged", "TextChanged", "BufWrite" },
   Universal.Align,
   Universal.LeftEnd,
   {
     File.NameBlock,
     File.TypeBlock,
-    hl = { fg = "bg", bg = "file" },
+    hl = { fg = "bg", bg = "fg" },
   },
   {
     provider = function()
@@ -66,5 +69,5 @@ local WinbarFile = {
 }
 
 return {
-  WinbarFile,
+  Winbar,
 }

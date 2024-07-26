@@ -34,11 +34,11 @@ local StatusLineFile = {
       Universal.LeftSpacer.provider,
       Universal.is_git_repo() and Universal.RightSpacer.provider or Universal.RightEnd.provider,
     },
-    "file",
+    "fg",
     {
       File.NameBlock,
       File.TypeBlock,
-      hl = { fg = "bg", bg = "file" },
+      hl = { fg = "bg", bg = "fg" },
     }
   ),
 }
