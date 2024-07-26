@@ -28,9 +28,9 @@ local group = function(mode, key, desc)
   local ok, wk = pcall(require, "which-key")
 
   if ok then
-    wk.register({
+    wk.add({
       mode = mode,
-      [key] = { name = desc },
+      { key, name = desc },
     })
   end
 end
