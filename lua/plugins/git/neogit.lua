@@ -11,7 +11,11 @@ return {
     map.t({
       s_tab = {
         function()
-          neogit.open({ kind = "split_above" })
+          if neogit.status.is_open() then
+            neogit.close()
+          else
+            neogit.open()
+          end
         end,
         "NeoGit",
       },
@@ -29,6 +33,7 @@ return {
       item = { "", "" },
       section = { "", "" },
     },
+    kind = "split_above",
     disable_insert_on_commit = "auto",
     integrations = {
       diffview = true,
