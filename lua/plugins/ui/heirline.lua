@@ -2,7 +2,7 @@ return {
   "rebelot/heirline.nvim",
   event = "UiEnter",
   dependencies = {
-    "nvim-tree/nvim-web-devicons",
+    "echasnovski/mini.icons",
   },
   opts = function()
     local statuslines = require("plugins.ui.heirline.statusline")
@@ -12,9 +12,8 @@ return {
 
     local function setup_colors()
       return {
-        normal = utils.get_highlight("Normal").fg,
+        fg = utils.get_highlight("Normal").fg,
         background = utils.get_highlight("Normal").bg,
-        file = utils.get_highlight("Normal").fg,
         warn = utils.get_highlight("DiagnosticWarn").fg,
         error = utils.get_highlight("DiagnosticError").fg,
         hint = utils.get_highlight("DiagnosticHint").fg,
@@ -40,7 +39,14 @@ return {
         disable_winbar_cb = function(args)
           return conditions.buffer_matches({
             buftype = { "nofile", "prompt", "help", "quickfix" },
-            filetype = { "^git.*", "fugitive", "Trouble", "dashboard" },
+            filetype = {
+              "^git.*",
+              "fugitive",
+              "Trouble",
+              "dashboard",
+              "NeogitCommitMessage",
+              "NeogitRebaseTodo",
+            },
           }, args.buf)
         end,
       },

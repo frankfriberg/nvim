@@ -1,7 +1,6 @@
 local M = {}
 local conditions = require("heirline.conditions")
-local devicons = require("nvim-web-devicons")
-local Universal = require("plugins.ui.heirline.components.universal")
+local devicons = require("mini.icons")
 
 local function is_excluded()
   local excluded = {
@@ -16,18 +15,26 @@ local function is_excluded()
   })
 end
 
+local excluded_icons = {
+  TelescopePrompt = "",
+  NeogitStatus = "",
+  minifiles = "󰉋",
+}
+
 M.Flags = {
-  {
-    condition = function()
-      return not vim.bo.modifiable or vim.bo.readonly
-    end,
-    provider = "󰍁 ",
-  },
+  condition = function()
+    return not is_excluded and (not vim.bo.modifiable or vim.bo.readonly)
+  end,
+  provider = "󰍁 ",
 }
 
 M.Icon = {
   provider = function(self)
-    return self.icon and (self.icon .. " ")
+    if is_excluded() and excluded_icons[vim.bo.filetype] then
+      return excluded_icons[vim.bo.filetype] .. " "
+    else
+      return self.icon and (self.icon .. " ")
+    end
   end,
 }
 
@@ -42,9 +49,15 @@ M.Type = {
 
 M.Name = {
   provider = function(self)
-    local name = self.filename == "" and vim.bo.buftype or vim.fn.fnamemodify(self.filename, ":t")
-    local parent = vim.fn.fnamemodify(self.filename, self.filename == "" and ":t" or ":p:h:t")
-    return string.format("%s/%s", parent, name)
+    if is_excluded() then
+      return vim.bo.filetype
+    elseif self.filename == "" then
+      return vim.bo.buftype
+    else
+      local directory = vim.fn.fnamemodify(self.filename, ":h:t")
+      local filename = vim.fn.fnamemodify(self.filename, ":t")
+      return string.format("%s/%s", directory, filename)
+    end
   end,
 }
 
@@ -52,12 +65,11 @@ M.NameBlock = {
   condition = not is_excluded,
   init = function(self)
     self.filename = vim.api.nvim_buf_get_name(0)
-    self.extension = vim.bo.filetype
-    self.icon, self.icon_color = devicons.get_icon_color_by_filetype(self.extension)
-    self.filetype = self.extension:gsub("^%l", string.upper)
+    self.icon, self.icon_color = devicons.get("file", self.filename)
+    self.filetype = vim.bo.filetype:gsub("^%l", string.upper)
   end,
-  M.Flags,
   M.Icon,
+  M.Flags,
   M.Name,
 }
 
