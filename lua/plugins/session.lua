@@ -62,8 +62,6 @@ return {
     autocmd({ "User" }, {
       pattern = "NeogitBranchCheckout",
       callback = function(ctx)
-        require("neogit").close()
-
         local name = vim.fn.getcwd()
         local session_name = name .. ctx.data.branch_name
         local session_file = require("resession.util").get_session_file(session_name, "dirsession")
