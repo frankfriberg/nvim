@@ -24,27 +24,19 @@ M.nv = function(key, func, desc, opts)
   return keymap({ "n", "v" }, key, func, desc, opts)
 end
 
-local group = function(mode, key, desc)
+M.group = function(mode, key, desc, icon, color)
   local ok, wk = pcall(require, "which-key")
 
   if ok then
     wk.add({
       mode = mode,
-      { key, name = desc },
+      {
+        key,
+        name = desc,
+        icon = { icon = icon, color = color },
+      },
     })
   end
-end
-
-M.ng = function(key, desc)
-  return group("n", key, desc)
-end
-
-M.vg = function(key, desc)
-  return group("v", key, desc)
-end
-
-M.nvg = function(key, desc)
-  return group({ "n", "v" }, key, desc)
 end
 
 local shortcut = function(key)
@@ -92,7 +84,7 @@ M.t = function(input, prefix)
 
   if input.group then
     prefix = (prefix and prefix .. input.group[1]) or ""
-    group(mode, input.group[1], input.group[2])
+    M.group(mode, input.group[1], input.group[2], input.group[3])
   end
 
   for k, v in pairs(input) do

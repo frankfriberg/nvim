@@ -23,5 +23,5 @@ map.t({
   },
 })
 
-map.ng("<leader>")
-map.ng("g")
+map.group("n", "<leader>")
+map.group("n", "g")
