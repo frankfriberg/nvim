@@ -25,6 +25,7 @@ return {
       pattern = { "NeogitCommitMessage", "NeogitRebaseTodo" },
       callback = function()
         map.n("<CR>", ":wq <CR>", "Finish commit")
+        map.i("<S-CR>", "<ESC>:wq <CR>", "Finish commit")
       end,
     })
   end,
