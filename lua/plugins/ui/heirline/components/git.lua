@@ -55,22 +55,11 @@ return {
     "WinEnter",
   },
   condition = Universal.is_git_repo,
-  Universal.Space,
   GitBranch,
   GitAheadBehind,
-  {
-    Universal.RightEnd,
-    hl = function()
-      return {
-        fg = vim.g.is_git_rebase and "warn" or "ok",
-        bg = "bg",
-      }
-    end,
-  },
   hl = function()
     return {
-      fg = "bg",
-      bg = vim.g.is_git_rebase and "warn" or "ok",
+      fg = vim.g.is_git_rebase and "warn" or "ok",
     }
   end,
 }

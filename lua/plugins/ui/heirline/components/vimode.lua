@@ -85,28 +85,14 @@ return {
       t = "error",
     },
   },
-  {
-    provider = function()
-      return vim.fn.reg_recording() ~= "" and Universal.LeftSpacerChar or Universal.LeftEndChar
-    end,
-    hl = function(self)
-      local mode = self.mode:sub(1, 1)
-      return {
-        fg = self.mode_colors[mode],
-      }
-    end,
-  },
-  {
-    provider = function(self)
-      return self.mode_label[self.mode_name[self.mode]]
-    end,
-    hl = function(self)
-      local mode = self.mode:sub(1, 1)
-      return {
-        fg = "bg",
-        bg = self.mode_colors[mode],
-      }
-    end,
-    Universal.Space,
-  },
+  provider = function(self)
+    return self.mode_label[self.mode_name[self.mode]]
+  end,
+  hl = function(self)
+    local mode = self.mode:sub(1, 1)
+    return {
+      fg = self.mode_colors[mode],
+    }
+  end,
+  Universal.Spacer(),
 }

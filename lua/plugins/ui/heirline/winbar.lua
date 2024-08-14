@@ -7,31 +7,28 @@ local DiagnosticItem = function(severity, next, icon, hl)
     condition = function(self)
       return self[severity] > 0
     end,
-    Universal.Space,
     {
       provider = function(self)
         return string.format("%s %s", icon, self[severity])
       end,
     },
-    hl = hl,
     {
-      provider = function(self)
+      condition = function(self)
         if next == nil then
-          return Universal.RightEndChar
+          return false
         end
 
-        local next_diag = 0
-        for _, v in ipairs(next) do
-          next_diag = next_diag + self[v]
+        for _, sibling in ipairs(next) do
+          if self[sibling] > 0 then
+            return true
+          end
         end
 
-        return next_diag > 0 and Universal.RightSpacerChar or Universal.RightEndChar
+        return false
       end,
-      hl = {
-        bg = hl.fg,
-        fg = hl.bg,
-      },
+      Universal.Space,
     },
+    hl = hl,
   }
 end
 
@@ -43,26 +40,20 @@ local Diagnostics = {
     self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
     self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
   end,
-  DiagnosticItem("errors", { "warnings", "hints", "info" }, "󰬌", { bg = "error", fg = "bg" }),
-  DiagnosticItem("warnings", { "hints", "info" }, "󰬞", { bg = "warn", fg = "bg" }),
-  DiagnosticItem("hints", { "info" }, "󰬐", { bg = "hint", fg = "bg" }),
-  DiagnosticItem("info", nil, "󰬏", { bg = "info", fg = "bg" }),
+  DiagnosticItem("errors", { "warnings", "hints", "info" }, "󰬌", { fg = "error" }),
+  DiagnosticItem("warnings", { "hints", "info" }, "󰬞", { fg = "warn" }),
+  DiagnosticItem("hints", { "info" }, "󰬐", { fg = "hint" }),
+  DiagnosticItem("info", nil, "󰬏", { fg = "info" }),
 }
 
 local Winbar = {
   update = { "DiagnosticChanged", "BufEnter", "ModeChanged", "TextChanged", "BufWrite" },
   Universal.Align,
-  Universal.LeftEnd,
   {
     File.NameBlock,
     File.TypeBlock,
-    hl = { fg = "bg", bg = "fg" },
   },
-  {
-    provider = function()
-      return conditions.has_diagnostics() and Universal.RightSpacerChar or Universal.RightEndChar
-    end,
-  },
+  Universal.Spacer(conditions.has_diagnostics),
   Diagnostics,
   Universal.Align,
   hl = "Normal",

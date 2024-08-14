@@ -1,4 +1,3 @@
-local utils = require("heirline.utils")
 local Git = require("plugins.ui.heirline.components.git")
 local File = require("plugins.ui.heirline.components.file")
 local Universal = require("plugins.ui.heirline.components.universal")
@@ -10,37 +9,20 @@ local MacroRec = {
     return vim.fn.reg_recording() ~= "" and vim.o.cmdheight == 0
   end,
   update = { "RecordingEnter", "RecordingLeave" },
-  {
-    provider = Universal.LeftEndChar,
-    hl = {
-      fg = "hint",
-    },
+  provider = function()
+    local label = vim.fn.reg_recording()
+    return string.format("%s [%s]", "", label)
+  end,
+  hl = {
+    fg = "hint",
   },
-  {
-    provider = function()
-      local label = vim.fn.reg_recording()
-      return string.format("%s[%s] ", "", label)
-    end,
-    hl = {
-      fg = "bg",
-      bg = "hint",
-    },
-  },
+  Universal.Spacer(),
 }
 
 local StatusLineFile = {
-  utils.surround(
-    {
-      Universal.LeftSpacer.provider,
-      Universal.is_git_repo() and Universal.RightSpacer.provider or Universal.RightEnd.provider,
-    },
-    "fg",
-    {
-      File.NameBlock,
-      File.TypeBlock,
-      hl = { fg = "bg", bg = "fg" },
-    }
-  ),
+  File.NameBlock,
+  File.TypeBlock,
+  Universal.Spacer(Universal.is_git_repo),
 }
 
 return {
@@ -54,4 +36,7 @@ return {
   StatusLineFile,
   Git,
   Universal.Align,
+  hl = {
+    fg = "fg",
+  },
 }

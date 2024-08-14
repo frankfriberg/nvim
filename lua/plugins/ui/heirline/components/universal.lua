@@ -4,6 +4,7 @@ M.RightSpacerChar = "▉"
 M.LeftSpacerChar = "🮋"
 M.LeftEndChar = ""
 M.RightEndChar = ""
+M.Seperator = " | "
 
 M.Align = { provider = "%=" }
 M.Space = { provider = " " }
@@ -14,16 +15,11 @@ M.RightSpacer = { provider = M.RightSpacerChar }
 M.LeftSpacer = { provider = M.LeftSpacerChar }
 
 M.Spacer = function(condition)
-  if condition then
-    return {
-      condition = condition,
-      provider = " · ",
-    }
-  else
-    return {
-      provider = " · ",
-    }
-  end
+  return {
+    condition = condition or nil,
+    provider = M.Seperator,
+    hl = "Normal",
+  }
 end
 
 M.is_git_repo = function()

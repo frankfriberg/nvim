@@ -1,13 +1,12 @@
 local M = {}
 local conditions = require("heirline.conditions")
-local devicons = require("mini.icons")
+local icons = require("mini.icons")
 
 local function is_excluded()
   local excluded = {
     "neo-tree",
     "keymenu",
     "^git.*",
-    "TelescopePrompt",
   }
   return conditions.buffer_matches({
     buftype = { "nofile", "prompt", "help", "quickfix" },
@@ -39,9 +38,6 @@ M.Icon = {
 }
 
 M.Type = {
-  hl = function(self)
-    return { fg = self.icon_color }
-  end,
   provider = function(self)
     return self.filetype
   end,
@@ -51,6 +47,8 @@ M.Name = {
   provider = function(self)
     if is_excluded() then
       return vim.bo.filetype
+    elseif self.filename == "" and vim.bo.buftype == "" then
+      return "[No File]"
     elseif self.filename == "" then
       return vim.bo.buftype
     else
@@ -65,7 +63,7 @@ M.NameBlock = {
   condition = not is_excluded,
   init = function(self)
     self.filename = vim.api.nvim_buf_get_name(0)
-    self.icon, self.icon_color = devicons.get("file", self.filename)
+    self.icon = icons.get("file", self.filename)
     self.filetype = vim.bo.filetype:gsub("^%l", string.upper)
   end,
   M.Icon,
