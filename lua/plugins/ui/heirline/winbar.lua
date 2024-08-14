@@ -1,6 +1,8 @@
 local conditions = require("heirline.conditions")
 local File = require("plugins.ui.heirline.components.file")
 local Universal = require("plugins.ui.heirline.components.universal")
+local Formatters = require("plugins.ui.heirline.components.formatters")
+local Servers = require("plugins.ui.heirline.components.lsp")
 
 local DiagnosticItem = function(severity, next, icon, hl)
   return {
@@ -55,6 +57,10 @@ local Winbar = {
   },
   Universal.Spacer(conditions.has_diagnostics),
   Diagnostics,
+  Universal.Spacer(Formatters.has_formatters),
+  Formatters.Formatters,
+  Universal.Spacer(Servers.has_language_servers),
+  Servers.LanguageServers,
   Universal.Align,
   hl = "Normal",
 }
