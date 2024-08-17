@@ -19,6 +19,21 @@ return {
     })
 
     vim.api.nvim_create_autocmd("User", {
+      pattern = "MiniFilesActionDelete",
+      callback = function(args)
+        local remove_ok, mini_remove = pcall(require, "mini.bufremove")
+        local deleted_file = args.data.from
+
+        for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+          local buf_name = vim.api.nvim_buf_get_name(buf)
+          if buf_name == deleted_file then
+            return remove_ok and mini_remove.delete(buf) or vim.api.nvim_buf_delete(buf, { force = true })
+          end
+        end
+      end,
+    })
+
+    vim.api.nvim_create_autocmd("User", {
       pattern = "MiniFilesWindowOpen",
       callback = function(args)
         local win_id = args.data.win_id
