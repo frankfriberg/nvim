@@ -21,3 +21,5 @@ vim.opt.signcolumn = "yes" -- Always show sign column
 vim.opt.fillchars:append(",eob: ") -- Hide ~ from window
 vim.opt.breakindent = true -- Break line at indent
 vim.opt.smartcase = true
+vim.opt.winblend = 5
+vim.opt.pumblend = 5
