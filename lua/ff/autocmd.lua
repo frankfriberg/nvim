@@ -5,13 +5,6 @@ local git = require("helpers.git")
 
 local bufcheck = api.nvim_create_augroup("bufcheck", { clear = true })
 
-autocmd("BufEnter", {
-  desc = "Refresh buffer when entering.",
-  group = bufcheck,
-  pattern = "*",
-  command = "checktime",
-})
-
 autocmd("TextYankPost", {
   desc = "Highlight yanks",
   group = bufcheck,
@@ -91,7 +84,7 @@ autocmd({
   end,
 })
 
-autocmd("CursorMoved", {
+autocmd("CursorHold", {
   desc = "Show diagnostics under cursor",
   callback = function()
     vim.diagnostic.open_float()

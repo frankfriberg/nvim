@@ -13,6 +13,7 @@ map.t({
   U = { "<C-r>", "Redo undo" },
   esc = { ":nohlsearch<Bar>:echo<CR>", "" },
   vv = { "V", "Visual line mode" },
+  l_d = { vim.diagnostic.open_float, "Open Diagnostic float" },
   {
     mode = "v",
     J = { ":move '>+1<CR>gv-gv", "Move selection up" },
