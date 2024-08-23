@@ -7,6 +7,7 @@ return {
       experimental = {
         classRegex = {
           "cn\\(([^)]*)\\)",
+          "cva\\(([^)]*)\\)",
         },
       },
     },
