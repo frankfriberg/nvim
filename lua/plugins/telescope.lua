@@ -2,6 +2,7 @@ return {
   "nvim-telescope/telescope.nvim",
   dependencies = {
     "nvim-lua/plenary.nvim",
+    "debugloop/telescope-undo.nvim",
     {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "make",
@@ -32,6 +33,7 @@ return {
       c_p = { builtin.resume, "[T] Resume" },
       c_c = { builtin.grep_string, "[T] Grep cursor" },
       c_q = { builtin.quickfix, "[T] Quickfix" },
+      l_u = { telescope.extensions.undo.undo, "[T] Undo Tree" },
       {
         mode = "v",
         c_c = {
@@ -97,6 +99,7 @@ return {
       },
     })
 
-    require("telescope").load_extension("fzf")
+    telescope.load_extension("fzf")
+    telescope.load_extension("undo")
   end,
 }
