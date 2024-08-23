@@ -46,6 +46,7 @@ return {
               "dashboard",
               "NeogitCommitMessage",
               "NeogitRebaseTodo",
+              "oil",
             },
           }, args.buf)
         end,
