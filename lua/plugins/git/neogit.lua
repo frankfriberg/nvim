@@ -24,7 +24,7 @@ return {
     vim.api.nvim_create_autocmd("FileType", {
       pattern = { "NeogitCommitMessage", "NeogitRebaseTodo" },
       callback = function()
-        map.n("<CR>", ":wq <CR>", "Finish commit")
+        map.n("<CR>", ":wq <CR>", "Finish commit", { buffer = true })
       end,
     })
   end,
