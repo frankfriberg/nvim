@@ -48,7 +48,6 @@ return {
 
     telescope.setup({
       defaults = {
-        file_ignore_patterns = { "vendor", "node_modules", "%.git$" },
         path_display = function(_, path)
           local utils = require("telescope.utils")
 
