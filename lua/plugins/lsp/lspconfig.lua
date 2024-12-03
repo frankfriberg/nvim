@@ -6,7 +6,7 @@ return {
       "williamboman/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
       "b0o/schemastore.nvim",
-
+      "saghen/blink.cmp",
       {
         "folke/lazydev.nvim",
         dependencies = {
@@ -21,7 +21,7 @@ return {
       },
     },
     config = function()
-      local cmp_ok, cmp = pcall(require, "cmp_nvim_lsp")
+      local blink_ok, blink = pcall(require, "blink.cmp")
       local on_attach = require("helpers.on-attach")
 
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -31,8 +31,8 @@ return {
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-      if cmp_ok then
-        capabilities = vim.tbl_deep_extend("force", capabilities, cmp.default_capabilities())
+      if blink_ok then
+        capabilities = blink.get_lsp_capabilities(capabilities)
       end
 
       local servers = {
@@ -62,7 +62,6 @@ return {
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
-            server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
             require("lspconfig")[server_name].setup(server)
           end,
         },
