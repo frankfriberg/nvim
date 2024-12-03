@@ -20,28 +20,34 @@ return {
         "NeoGit",
       },
     })
-
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = { "NeogitCommitMessage", "NeogitRebaseTodo" },
-      callback = function()
-        map.n("<CR>", ":wq <CR>", "Finish commit", { buffer = true })
-      end,
-    })
   end,
   opts = {
     signs = {
       item = { "", "" },
       section = { "", "" },
     },
-    kind = "split_above",
-    disable_insert_on_commit = "auto",
+    kind = "floating",
+    fetch_after_checkout = true,
+    auto_show_console_on = "error",
+    process_spinner = false,
     integrations = {
       diffview = true,
       telescope = false,
       fzf_lua = false,
     },
+    commit_editor = {
+      staged_diff_split_kind = "vsplit",
+    },
     popup = {
-      kind = "split_above",
+      kind = "split_above_all",
+    },
+    mappings = {
+      commit_editor = {
+        ["<CR>"] = "Submit",
+      },
+      rebase_editor = {
+        ["<CR>"] = "Submit",
+      },
     },
   },
 }
