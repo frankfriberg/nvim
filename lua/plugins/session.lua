@@ -60,8 +60,9 @@ return {
     })
 
     autocmd({ "User" }, {
-      pattern = "NeogitBranchCheckout",
+      pattern = { "NeogitBranchCheckout", "NeogitBranchCreate" },
       callback = function(ctx)
+        local neogit = require("neogit")
         local name = vim.fn.getcwd()
         local session_name = name .. ctx.data.branch_name
         local session_file = require("resession.util").get_session_file(session_name, "dirsession")
@@ -70,6 +71,9 @@ return {
         if session_data then
           resession.load(session_name, { dir = "dirsession", silence_errors = true })
         else
+          if neogit.status.is_open() then
+            neogit.close()
+          end
           local scratch = vim.api.nvim_create_buf(false, true)
           vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = scratch })
           vim.api.nvim_win_set_buf(0, scratch)
