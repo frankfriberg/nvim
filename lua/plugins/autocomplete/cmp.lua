@@ -1,6 +1,7 @@
 return {
   {
-    "hrsh7th/nvim-cmp",
+    "yioneko/nvim-cmp",
+    branch = "perf",
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
@@ -52,7 +53,6 @@ return {
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          { name = "copilot" },
           { name = "luasnip" },
           { name = "nvim_lua" },
         }, {
