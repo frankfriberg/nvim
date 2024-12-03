@@ -1,4 +1,5 @@
 return {
-  "echasnovski/mini.surround",
+  "kylechui/nvim-surround",
+  event = "VeryLazy",
   config = true,
 }
