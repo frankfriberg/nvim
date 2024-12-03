@@ -44,7 +44,7 @@ return {
 
       require("mason").setup({
         ui = {
-          border = "rounded",
+          border = vim.g.boder,
         },
       })
 

@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+vim.g.border = "rounded"
 
 vim.opt.clipboard = "unnamedplus" -- Use system clipboard
 vim.opt.showmode = false -- Don't show mode

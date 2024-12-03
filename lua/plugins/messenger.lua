@@ -4,6 +4,6 @@ return {
     { "<leader>gm", "<cmd>MessengerShow<cr>", desc = "Show commit message" },
   },
   opts = {
-    border = "rounded",
+    border = vim.g.border,
   },
 }

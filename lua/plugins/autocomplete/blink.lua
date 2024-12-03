@@ -43,19 +43,19 @@ return {
         auto_show = true,
         auto_show_delay_ms = 0,
         window = {
-          border = "rounded",
+          border = vim.g.border,
           winblend = vim.o.winblend,
         },
       },
       signature = {
         enabled = true,
         window = {
-          border = "rounded",
+          border = vim.g.border,
           winblend = vim.o.winblend,
         },
       },
       menu = {
-        border = "rounded",
+        border = vim.g.border,
         min_width = 30,
         columns = { { "kind_icon" }, { "label", "label_description" }, { "label_detail" } },
         padding = 0,

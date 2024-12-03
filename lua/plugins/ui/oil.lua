@@ -55,7 +55,7 @@ return {
       padding = 2,
       max_width = 80,
       max_height = 40,
-      border = "rounded",
+      border = vim.g.border,
       win_options = {
         winblend = vim.o.winblend,
       },
