@@ -2,8 +2,8 @@ local map = require("helpers.map")
 
 map.t({
   -- Center screen for commands
-  c_u = { "<C-u>zz", "Scroll up" },
-  c_d = { "<C-d>zz", "Scroll down" },
+  -- c_u = { "<C-u>zz", "Scroll up" },
+  -- c_d = { "<C-d>zz", "Scroll down" },
   n = { "nzz", "Next search result" },
   N = { "Nzz", "Previous search result" },
   ["*"] = { "*zz", "Search next" },

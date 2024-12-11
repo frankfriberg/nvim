@@ -1,5 +1,4 @@
 return {
-
   "folke/snacks.nvim",
   priority = 1000,
   lazy = false,
@@ -35,6 +34,29 @@ return {
         require("snacks").bufdelete.other()
       end,
       desc = "Delete Other Buffers",
+    },
+  },
+  opts = {
+    indent = {
+      enabled = true,
+      indent = {
+        char = "▏",
+      },
+      scope = {
+        animate = {
+          enabled = false,
+        },
+        char = "▏",
+      },
+    },
+    scroll = {
+      enabled = true,
+      animate = {
+        duration = {
+          total = 100,
+        },
+        easing = "inExpo",
+      },
     },
   },
 }
