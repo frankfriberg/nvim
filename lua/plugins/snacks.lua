@@ -38,14 +38,14 @@ return {
   },
   opts = {
     indent = {
+      animate = {
+        enabled = false,
+      },
       enabled = true,
       indent = {
         char = "▏",
       },
       scope = {
-        animate = {
-          enabled = false,
-        },
         char = "▏",
       },
     },
