@@ -39,6 +39,7 @@ return {
           TelescopePreviewTitle = { fg = "rose", bg = float_bg },
           TelescopePreviewBorder = { fg = "rose", bg = float_bg },
           Pmenu = { bg = float_bg },
+          BlinkCmpLabelDescription = { fg = "gold" },
         },
       })
 
