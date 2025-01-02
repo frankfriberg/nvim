@@ -24,6 +24,9 @@ return {
           winblend = vim.o.winblend,
         },
       },
+      list = {
+        max_items = 30,
+      },
       menu = {
         min_width = 30,
         border = vim.g.border,
