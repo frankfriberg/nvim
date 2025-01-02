@@ -1,5 +1,3 @@
-local borders = require("helpers.icons").borders
-
 return {
   "stevearc/oil.nvim",
   keys = { {
