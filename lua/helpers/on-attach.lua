@@ -1,16 +1,13 @@
 return function(event)
   local map = require("helpers.map")
 
-  local telescope_ok, builtin = pcall(require, "telescope.builtin")
+  local fzf_ok, fzf = pcall(require, "fzf-lua")
 
-  if telescope_ok then
+  if fzf_ok then
     map.t({
-      gd = { builtin.lsp_definitions, "[G]oto [D]efinition" },
-      gr = { builtin.lsp_references, "[G]oto [R]eferences" },
-      gI = { builtin.lsp_implementations, "[G]oto [I]mplementation" },
-      l_D = { builtin.lsp_type_definitions, "Type [D]efinition" },
-      l_ds = { builtin.lsp_document_symbols, "[D]ocument [S]ymbols" },
-      l_ws = { builtin.lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols" },
+      gd = { fzf.lsp_definitions, "[G]oto [D]efinition" },
+      gr = { fzf.lsp_references, "[G]oto [R]eferences" },
+      gI = { fzf.lsp_implementations, "[G]oto [I]mplementation" },
     })
   end
 

@@ -32,14 +32,7 @@ return {
           StatusLineNC = { bg = "none" },
           StatusLineTerm = { bg = "none" },
           StatusLineTermNC = { bg = "none" },
-          TelescopePromptBorder = { fg = "foam", bg = float_bg },
-          TelescopePromptTitle = { fg = "foam", bg = float_bg },
-          TelescopeResultsBorder = { fg = "iris", bg = float_bg },
-          TelescopeResultsTitle = { fg = "iris", bg = float_bg },
-          TelescopePreviewTitle = { fg = "rose", bg = float_bg },
-          TelescopePreviewBorder = { fg = "rose", bg = float_bg },
           Pmenu = { bg = float_bg },
-          BlinkCmpLabelDescription = { fg = "gold" },
         },
       })
 

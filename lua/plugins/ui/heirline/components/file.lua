@@ -15,7 +15,6 @@ local function is_excluded()
 end
 
 local excluded_icons = {
-  TelescopePrompt = "",
   NeogitStatus = "",
   minifiles = "󰉋",
 }

@@ -33,7 +33,7 @@ return {
     integrations = {
       diffview = true,
       telescope = false,
-      fzf_lua = false,
+      fzf_lua = true,
     },
     commit_editor = {
       staged_diff_split_kind = "vsplit",
