@@ -17,7 +17,6 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
-      local float_bg = "surface"
       require("rose-pine").setup({
         dark_variant = "moon",
         enable = {
@@ -25,14 +24,14 @@ return {
           migrations = false,
         },
         highlight_groups = {
-          NormalFloat = { bg = float_bg },
+          NormalFloat = { link = "Normal" },
           FloatBorder = { fg = "text" },
           Cursorline = { bg = "pine", blend = 10 },
           StatusLine = { bg = "none" },
           StatusLineNC = { bg = "none" },
           StatusLineTerm = { bg = "none" },
           StatusLineTermNC = { bg = "none" },
-          Pmenu = { bg = float_bg },
+          Pmenu = { link = "Normal" },
         },
       })
 
