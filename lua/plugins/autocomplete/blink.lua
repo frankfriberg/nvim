@@ -30,6 +30,9 @@ return {
         },
         list = {
           max_items = 30,
+          selection = {
+            preselect = false,
+          },
         },
         menu = {
           min_width = 30,
