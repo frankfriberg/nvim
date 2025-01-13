@@ -56,6 +56,7 @@ return {
       files = {
         previewer = false,
         cwd_prompt = false,
+        git_icons = false,
       },
       buffers = {
         previewer = false,
