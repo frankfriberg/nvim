@@ -5,8 +5,18 @@ return function(event)
 
   if fzf_ok then
     map.t({
-      gd = { fzf.lsp_definitions, "[G]oto [D]efinition" },
-      gr = { fzf.lsp_references, "[G]oto [R]eferences" },
+      gd = {
+        function()
+          fzf.lsp_definitions({ jump_to_single_result = true })
+        end,
+        "[G]oto [D]efinition",
+      },
+      gr = {
+        function()
+          fzf.lsp_references({ jump_to_single_result = true, ignore_current_line = true })
+        end,
+        "[G]oto [R]eferences",
+      },
       gI = { fzf.lsp_implementations, "[G]oto [I]mplementation" },
     })
   end
