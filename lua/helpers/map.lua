@@ -1,6 +1,20 @@
 local M = {}
 
-local keymap = function(mode, key, func, desc, opts)
+local exists = function(key, mode)
+  local exists = (vim.fn.maparg(key, mode) ~= "")
+
+  if exists then
+    return true
+  else
+    return false
+  end
+end
+
+local keymap = function(mode, key, func, desc, overwrite, opts)
+  if overwrite == false and exists(key, mode) then
+    return nil
+  end
+
   local options = { desc = desc, silent = true, noremap = true }
   if opts then
     options = vim.tbl_extend("force", options, opts)
@@ -68,31 +82,22 @@ local shortcut = function(key)
   return key
 end
 
-M.t = function(input, prefix)
-  local mode = "n"
-  local options = nil
+M.t = function(inputTable)
+  local mode = inputTable.mode or "n"
+  local options = inputTable.options or inputTable.opts or nil
 
-  prefix = prefix or ""
-
-  if input.mode then
-    mode = input.mode
+  if inputTable.group then
+    local groupKey, groupDesc, groupIcon, groupColor = unpack(inputTable.group)
+    M.group(mode, groupKey, groupDesc, groupIcon, groupColor)
   end
 
-  if input.options or input.opts then
-    options = input.options or input.opts
-  end
-
-  if input.group then
-    prefix = (prefix and prefix .. input.group[1]) or ""
-    M.group(mode, input.group[1], input.group[2], input.group[3])
-  end
-
-  for k, v in pairs(input) do
+  for k, v in pairs(inputTable) do
     if k ~= "mode" and k ~= "group" and k ~= "options" and k ~= "opts" then
       if type(v[1]) ~= "string" and type(v[1]) ~= "function" then
-        M.t(v, prefix)
+        M.t(v)
       else
-        keymap(mode, prefix .. shortcut(k), v[1], v[2], options)
+        local callback, desc, overwrite = unpack(v)
+        keymap(mode, shortcut(k), callback, desc, overwrite, options)
       end
     end
   end
