@@ -1,33 +1,16 @@
 return function(event)
   local map = require("helpers.map")
 
-  local fzf_ok, fzf = pcall(require, "fzf-lua")
-
-  if fzf_ok then
-    map.t({
-      gd = {
-        function()
-          fzf.lsp_definitions({ jump_to_single_result = true })
-        end,
-        "[G]oto [D]efinition",
-      },
-      gr = {
-        function()
-          fzf.lsp_references({ jump_to_single_result = true, ignore_current_line = true })
-        end,
-        "[G]oto [R]eferences",
-      },
-      gI = { fzf.lsp_implementations, "[G]oto [I]mplementation" },
-    })
-  end
-
   map.t({
-    gD = { vim.lsp.buf.declaration, "[G]oto [D]eclaration" },
+    gD = { vim.lsp.buf.declaration, "[G]oto [D]eclaration", false },
+    gd = { vim.lsp.buf.definition, "Goto Definition", false },
+    gr = { vim.lsp.buf.references, "Goto References", false },
+    gI = { vim.lsp.buf.implementation, "Goto Implementations", false },
     {
       group = { "<leader>l", "LSP" },
-      k = { vim.lsp.buf.signature_help, "Signature Help" },
-      r = { vim.lsp.buf.rename, "[R]e[n]ame" },
-      c = { vim.lsp.buf.code_action, "[C]ode Action" },
+      k = { vim.lsp.buf.signature_help, "Signature Help", false },
+      r = { vim.lsp.buf.rename, "[R]e[n]ame", false },
+      c = { vim.lsp.buf.code_action, "[C]ode Action", false },
     },
   })
 

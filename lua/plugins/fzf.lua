@@ -8,6 +8,19 @@ return {
     map.t({
       {
         mode = "n",
+        gd = {
+          function()
+            fzf.lsp_definitions({ jump_to_single_result = true })
+          end,
+          "Fzf Definition",
+        },
+        gr = {
+          function()
+            fzf.lsp_references({ jump_to_single_result = true, ignore_current_line = true })
+          end,
+          "Fzf References",
+        },
+        gI = { fzf.lsp_implementations, "Fzf Implementations" },
         ["<leader><tab>"] = {
           function()
             fzf.buffers({ winopts = { height = 0.33 } })
