@@ -85,9 +85,11 @@ end
 M.t = function(inputTable)
   local mode = inputTable.mode or "n"
   local options = inputTable.options or inputTable.opts or nil
+  local groupPrefix = ""
 
   if inputTable.group then
     local groupKey, groupDesc, groupIcon, groupColor = unpack(inputTable.group)
+    groupPrefix = groupKey
     M.group(mode, groupKey, groupDesc, groupIcon, groupColor)
   end
 
@@ -97,7 +99,7 @@ M.t = function(inputTable)
         M.t(v)
       else
         local callback, desc, overwrite = unpack(v)
-        keymap(mode, shortcut(k), callback, desc, overwrite, options)
+        keymap(mode, groupPrefix .. shortcut(k), callback, desc, overwrite, options)
       end
     end
   end
