@@ -1,5 +1,7 @@
 return {
-  "kylechui/nvim-surround",
+  "NStefan002/visual-surround.nvim",
   event = "VeryLazy",
-  config = true,
+  opts = {
+    enable_wrapped_deletion = true,
+  },
 }
