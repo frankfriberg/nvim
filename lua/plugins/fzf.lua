@@ -23,13 +23,13 @@ return {
         gI = { fzf.lsp_implementations, "Fzf Implementations" },
         ["<leader><tab>"] = {
           function()
-            fzf.buffers({ winopts = { height = 0.33 } })
+            fzf.buffers({ winopts = { width = 120 } })
           end,
           "Fzf Buffers",
         },
         c_f = {
           function()
-            fzf.files({ winopts = { height = 0.33 } })
+            fzf.files({ winopts = { width = 120 } })
           end,
           "Fzf Files",
         },
@@ -51,9 +51,10 @@ return {
       winopts = {
         border = vim.g.border,
         backdrop = 100,
-        height = 0.6,
-        width = 0.5,
+        height = 0.5,
+        width = 200,
         row = 0.5,
+        col = 0.5,
         preview = {
           border = vim.g.border,
           horizontal = "right:50%",
@@ -70,6 +71,9 @@ return {
         previewer = false,
         cwd_prompt = false,
         git_icons = false,
+        actions = {
+          ["ctrl-g"] = { actions.toggle_ignore },
+        },
       },
       buffers = {
         previewer = false,
