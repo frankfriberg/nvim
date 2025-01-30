@@ -2,40 +2,35 @@ return {
   "folke/snacks.nvim",
   priority = 1000,
   lazy = false,
-  keys = {
-    {
-      "<leader>qq",
-      function()
-        local bd = require("snacks").bufdelete.delete
-        if vim.bo.modified then
-          local choice = vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
-          if choice == 1 then -- Yes
-            vim.cmd.write()
-            bd()
-          elseif choice == 2 then -- No
-            bd({ 0, true })
-          end
-        else
-          bd()
-        end
-      end,
-      desc = "Delete Buffer",
-    },
-    {
-      "<leader>qa",
-      function()
-        require("snacks").bufdelete.all()
-      end,
-      desc = "Delete All Buffers",
-    },
-    {
-      "<leader>qo",
-      function()
-        require("snacks").bufdelete.other()
-      end,
-      desc = "Delete Other Buffers",
-    },
-  },
+  init = function()
+    local map = require("helpers.map")
+    local snacks = require("snacks")
+
+    map.t({
+      {
+        group = { "<leader>q", "Buffer Delete" },
+        a = { snacks.bufdelete.all, "Delete All Buffers" },
+        o = { snacks.bufdelete.other, "Delete Other Buffers" },
+        q = {
+          function()
+            local bd = snacks.bufdelete.delete
+            if vim.bo.modified then
+              local choice = vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
+              if choice == 1 then -- Yes
+                vim.cmd.write()
+                bd()
+              elseif choice == 2 then -- No
+                bd({ 0, true })
+              end
+            else
+              bd()
+            end
+          end,
+          desc = "Delete Buffer",
+        },
+      },
+    })
+  end,
   opts = {
     indent = {
       animate = {
@@ -57,6 +52,9 @@ return {
         },
         easing = "inExpo",
       },
+    },
+    picker = {
+      enabled = false,
     },
   },
 }
