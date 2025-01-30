@@ -82,10 +82,10 @@ local shortcut = function(key)
   return key
 end
 
-M.t = function(inputTable)
+M.t = function(inputTable, prefix)
   local mode = inputTable.mode or "n"
   local options = inputTable.options or inputTable.opts or nil
-  local groupPrefix = ""
+  local groupPrefix = prefix or ""
 
   if inputTable.group then
     local groupKey, groupDesc, groupIcon, groupColor = unpack(inputTable.group)
@@ -96,7 +96,7 @@ M.t = function(inputTable)
   for k, v in pairs(inputTable) do
     if k ~= "mode" and k ~= "group" and k ~= "options" and k ~= "opts" then
       if type(v[1]) ~= "string" and type(v[1]) ~= "function" then
-        M.t(v)
+        M.t(v, groupPrefix)
       else
         local callback, desc, overwrite = unpack(v)
         keymap(mode, groupPrefix .. shortcut(k), callback, desc, overwrite, options)
