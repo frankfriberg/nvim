@@ -24,6 +24,13 @@ return {
       local blink_ok, blink = pcall(require, "blink.cmp")
       local on_attach = require("helpers.on-attach")
 
+      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+        border = vim.g.border,
+      })
+      vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+        border = vim.g.border,
+      })
+
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
         callback = on_attach,
@@ -44,7 +51,7 @@ return {
 
       require("mason").setup({
         ui = {
-          border = vim.g.boder,
+          border = vim.g.border,
         },
       })
 
