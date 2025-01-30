@@ -23,15 +23,17 @@ return {
           legacy_highlights = false,
           migrations = false,
         },
+        groups = {
+          border = "text",
+          panel = "base",
+        },
         highlight_groups = {
-          NormalFloat = { link = "Normal" },
-          FloatBorder = { fg = "text" },
+          FloatBorder = { link = "Normal" },
+          WhichKeyBorder = { link = "FloatBorder" },
           Cursorline = { bg = "pine", blend = 10 },
-          StatusLine = { bg = "none" },
-          StatusLineNC = { bg = "none" },
-          StatusLineTerm = { bg = "none" },
-          StatusLineTermNC = { bg = "none" },
           Pmenu = { link = "Normal" },
+          CurSearch = { fg = "base", bg = "love", inherit = false },
+          Search = { fg = "text", bg = "love", blend = 40, inherit = false },
         },
       })
 
