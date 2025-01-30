@@ -2,7 +2,8 @@
 return {
   "saghen/blink.cmp",
   lazy = false,
-  build = "cargo build --release",
+  -- build = "cargo build --release",
+  version = "*",
   dependencies = {
     "rafamadriz/friendly-snippets",
     "xzbdmw/colorful-menu.nvim",
