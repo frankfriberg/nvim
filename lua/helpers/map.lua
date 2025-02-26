@@ -10,7 +10,7 @@ local exists = function(key, mode)
   end
 end
 
-local keymap = function(mode, key, func, desc, overwrite, opts)
+local keymap = function(mode, key, func, desc, opts, overwrite)
   if overwrite == false and exists(key, mode) then
     return nil
   end
@@ -22,20 +22,20 @@ local keymap = function(mode, key, func, desc, overwrite, opts)
   return vim.keymap.set(mode, key, func, options)
 end
 
-M.n = function(key, func, desc, opts)
-  return keymap("n", key, func, desc, opts)
+M.n = function(key, func, desc, opts, overwrite)
+  return keymap("n", key, func, desc, opts, overwrite)
 end
 
-M.v = function(key, func, desc, opts)
-  return keymap("v", key, func, desc, opts)
+M.v = function(key, func, desc, opts, overwrite)
+  return keymap("v", key, func, desc, opts, overwrite)
 end
 
-M.i = function(key, func, desc, opts)
-  return keymap("i", key, func, desc, opts)
+M.i = function(key, func, desc, opts, overwrite)
+  return keymap("i", key, func, desc, opts, overwrite)
 end
 
-M.nv = function(key, func, desc, opts)
-  return keymap({ "n", "v" }, key, func, desc, opts)
+M.nv = function(key, func, desc, opts, overwrite)
+  return keymap({ "n", "v" }, key, func, desc, opts, overwrite)
 end
 
 M.group = function(mode, key, desc, icon, color)
@@ -99,7 +99,7 @@ M.t = function(inputTable, prefix)
         M.t(v, groupPrefix)
       else
         local callback, desc, overwrite = unpack(v)
-        keymap(mode, groupPrefix .. shortcut(k), callback, desc, overwrite, options)
+        keymap(mode, groupPrefix .. shortcut(k), callback, desc, options, overwrite)
       end
     end
   end
