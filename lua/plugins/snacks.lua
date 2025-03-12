@@ -32,6 +32,18 @@ return {
     })
   end,
   opts = {
+    lazygit = {
+      enabled = true,
+      win = {
+        backdrop = false,
+        border = "rounded",
+        title = " LazyGit ",
+        title_pos = "center",
+        bo = {
+          filetype = "snacks_lazygit",
+        },
+      },
+    },
     indent = {
       animate = {
         enabled = false,
