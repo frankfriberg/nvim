@@ -22,6 +22,8 @@ map.t({
     s_tab = { "<gv", "Unindent text" },
     p = { '"_dP', "Paste over selected" },
   },
+  c_j = { "<C-n>", "Next menu item" },
+  c_k = { "<C-p>", "Previous menu item" },
 })
 
 map.group("n", "<leader>")
