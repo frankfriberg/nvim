@@ -5,18 +5,24 @@ return {
     local map = require("helpers.map")
     local fzf = require("fzf-lua")
 
+    require("fzf-lua").register_ui_select(function(_, items)
+      local min_h, max_h = 0.15, 0.70
+      local h = (#items + 4) / vim.o.lines
+      if h < min_h then
+        h = min_h
+      elseif h > max_h then
+        h = max_h
+      end
+      return { winopts = { height = h, width = 0.60, row = 0.40 } }
+    end)
+
     map.t({
       {
         mode = "n",
-        gd = {
-          function()
-            fzf.lsp_definitions({ jump_to_single_result = true })
-          end,
-          "Fzf Definition",
-        },
+        gd = { fzf.lsp_definitions, "Fzf Definition" },
         gr = {
           function()
-            fzf.lsp_references({ jump_to_single_result = true, ignore_current_line = true })
+            fzf.lsp_references({ ignore_current_line = true })
           end,
           "Fzf References",
         },
@@ -59,10 +65,6 @@ return {
           border = vim.g.border,
           horizontal = "right:50%",
         },
-        on_create = function()
-          vim.keymap.set("t", "<Tab>", "<Down>", { silent = true, buffer = true })
-          vim.keymap.set("t", "<S-Tab>", "<Up>", { silent = true, buffer = true })
-        end,
       },
       defaults = {
         formatter = "path.dirname_first",
