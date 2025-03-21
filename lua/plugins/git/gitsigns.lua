@@ -3,6 +3,8 @@ return {
   event = "BufEnter",
   opts = {
     attach_to_untracked = false,
+    signcolumn = false,
+    numhl = true,
     on_attach = function()
       local gs = package.loaded.gitsigns
       local map = require("helpers.map")

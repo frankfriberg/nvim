@@ -18,9 +18,14 @@ vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir" -- Directory for undo fil
 vim.opt.updatetime = 500 -- Time before CursorHold autocommands are triggered
 vim.opt.timeout = true -- Enable timeout of mappings
 vim.opt.timeoutlen = 300 -- Time to wait for a mapped sequence to complete
-vim.opt.signcolumn = "yes" -- Always show sign column
+vim.opt.relativenumber = true -- Show relative line numbers
+vim.opt.number = true -- Show line numbers
+vim.opt.signcolumn = "no"
+vim.opt.statuscolumn = "%{v:relnum?v:relnum:v:lnum}" -- Always show sign column
 vim.opt.fillchars:append(",eob: ") -- Hide ~ from window
 vim.opt.breakindent = true -- Break line at indent
-vim.opt.smartcase = true
+vim.opt.ignorecase = true -- Case-insensitive search
+vim.opt.smartcase = true -- Case-sensitive if search contains uppercase
 vim.opt.winblend = 5 -- Blend background of windows
 vim.opt.pumblend = 5 -- Blend background of pumenu
+vim.opt.diffopt = "internal,filler,closeoff,indent-heuristic,linematch:60,algorithm:histogram" -- Diff options
