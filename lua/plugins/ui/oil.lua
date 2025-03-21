@@ -41,8 +41,12 @@ return {
   dependencies = { { "echasnovski/mini.icons", opts = {} } },
   opts = {
     keymaps = {
-      ["q"] = "actions.close",
-      ["<BS>"] = "actions.parent",
+      ["q"] = { "actions.close", mode = "n" },
+      ["<ESC>"] = { "actions.close", mode = "n" },
+      ["<BS>"] = { "actions.parent", mode = "n" },
+      ["<C-g>"] = { "actions.toggle_hidden", mode = "n" },
+      ["<C-v>"] = { "actions.select", opts = { vertical = true } },
+      ["<C-s>"] = { "actions.select", opts = { horizontal = true } },
     },
     skip_confirm_for_simple_edits = true,
     delete_to_trash = true,
