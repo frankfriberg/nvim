@@ -1,4 +1,10 @@
 return {
   "frankfriberg/notif.nvim",
-  config = true,
+  opts = {
+    win_options = {
+      margin = {
+        bottom = 1,
+      },
+    },
+  },
 }
