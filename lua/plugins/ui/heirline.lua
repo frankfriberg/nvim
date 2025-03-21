@@ -48,6 +48,7 @@ return {
               "NeogitRebaseTodo",
               "oil",
               "fzf",
+              "snacks_lazygit",
             },
           }, args.buf)
         end,

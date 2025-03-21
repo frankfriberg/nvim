@@ -52,28 +52,30 @@ return {
       end,
     })
 
-    autocmd("User", {
-      pattern = "NeogitStatusRefreshed",
+    vim.api.nvim_create_autocmd("BufWritePost", {
+      pattern = ".git/HEAD",
       callback = function()
-        resession.save(get_session_name(), { dir = "dirsession", notify = false })
+        -- Your action here
+        vim.notify("Git branch changed!")
+        -- You can also call any Neovim commands or functions here
       end,
     })
 
-    autocmd({ "User" }, {
-      pattern = { "NeogitBranchCheckout", "NeogitBranchCreate" },
-      callback = function(ctx)
-        local neogit = require("neogit")
-        local name = vim.fn.getcwd()
-        local session_name = name .. ctx.data.branch_name
+    autocmd("User", {
+      pattern = "LazyGitBranchChanged",
+      callback = function(event)
+        vim.notify("Loading session for " .. event.data.new_branch, vim.log.levels.INFO, {
+          title = "resession.nvim",
+        })
+
+        local name = get_session_name()
+        local session_name = name .. event.data.new_branch
         local session_file = require("resession.util").get_session_file(session_name, "dirsession")
         local session_data = require("resession.files").load_json_file(session_file)
 
         if session_data then
           resession.load(session_name, { dir = "dirsession", silence_errors = true })
         else
-          if neogit.status.is_open() then
-            neogit.close()
-          end
           local scratch = vim.api.nvim_create_buf(false, true)
           vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = scratch })
           vim.api.nvim_win_set_buf(0, scratch)

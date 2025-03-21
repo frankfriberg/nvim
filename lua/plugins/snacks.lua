@@ -26,7 +26,15 @@ return {
               bd()
             end
           end,
-          desc = "Delete Buffer",
+          "Delete Buffer",
+        },
+      },
+      {
+        l_gg = {
+          function()
+            snacks.lazygit()
+          end,
+          "LazyGit",
         },
       },
     })
@@ -44,6 +52,7 @@ return {
         },
       },
     },
+    scope = { enabled = true },
     indent = {
       animate = {
         enabled = false,
@@ -55,18 +64,6 @@ return {
       scope = {
         char = "▏",
       },
-    },
-    scroll = {
-      enabled = true,
-      animate = {
-        duration = {
-          total = 100,
-        },
-        easing = "inExpo",
-      },
-    },
-    picker = {
-      enabled = false,
     },
   },
 }
