@@ -114,3 +114,11 @@ autocmd({ "VimResized" }, {
   desc = "Balance windows when vim is resized",
   command = "wincmd =",
 })
+
+local group = api.nvim_create_augroup("GitBranchMonitor", { clear = true })
+
+autocmd("TermLeave", {
+  group = group,
+  callback = git.changed,
+  desc = "Check if git branch changed when leaving terminal",
+})
