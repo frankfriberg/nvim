@@ -27,26 +27,26 @@ return {
           "Fzf References",
         },
         gI = { fzf.lsp_implementations, "Fzf Implementations" },
-        ["<leader><tab>"] = {
+        fe = {
           function()
             fzf.buffers({ winopts = { width = 120 } })
           end,
           "Fzf Buffers",
         },
-        c_f = {
+        ff = {
           function()
             fzf.files({ winopts = { width = 120 } })
           end,
           "Fzf Files",
         },
-        c_g = { fzf.live_grep_native, "Fzf Live Grep" },
-        c_p = { fzf.resume, "Fzf Resume" },
-        c_c = { fzf.grep_cword, "Fzf Grep cursor" },
-        c_q = { fzf.quickfix, "Fzf Quickfix" },
+        fg = { fzf.live_grep_native, "Fzf Live Grep" },
+        fp = { fzf.resume, "Fzf Resume" },
+        fc = { fzf.grep_cword, "Fzf Grep cursor" },
+        fs = { fzf.lgrep_curbuf, "Fzf Current Buffer" },
       },
       {
         mode = "v",
-        c_c = { fzf.grep_visual, "Fzf Grep cursor" },
+        fc = { fzf.grep_visual, "Fzf Grep cursor" },
       },
     })
   end,
