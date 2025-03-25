@@ -1,5 +1,5 @@
 local M = {}
-M.last_branch = nil
+local last_branch = nil
 
 M.is_rebase = function()
   local git_dir = vim.fn.systemlist("git rev-parse --git-dir")[1]
@@ -8,9 +8,10 @@ M.is_rebase = function()
 end
 
 M.get_current_branch = function()
-  local branch = vim.trim(vim.fn.system("git branch --show-current"))
+  local result =
+    vim.fn.systemlist("git symbolic-ref --short HEAD 2>/dev/null || git name-rev --name-only --always HEAD")
   if vim.v.shell_error == 0 then
-    return branch
+    return vim.trim(result[1])
   else
     return nil
   end
@@ -43,16 +44,19 @@ end
 M.changed = function()
   local current_branch = M.get_current_branch()
 
-  if current_branch and M.last_branch ~= current_branch then
+  if current_branch and last_branch ~= current_branch then
+    vim.notify("Branch changed to " .. current_branch, vim.log.levels.INFO, { title = "LazyGit" })
     vim.api.nvim_exec_autocmds("User", {
       pattern = "LazyGitBranchChanged",
       data = {
-        old_branch = M.last_branch,
+        old_branch = last_branch,
         new_branch = current_branch,
       },
     })
-    M.last_branch = current_branch
+    last_branch = current_branch
   end
 end
+
+last_branch = M.get_current_branch()
 
 return M
