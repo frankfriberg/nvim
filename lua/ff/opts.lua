@@ -29,3 +29,4 @@ vim.opt.smartcase = true -- Case-sensitive if search contains uppercase
 vim.opt.winblend = 5 -- Blend background of windows
 vim.opt.pumblend = 5 -- Blend background of pumenu
 vim.opt.diffopt = "internal,filler,closeoff,indent-heuristic,linematch:60,algorithm:histogram" -- Diff options
+vim.opt.splitright = true -- Split windows to the right
