@@ -1,3 +1,4 @@
+local git = require("helpers.git")
 return {
   "stevearc/resession.nvim",
   config = function()
@@ -29,12 +30,32 @@ return {
 
     local function get_session_name()
       local name = vim.fn.getcwd()
-      local branch = vim.trim(vim.fn.system("git branch --show-current"))
+      local branch = git.get_current_branch()
       if vim.v.shell_error == 0 then
         return name .. branch
       else
         return name
       end
+    end
+
+    local function close_everything()
+      local is_floating_win = vim.api.nvim_win_get_config(0).relative ~= ""
+      if is_floating_win then
+        -- Go to the first window, which will not be floating
+        vim.cmd.wincmd({ args = { "w" }, count = 1 })
+      end
+
+      local scratch = vim.api.nvim_create_buf(false, true)
+      vim.bo[scratch].bufhidden = "wipe"
+      vim.api.nvim_win_set_buf(0, scratch)
+      vim.bo[scratch].buftype = ""
+      for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+        if vim.bo[bufnr].buflisted then
+          vim.api.nvim_buf_delete(bufnr, { force = true })
+        end
+      end
+      vim.cmd.tabonly({ mods = { emsg_silent = true } })
+      vim.cmd.only({ mods = { emsg_silent = true } })
     end
 
     autocmd("VimEnter", {
@@ -76,15 +97,7 @@ return {
         if session_data then
           resession.load(session_name, { dir = "dirsession", silence_errors = true })
         else
-          local scratch = vim.api.nvim_create_buf(false, true)
-          vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = scratch })
-          vim.api.nvim_win_set_buf(0, scratch)
-          vim.api.nvim_set_option_value("buftype", "", { buf = scratch })
-          for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-            if vim.bo[bufnr].buflisted then
-              vim.api.nvim_buf_delete(bufnr, { force = true })
-            end
-          end
+          close_everything()
 
           resession.save(session_name, { dir = "dirsession", notify = false })
         end
