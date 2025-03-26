@@ -45,7 +45,6 @@ M.changed = function()
   local current_branch = M.get_current_branch()
 
   if current_branch and last_branch ~= current_branch then
-    vim.notify("Branch changed to " .. current_branch, vim.log.levels.INFO, { title = "LazyGit" })
     vim.api.nvim_exec_autocmds("User", {
       pattern = "LazyGitBranchChanged",
       data = {
