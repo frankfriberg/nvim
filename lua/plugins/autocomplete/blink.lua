@@ -73,7 +73,8 @@ return {
           auto_show = true,
           auto_show_delay_ms = 0,
           window = {
-            border = vim.g.border,
+            ---@diagnostic disable-next-line: assign-type-mismatch
+            border = vim.o.winborder,
             winblend = vim.o.winblend,
           },
         },
@@ -87,7 +88,8 @@ return {
         },
         menu = {
           min_width = 30,
-          border = vim.g.border,
+          ---@diagnostic disable-next-line: assign-type-mismatch
+          border = vim.o.winborder,
           winblend = vim.o.winblend,
           draw = {
             columns = { { "kind_icon" }, { "label", gap = 1 } },
@@ -103,7 +105,8 @@ return {
       signature = {
         enabled = true,
         window = {
-          border = vim.g.border,
+          ---@diagnostic disable-next-line: assign-type-mismatch
+          border = vim.o.winborder,
           winblend = vim.o.winblend,
         },
       },

@@ -1,5 +1,4 @@
 vim.g.mapleader = " "
-vim.g.border = "rounded"
 
 vim.opt.clipboard = "unnamedplus" -- Use system clipboard
 vim.opt.showmode = false -- Don't show mode
@@ -30,3 +29,4 @@ vim.opt.winblend = 5 -- Blend background of windows
 vim.opt.pumblend = 5 -- Blend background of pumenu
 vim.opt.diffopt = "internal,filler,closeoff,indent-heuristic,linematch:60,algorithm:histogram" -- Diff options
 vim.opt.splitright = true -- Split windows to the right
+vim.opt.winborder = "rounded"

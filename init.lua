@@ -22,7 +22,7 @@ require("lazy").setup({
     { import = "plugins" },
   },
   ui = {
-    border = vim.g.border,
+    border = vim.o.winborder,
     backdrop = 100,
     title = " Lazy ",
     pills = false,

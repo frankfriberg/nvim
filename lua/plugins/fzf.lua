@@ -55,14 +55,14 @@ return {
 
     return {
       winopts = {
-        border = vim.g.border,
+        border = vim.o.winborder,
         backdrop = 100,
         height = 0.5,
         width = 200,
         row = 0.5,
         col = 0.5,
         preview = {
-          border = vim.g.border,
+          border = vim.o.winborder,
           horizontal = "right:50%",
         },
       },
