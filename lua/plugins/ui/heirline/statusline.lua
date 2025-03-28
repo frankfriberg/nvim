@@ -37,6 +37,7 @@ return {
   Git,
   Universal.Align,
   hl = {
+    bg = "bg",
     fg = "fg",
   },
 }
