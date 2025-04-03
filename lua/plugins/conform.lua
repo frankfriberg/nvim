@@ -10,6 +10,8 @@ return {
       typescriptreact = js_formatters,
       json = { "prettierd", "biome-check", "jsonfix" },
       lua = { "stylua" },
+      sh = { "shfmt" },
+      [".conf"] = { "shfmt" },
     },
     format_on_save = {
       timeout_ms = 500,
