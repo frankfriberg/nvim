@@ -34,7 +34,9 @@ return {
           Pmenu = { link = "Normal" },
           CurSearch = { fg = "base", bg = "love", inherit = false },
           Search = { fg = "text", bg = "love", blend = 40, inherit = false },
-          Visual = { underline = true },
+          Visual = { bg = "rose", blend = 30 },
+          WinSeparator = { fg = "overlay" },
+          VertSplit = { fg = "overlay" },
         },
       })
 
