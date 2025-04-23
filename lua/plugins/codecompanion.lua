@@ -31,6 +31,7 @@ return {
     },
   },
   init = function()
+    require("helpers.spinner"):init()
   end,
   opts = {
     adapters = {
@@ -47,9 +48,25 @@ return {
     strategies = {
       chat = {
         adapter = "copilot",
+        keymaps = {
+          send = {
+            callback = function(chat)
+              vim.cmd("stopinsert")
+              chat:add_buf_message({ role = "llm", content = "" })
+              chat:submit()
+            end,
+            index = 1,
+            description = "Send",
+          },
+        },
       },
       inline = {
         adapter = "copilot",
+      },
+    },
+    display = {
+      diff = {
+        provider = "mini_diff",
       },
     },
   },
