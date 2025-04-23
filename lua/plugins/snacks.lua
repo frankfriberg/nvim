@@ -70,13 +70,6 @@ return {
       animate = {
         enabled = false,
       },
-      enabled = true,
-      indent = {
-        char = "▏",
-      },
-      scope = {
-        char = "▏",
-      },
     },
   },
 }
