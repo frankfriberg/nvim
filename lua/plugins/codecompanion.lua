@@ -5,27 +5,32 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
   },
+  keys = {
+    {
+      "<leader>cc",
+      "<cmd>CodeCompanionChat Toggle<cr>",
+      desc = "Toggle Chat",
+    },
+    { "<leader>ca", "<cmd>CodeCompanionActions<cr>", desc = "Actions" },
+    {
+      "<leader>cb",
+      ":CodeCompanion #buffer ",
+      desc = "Inline buffer command",
+    },
+    {
+      mode = { "v" },
+      "<leader>ci",
+      ":CodeCompanion ",
+      desc = "Inline command",
+    },
+    {
+      mode = { "v" },
+      "<leader>ca",
+      "<cmd>CodeCompanionChat Add<cr>",
+      desc = "Add to chat",
+    },
+  },
   init = function()
-    local map = require("helpers.map")
-
-    map.t({
-      group = { "<leader>c", "Code Companion" },
-      c = { "<cmd>CodeCompanionChat Toggle<cr>", "Toggle Chat" },
-      a = { "<cmd>CodeCompanionActions<cr>", "Actions" },
-      v = { "<cmd>CodeCompanionChat Add<cr>", "Add to chat" },
-      i = {
-        function()
-          vim.ui.input({ prompt = "Enter a message: ", relative = "cursor" }, function(input)
-            if not input then
-              return
-            end
-
-            vim.cmd("CodeCompanion " .. input)
-          end)
-        end,
-        "Inline command",
-      },
-    })
   end,
   opts = {
     adapters = {
