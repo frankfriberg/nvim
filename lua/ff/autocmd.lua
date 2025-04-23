@@ -55,10 +55,6 @@ autocmd("FileType", {
     "startuptime",
     "qf",
     "lspinfo",
-    "fugitive",
-    "fugitiveblame",
-    "neotest-summary",
-    "neotest-console",
   },
   callback = function()
     map.n("q", function()
@@ -101,4 +97,13 @@ autocmd({ "WinEnter", "VimEnter" }, {
 autocmd({ "VimResized" }, {
   desc = "Balance windows when vim is resized",
   command = "wincmd =",
+})
+
+autocmd("FileType", {
+  pattern = { "oil", "help", "markdown", "no-neck-pain", "codecompanion" },
+  callback = function()
+    local winid = vim.api.nvim_get_current_win()
+    vim.wo[winid][0].statuscolumn = ""
+    vim.wo[winid][0].winbar = ""
+  end,
 })
