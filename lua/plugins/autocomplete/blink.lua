@@ -22,6 +22,11 @@ return {
           "path",
         },
         providers = {
+          snippets = {
+            opts = {
+              search_paths = { vim.fn.stdpath("config") .. "/snippets" },
+            },
+          },
           copilot = {
             name = "copilot",
             module = "blink-copilot",
