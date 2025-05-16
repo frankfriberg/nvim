@@ -94,7 +94,7 @@ autocmd({ "WinEnter", "VimEnter" }, {
   end,
 })
 
-autocmd({ "VimResized" }, {
+autocmd({ "VimResized", "WinClosed" }, {
   desc = "Balance windows when vim is resized",
   command = "wincmd =",
 })
