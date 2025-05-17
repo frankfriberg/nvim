@@ -19,7 +19,6 @@ return {
     map.t({
       {
         mode = "n",
-        gd = { fzf.lsp_definitions, "Fzf Definition" },
         gr = {
           function()
             fzf.lsp_references({ ignore_current_line = true })
