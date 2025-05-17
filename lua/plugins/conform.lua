@@ -8,7 +8,7 @@ return {
       typescript = js_formatters,
       javascriptreact = js_formatters,
       typescriptreact = js_formatters,
-      json = { "prettierd", "biome-check", "jsonfix" },
+      json = { "prettierd", "biome-check", "fixjson" },
       lua = { "stylua" },
       sh = { "shfmt" },
       [".conf"] = { "shfmt" },
