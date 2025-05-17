@@ -5,6 +5,7 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
   },
+  cmd = "CodeCompanion",
   keys = {
     {
       "<leader>cc",
@@ -22,6 +23,12 @@ return {
       "<leader>ci",
       ":CodeCompanion ",
       desc = "Inline command",
+    },
+    {
+      mode = { "v" },
+      "<leader>cl",
+      ":CodeCompanion /lsp<CR>",
+      desc = "Lsp",
     },
     {
       mode = { "v" },
