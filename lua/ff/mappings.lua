@@ -1,4 +1,5 @@
 local map = require("helpers.map")
+local bufdelete = require("helpers.bufdelete")
 
 map.t({
   -- Center screen for commands
@@ -9,6 +10,12 @@ map.t({
   ["*"] = { "*zz", "Search next" },
   ["#"] = { "#zz", "Search previous" },
   l_w = { ":silent! wa <CR>", "Write all buffer" },
+  l_q = {
+    function()
+      bufdelete.smart_buffer_close()
+    end,
+    "Quit buffer",
+  },
   l_Q = { ":silent! %bd <CR>", "Quit all buffers" },
   U = { "<C-r>", "Redo undo" },
   esc = { ":nohlsearch<Bar>:echo<CR>", "" },
