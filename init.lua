@@ -25,6 +25,7 @@ require("lazy").setup({
     border = vim.o.winborder,
     backdrop = 100,
     title = " Lazy ",
+    size = { width = 0.5, height = 0.7 },
     pills = false,
   },
   change_detection = {
