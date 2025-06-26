@@ -1,7 +1,8 @@
 vim.api.nvim_create_autocmd("BufWritePre", {
   callback = function(args)
-    local client = vim.lsp.get_clients({ name = "eslint" })
-    if not client then
+    local client = vim.lsp.get_clients({ name = "eslint", bufnr = args.buf })
+
+    if next(client) == nil then
       return
     end
 
