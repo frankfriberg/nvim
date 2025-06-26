@@ -4,6 +4,7 @@ return {
   lazy = false,
   version = "*",
   dependencies = {
+    "Kaiser-Yang/blink-cmp-avante",
     "xzbdmw/colorful-menu.nvim",
     "fang2hou/blink-copilot",
   },
@@ -34,6 +35,7 @@ return {
       },
       sources = {
         default = {
+          "avante",
           "lsp",
           "snippets",
           "copilot",
@@ -44,6 +46,10 @@ return {
             opts = {
               search_paths = { vim.fn.stdpath("config") .. "/snippets" },
             },
+          },
+          avante = {
+            name = "avante",
+            module = "blink-cmp-avante",
           },
           copilot = {
             name = "copilot",
