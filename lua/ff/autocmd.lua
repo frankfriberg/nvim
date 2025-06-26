@@ -94,11 +94,6 @@ autocmd({ "WinEnter", "VimEnter" }, {
   end,
 })
 
-autocmd({ "VimResized", "WinClosed" }, {
-  desc = "Balance windows when vim is resized",
-  command = "wincmd =",
-})
-
 autocmd("FileType", {
   pattern = { "oil", "help", "markdown", "no-neck-pain", "codecompanion" },
   callback = function()
