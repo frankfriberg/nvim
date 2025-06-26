@@ -8,14 +8,11 @@ return {
       typescript = js_formatters,
       javascriptreact = js_formatters,
       typescriptreact = js_formatters,
+      css = js_formatters,
       json = { "prettierd", "biome-check", "fixjson" },
       lua = { "stylua" },
       sh = { "shfmt" },
       [".conf"] = { "shfmt" },
-    },
-    format_on_save = {
-      timeout_ms = 500,
-      lsp_fallback = true,
     },
     formatters = {
       ["biome-check"] = {
@@ -26,6 +23,10 @@ return {
           return vim.fs.find("biome.json", { upward = true, path = ctx.dirname })[1] == nil
         end,
       },
+    },
+    format_on_save = {
+      lsp_format = "fallback",
+      timeout_ms = 500,
     },
   },
 }
