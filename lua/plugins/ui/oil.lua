@@ -53,14 +53,17 @@ return {
     lsp_file_method = {
       autosave_changes = true,
     },
+    win_options = {
+      winblend = vim.o.winblend,
+      number = false,
+      relativenumber = false,
+      statuscolumn = " ",
+    },
     float = {
       padding = 2,
       max_width = 80,
       max_height = 40,
       border = vim.o.winborder,
-      win_options = {
-        winblend = vim.o.winblend,
-      },
     },
   },
 }
