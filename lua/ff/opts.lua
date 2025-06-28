@@ -20,7 +20,7 @@ vim.opt.timeoutlen = 300 -- Time to wait for a mapped sequence to complete
 vim.opt.relativenumber = true -- Show relative line numbers
 vim.opt.number = true -- Show line numbers
 vim.opt.signcolumn = "no"
-vim.opt.statuscolumn = "%{v:relnum?v:relnum:v:lnum} " -- Always show sign column
+-- vim.opt.statuscolumn = "%{v:relnum?v:relnum:v:lnum} " -- Always show sign column
 vim.opt.fillchars:append(",eob: ") -- Hide ~ from window
 vim.opt.breakindent = true -- Break line at indent
 vim.opt.ignorecase = true -- Case-insensitive search
