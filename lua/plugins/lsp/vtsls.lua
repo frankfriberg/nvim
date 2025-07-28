@@ -1,5 +1,6 @@
 return {
   "yioneko/nvim-vtsls",
+  ft = { "typescript", "typescriptreact" },
   config = function()
     local map = require("helpers.map")
     local vtsls = require("vtsls")
