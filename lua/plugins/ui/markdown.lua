@@ -1,6 +1,6 @@
 return {
   "MeanderingProgrammer/render-markdown.nvim",
-  ft = { "markdown", "Avante", "mcphub" },
+  ft = { "markdown" },
   opts = {
     render_modes = true,
     sign = {
