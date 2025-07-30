@@ -35,7 +35,6 @@ return {
       },
       sources = {
         default = {
-          "avante",
           "lsp",
           "snippets",
           "copilot",
@@ -46,10 +45,6 @@ return {
             opts = {
               search_paths = { vim.fn.stdpath("config") .. "/snippets" },
             },
-          },
-          avante = {
-            name = "avante",
-            module = "blink-cmp-avante",
           },
           copilot = {
             name = "copilot",
