@@ -1,10 +1,10 @@
 return {
-  "frankfriberg/commands.nvim",
+  "frankfriberg/command.nvim",
   keys = {
     {
       "<leader>cm",
       function()
-        require("commands").show_command_popup()
+        require("command").show_command_popup()
       end,
       desc = "Show command multiplexer",
     },
