@@ -4,7 +4,6 @@ return {
   lazy = false,
   version = "*",
   dependencies = {
-    "Kaiser-Yang/blink-cmp-avante",
     "xzbdmw/colorful-menu.nvim",
     "fang2hou/blink-copilot",
   },
