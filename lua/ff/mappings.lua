@@ -5,10 +5,6 @@ map.t({
   -- Center screen for commands
   -- c_u = { "<C-u>zz", "Scroll up" },
   -- c_d = { "<C-d>zz", "Scroll down" },
-  n = { "nzz", "Next search result" },
-  N = { "Nzz", "Previous search result" },
-  ["*"] = { "*zz", "Search next" },
-  ["#"] = { "#zz", "Search previous" },
   l_w = { ":silent! wa <CR>", "Write all buffer" },
   l_q = {
     function()
