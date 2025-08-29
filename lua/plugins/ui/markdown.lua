@@ -1,6 +1,6 @@
 return {
   "MeanderingProgrammer/render-markdown.nvim",
-  ft = { "markdown" },
+  ft = { "markdown", "codecompanion" },
   opts = {
     render_modes = true,
     sign = {

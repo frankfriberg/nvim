@@ -3,4 +3,5 @@ return {
   { import = "plugins.lsp" },
   { import = "plugins.git" },
   { import = "plugins.autocomplete" },
+  { import = "plugins.ai" },
 }

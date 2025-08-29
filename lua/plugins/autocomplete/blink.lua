@@ -52,6 +52,9 @@ return {
             async = true,
           },
         },
+        per_filetype = {
+          codecompanion = { "codecompanion" },
+        },
       },
       completion = {
         ghost_text = {
