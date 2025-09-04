@@ -35,9 +35,13 @@ return {
       })
 
       require("mason-lspconfig").setup({
-        automatic_enable = true,
+        automatic_enable = {
+          exclude = {
+            "copilot",
+          },
+        },
         ensure_installed = {
-          "copilot_ls",
+          "copilot",
           "vtsls",
           "lua_ls",
           "eslint",
