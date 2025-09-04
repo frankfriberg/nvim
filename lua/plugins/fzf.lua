@@ -1,10 +1,72 @@
 return {
   "ibhagwan/fzf-lua",
   dependencies = { "echasnovski/mini.icons" },
+  keys = require("helpers.map").l({
+    gr = {
+      function()
+        require("fzf-lua").lsp_references({ ignore_current_line = true })
+      end,
+      "Fzf References",
+    },
+    gI = {
+      function()
+        require("fzf-lua").lsp_implementations()
+      end,
+      "Fzf Implementations",
+    },
+    {
+      group = { "<leader>f", "Fzf" },
+      f = {
+        function()
+          require("fzf-lua").global()
+        end,
+        "Global Search",
+      },
+      e = {
+        function()
+          require("fzf-lua").buffers()
+        end,
+        "Buffers",
+      },
+      g = {
+        function()
+          require("fzf-lua").live_grep_native()
+        end,
+        "Live Grep",
+      },
+      r = {
+        function()
+          require("fzf-lua").resume()
+        end,
+        "Resume",
+      },
+      c = {
+        function()
+          require("fzf-lua").grep_cword()
+        end,
+        "Grep cursor",
+      },
+      s = {
+        function()
+          require("fzf-lua").lgrep_curbuf()
+        end,
+        "Current Buffer",
+      },
+      d = {
+        function()
+          require("fzf-lua").diagnostics_document()
+        end,
+        "Buffer Diagnostics",
+      },
+      w = {
+        function()
+          require("fzf-lua").diagnostics_workspace()
+        end,
+        "Workspace Diagnostics",
+      },
+    },
+  }),
   init = function()
-    local map = require("helpers.map")
-    local fzf = require("fzf-lua")
-
     require("fzf-lua").register_ui_select(function(_, items)
       local min_h, max_h = 0.15, 0.70
       local h = (#items + 4) / vim.o.lines
@@ -15,44 +77,12 @@ return {
       end
       return { winopts = { height = h, width = 0.60, row = 0.40 } }
     end)
-
-    map.t({
-      {
-        mode = "n",
-        gr = {
-          function()
-            fzf.lsp_references({ ignore_current_line = true })
-          end,
-          "Fzf References",
-        },
-        gI = { fzf.lsp_implementations, "Fzf Implementations" },
-        fe = {
-          function()
-            fzf.buffers({ winopts = { width = 120 } })
-          end,
-          "Fzf Buffers",
-        },
-        ff = {
-          function()
-            fzf.files({ winopts = { width = 120 } })
-          end,
-          "Fzf Files",
-        },
-        fg = { fzf.live_grep_native, "Fzf Live Grep" },
-        fp = { fzf.resume, "Fzf Resume" },
-        fc = { fzf.grep_cword, "Fzf Grep cursor" },
-        fs = { fzf.lgrep_curbuf, "Fzf Current Buffer" },
-      },
-      {
-        mode = "v",
-        fc = { fzf.grep_visual, "Fzf Grep cursor" },
-      },
-    })
   end,
   opts = function()
     local actions = require("fzf-lua").actions
 
     return {
+      "hide",
       winopts = {
         border = vim.o.winborder,
         backdrop = 100,
@@ -68,6 +98,12 @@ return {
       defaults = {
         formatter = "path.dirname_first",
       },
+      global = {
+        cwd_prompt = false,
+        actions = {
+          ["ctrl-g"] = { actions.toggle_ignore },
+        },
+      },
       files = {
         previewer = false,
         cwd_prompt = false,
@@ -75,12 +111,18 @@ return {
         actions = {
           ["ctrl-g"] = { actions.toggle_ignore },
         },
+        winopts = {
+          width = 50,
+        },
       },
       buffers = {
         previewer = false,
         actions = {
           ["ctrl-x"] = false,
           ["ctrl-d"] = { actions.buf_del, actions.resume },
+        },
+        winopts = {
+          width = 120,
         },
       },
       fzf_colors = {
