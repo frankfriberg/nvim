@@ -82,8 +82,9 @@ local shortcut = function(key)
   return key
 end
 
-M.t = function(inputTable, prefix)
-  local mode = inputTable.mode or "n"
+M.loop = function(inputTable, prefix, keyTable, parentMode)
+  local keys = keyTable or {}
+  local mode = inputTable.mode or parentMode or "n"
   local options = inputTable.options or inputTable.opts or nil
   local groupPrefix = prefix or ""
 
@@ -96,13 +97,48 @@ M.t = function(inputTable, prefix)
   for k, v in pairs(inputTable) do
     if k ~= "mode" and k ~= "group" and k ~= "options" and k ~= "opts" then
       if type(v[1]) ~= "string" and type(v[1]) ~= "function" then
-        M.t(v, groupPrefix)
+        local nestedTable = M.loop(v, groupPrefix, keys, mode)
+        if nestedTable then
+          keys = vim.list_extend(keys, nestedTable)
+        end
       else
         local callback, desc, overwrite = unpack(v)
-        keymap(mode, groupPrefix .. shortcut(k), callback, desc, options, overwrite)
+        table.insert(keys, {
+          key = groupPrefix .. shortcut(k),
+          callback = callback,
+          desc = desc,
+          mode = mode,
+          options = options,
+          overwrite = overwrite,
+        })
       end
     end
   end
+
+  return keys
+end
+
+M.t = function(inputTable, prefix)
+  local keys = M.loop(inputTable, prefix)
+
+  for _, keyData in ipairs(keys) do
+    keymap(keyData.mode, keyData.key, keyData.callback, keyData.desc, keyData.options, keyData.overwrite)
+  end
+end
+
+M.l = function(inputTable, prefix)
+  local keys = M.loop(inputTable, prefix)
+  local lazyTable = {}
+  for _, keyData in ipairs(keys) do
+    table.insert(lazyTable, {
+      keyData.key,
+      keyData.callback,
+      desc = keyData.desc,
+      mode = keyData.mode,
+    })
+  end
+
+  return lazyTable
 end
 
 return M
