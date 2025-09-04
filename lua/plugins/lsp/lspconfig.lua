@@ -37,7 +37,7 @@ return {
       require("mason-lspconfig").setup({
         automatic_enable = true,
         ensure_installed = {
-          "copilot_ls",
+          "copilot",
           "vtsls",
           "lua_ls",
           "eslint",
