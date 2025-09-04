@@ -15,13 +15,6 @@ return {
         preset = "super-tab",
         ["<Tab>"] = {
           function(cmp)
-            if vim.b[vim.api.nvim_get_current_buf()].nes_state then
-              cmp.hide()
-              return (
-                require("copilot-lsp.nes").apply_pending_nes()
-                and require("copilot-lsp.nes").walk_cursor_end_edit()
-              )
-            end
             if cmp.snippet_active() then
               return cmp.accept()
             else
@@ -64,8 +57,6 @@ return {
           auto_show = true,
           auto_show_delay_ms = 0,
           window = {
-            ---@diagnostic disable-next-line: assign-type-mismatch
-            border = vim.o.winborder,
             winblend = vim.o.winblend,
           },
         },
@@ -79,8 +70,6 @@ return {
         },
         menu = {
           min_width = 30,
-          ---@diagnostic disable-next-line: assign-type-mismatch
-          border = vim.o.winborder,
           winblend = vim.o.winblend,
           draw = {
             columns = { { "kind_icon" }, { "label", gap = 1 } },
@@ -93,11 +82,16 @@ return {
           },
         },
       },
+      cmdline = {
+        keymap = { preset = "inherit" },
+        completion = { menu = { auto_show = true } },
+      },
       signature = {
         enabled = true,
+        trigger = {
+          show_on_insert = true,
+        },
         window = {
-          ---@diagnostic disable-next-line: assign-type-mismatch
-          border = vim.o.winborder,
           winblend = vim.o.winblend,
         },
       },
