@@ -1,15 +1,12 @@
 return {
   "NickvanDyke/opencode.nvim",
   dependencies = { "folke/snacks.nvim" },
-  opts = {
-    provider_id = "github-copilot",
-    model_id = "claude-sonnet-4",
-  },
   keys = {
     {
       "<leader>ot",
       function()
         require("snacks.terminal").toggle("opencode", { win = { position = "right" } })
+        vim.cmd("wincmd =")
       end,
       desc = "Toggle opencode",
     },
@@ -82,5 +79,4 @@ return {
       mode = "v",
     },
   },
-  config = true,
 }

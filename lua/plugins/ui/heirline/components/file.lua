@@ -30,6 +30,8 @@ M.Icon = {
   provider = function(self)
     if is_excluded() and excluded_icons[vim.bo.filetype] then
       return excluded_icons[vim.bo.filetype] .. " "
+    elseif self.filename:match("opencode") then
+      return "󱃖 "
     else
       return self.icon and (self.icon .. " ")
     end
@@ -50,6 +52,8 @@ M.Name = {
       return "[No File]"
     elseif self.filename == "" then
       return vim.bo.buftype
+    elseif self.filename:match("opencode") then
+      return "opencode"
     else
       local directory = vim.fn.fnamemodify(self.filename, ":h:t")
       local filename = vim.fn.fnamemodify(self.filename, ":t")
