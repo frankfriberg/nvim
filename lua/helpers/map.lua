@@ -38,7 +38,7 @@ M.nv = function(key, func, desc, opts, overwrite)
   return keymap({ "n", "v" }, key, func, desc, opts, overwrite)
 end
 
-M.group = function(mode, key, desc, icon, color)
+M.group = function(mode, key, name, icon, color)
   local ok, wk = pcall(require, "which-key")
 
   if ok then
@@ -46,7 +46,7 @@ M.group = function(mode, key, desc, icon, color)
       mode = mode,
       {
         key,
-        name = desc,
+        group = name,
         icon = { icon = icon, color = color },
       },
     })
