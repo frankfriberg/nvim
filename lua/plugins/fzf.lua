@@ -64,6 +64,15 @@ return {
         end,
         "Workspace Diagnostics",
       },
+      {
+        mode = "v",
+        v = {
+          function()
+            require("fzf-lua").grep_visual()
+          end,
+          "Grep Visual",
+        },
+      },
     },
   }),
   init = function()
