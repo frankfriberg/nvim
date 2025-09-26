@@ -2,9 +2,9 @@ return {
   {
     "mason-org/mason.nvim",
     dependencies = {
-      "neovim/nvim-lspconfig",
-      "mason-org/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
+      "mason-org/mason-lspconfig.nvim",
+      "neovim/nvim-lspconfig",
       "b0o/schemastore.nvim",
     },
     config = function()
@@ -20,6 +20,11 @@ return {
           backdrop = 100,
           width = 0.5,
           height = 0.7,
+          icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗",
+          },
         },
       })
 
@@ -31,6 +36,14 @@ return {
           "stylua",
           "shfmt",
           "actionlint",
+          "copilot",
+          "terraform",
+          "lua_ls",
+          "vtsls",
+          "eslint",
+          "tailwindcss",
+          "jsonls",
+          "tflint",
         },
       })
 
@@ -39,14 +52,6 @@ return {
           exclude = {
             "copilot",
           },
-        },
-        ensure_installed = {
-          "copilot",
-          "vtsls",
-          "lua_ls",
-          "eslint",
-          "tailwindcss",
-          "jsonls",
         },
       })
     end,
