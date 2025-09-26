@@ -121,7 +121,7 @@ return {
           ["ctrl-g"] = { actions.toggle_ignore },
         },
         winopts = {
-          width = 50,
+          width = 120,
         },
       },
       buffers = {
