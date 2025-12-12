@@ -2,15 +2,15 @@ return function(event)
   local map = require("helpers.map")
 
   map.t({
-    gD = { vim.lsp.buf.declaration, "[G]oto [D]eclaration", false },
-    gd = { "<C-]>", "Goto Definition", false },
-    gr = { vim.lsp.buf.references, "Goto References", false },
-    gI = { vim.lsp.buf.implementation, "Goto Implementations", false },
+    gD = { vim.lsp.buf.declaration, "Goto Declaration", { overwrite = false } },
+    gd = { "<C-]>", "Goto Definition", { overwrite = false } },
+    gr = { vim.lsp.buf.references, "Goto References", { overwrite = false } },
+    gI = { vim.lsp.buf.implementation, "Goto Implementations", { overwrite = false } },
     {
       group = { "<leader>l", "LSP" },
-      k = { vim.lsp.buf.signature_help, "Signature Help", false },
-      r = { vim.lsp.buf.rename, "[R]e[n]ame", false },
-      c = { vim.lsp.buf.code_action, "[C]ode Action", false },
+      k = { vim.lsp.buf.signature_help, "Signature Help", { overwrite = false } },
+      r = { vim.lsp.buf.rename, "Rename File", { overwrite = false } },
+      c = { vim.lsp.buf.code_action, "Code Action", { overwrite = false } },
     },
   })
 
@@ -33,8 +33,22 @@ return function(event)
   end
 
   if client:supports_method(methods.textDocument_inlayHint) then
-    map.n("<leader>lt", function()
-      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }))
-    end, "[T]oggle Inlay [H]ints")
+    map.t({
+      l_lt = {
+        function()
+          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }))
+        end,
+        "Toggle Inlay Hints",
+      },
+    })
   end
+
+  map.t({
+    l_lw = {
+      function()
+        require("workspace-diagnostics").populate_workspace_diagnostics(client, event.buf)
+      end,
+      "Load Workspace Diagnostics",
+    },
+  })
 end

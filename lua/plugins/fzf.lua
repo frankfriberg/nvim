@@ -1,7 +1,7 @@
 return {
   "ibhagwan/fzf-lua",
   dependencies = { "echasnovski/mini.icons" },
-  keys = require("helpers.map").l({
+  keys = require("helpers.map").lazy({
     gr = {
       function()
         require("fzf-lua").lsp_references({ ignore_current_line = true })
@@ -40,7 +40,7 @@ return {
         end,
         "Resume",
       },
-      c = {
+      v = {
         function()
           require("fzf-lua").grep_cword()
         end,
@@ -60,7 +60,9 @@ return {
       },
       w = {
         function()
-          require("fzf-lua").diagnostics_workspace()
+          require("fzf-lua").diagnostics_workspace({
+            diag_source = true,
+          })
         end,
         "Workspace Diagnostics",
       },
@@ -104,6 +106,11 @@ return {
           horizontal = "right:50%",
         },
       },
+      keymap = {
+        fzf = {
+          ["ctrl-q"] = "select-all+accept",
+        },
+      },
       defaults = {
         formatter = "path.dirname_first",
       },
@@ -111,6 +118,7 @@ return {
         cwd_prompt = false,
         actions = {
           ["ctrl-g"] = { actions.toggle_ignore },
+          ["√"] = actions.file_vsplit,
         },
       },
       files = {
@@ -129,6 +137,7 @@ return {
         actions = {
           ["ctrl-x"] = false,
           ["ctrl-d"] = { actions.buf_del, actions.resume },
+          ["alt-v"] = actions.file_vsplit,
         },
         winopts = {
           width = 120,

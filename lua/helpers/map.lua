@@ -1,41 +1,27 @@
 local M = {}
 
 local exists = function(key, mode)
-  local exists = (vim.fn.maparg(key, mode) ~= "")
-
-  if exists then
-    return true
-  else
-    return false
-  end
+  return vim.fn.maparg(key, mode) ~= ""
 end
 
-local keymap = function(mode, key, func, desc, opts, overwrite)
+local keymap = function(mode, key, func, desc, opts)
+  -- Extract overwrite from opts if present
+  local overwrite = true
+  if opts and opts.overwrite ~= nil then
+    overwrite = opts.overwrite
+  end
+
   if overwrite == false and exists(key, mode) then
     return nil
   end
 
   local options = { desc = desc, silent = true, noremap = true }
   if opts then
-    options = vim.tbl_extend("force", options, opts)
+    local cleanOpts = vim.tbl_extend("force", {}, opts)
+    cleanOpts.overwrite = nil
+    options = vim.tbl_extend("force", options, cleanOpts)
   end
   return vim.keymap.set(mode, key, func, options)
-end
-
-M.n = function(key, func, desc, opts, overwrite)
-  return keymap("n", key, func, desc, opts, overwrite)
-end
-
-M.v = function(key, func, desc, opts, overwrite)
-  return keymap("v", key, func, desc, opts, overwrite)
-end
-
-M.i = function(key, func, desc, opts, overwrite)
-  return keymap("i", key, func, desc, opts, overwrite)
-end
-
-M.nv = function(key, func, desc, opts, overwrite)
-  return keymap({ "n", "v" }, key, func, desc, opts, overwrite)
 end
 
 M.group = function(mode, key, name, icon, color)
@@ -102,14 +88,22 @@ M.loop = function(inputTable, prefix, keyTable, parentMode)
           keys = vim.list_extend(keys, nestedTable)
         end
       else
-        local callback, desc, overwrite = unpack(v)
+        local callback, desc, itemOptions = unpack(v)
+        -- Merge group options with individual keymap options
+        local finalOptions = options
+        if itemOptions then
+          if finalOptions then
+            finalOptions = vim.tbl_extend("force", finalOptions, itemOptions)
+          else
+            finalOptions = itemOptions
+          end
+        end
         table.insert(keys, {
           key = groupPrefix .. shortcut(k),
           callback = callback,
           desc = desc,
           mode = mode,
-          options = options,
-          overwrite = overwrite,
+          options = finalOptions,
         })
       end
     end
@@ -122,11 +116,11 @@ M.t = function(inputTable, prefix)
   local keys = M.loop(inputTable, prefix)
 
   for _, keyData in ipairs(keys) do
-    keymap(keyData.mode, keyData.key, keyData.callback, keyData.desc, keyData.options, keyData.overwrite)
+    keymap(keyData.mode, keyData.key, keyData.callback, keyData.desc, keyData.options)
   end
 end
 
-M.l = function(inputTable, prefix)
+M.lazy = function(inputTable, prefix)
   local keys = M.loop(inputTable, prefix)
   local lazyTable = {}
   for _, keyData in ipairs(keys) do

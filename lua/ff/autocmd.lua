@@ -28,8 +28,10 @@ autocmd("FileType", {
   group = bufcheck,
   pattern = "man",
   callback = function()
-    map.n("<enter>", "K", "Manual page", { buffer = true })
-    map.n("<backspace>", "<c-o>", "Manual page", { buffer = true })
+    map.t({
+      ["<enter>"] = { "K", "Manual page", { buffer = true } },
+      ["<backspace>"] = { "<c-o>", "Manual page", { buffer = true } },
+    })
   end,
 })
 
@@ -57,9 +59,15 @@ autocmd("FileType", {
     "lspinfo",
   },
   callback = function()
-    map.n("q", function()
-      vim.api.nvim_win_close(0, true)
-    end, "Close win", { buffer = true })
+    map.t({
+      q = {
+        function()
+          vim.api.nvim_win_close(0, true)
+        end,
+        "Close win",
+        { buffer = true },
+      },
+    })
   end,
 })
 
