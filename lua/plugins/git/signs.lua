@@ -4,7 +4,7 @@ return {
   keys = {
     -- Navigation
     {
-      "]c",
+      "]h",
       function()
         if vim.wo.diff then
           vim.cmd.normal({ "]c", bang = true })
@@ -16,7 +16,7 @@ return {
       desc = "Next git hunk",
     },
     {
-      "[c",
+      "[h",
       function()
         if vim.wo.diff then
           vim.cmd.normal({ "[c", bang = true })
@@ -31,17 +31,13 @@ return {
     -- Actions
     {
       "<leader>gs",
-      function()
-        require("gitsigns").stage_hunk()
-      end,
+      require("gitsigns").stage_hunk,
       mode = "n",
       desc = "Stage hunk",
     },
     {
       "<leader>gr",
-      function()
-        require("gitsigns").reset_hunk()
-      end,
+      require("gitsigns").reset_hunk,
       mode = "n",
       desc = "Reset hunk",
     },
