@@ -30,3 +30,5 @@ vim.opt.pumblend = 0 -- Blend background of pumenu
 vim.opt.diffopt = "internal,filler,closeoff,indent-heuristic,linematch:60,algorithm:histogram" -- Diff options
 vim.opt.splitright = true -- Split windows to the right
 vim.opt.winborder = "rounded"
+vim.opt.linebreak = true -- Wrap lines at convenient points
+vim.opt.autoread = true -- Auto reload files changed outside of nvim
