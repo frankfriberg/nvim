@@ -6,13 +6,13 @@ return {
       function()
         require("fzf-lua").lsp_references({ ignore_current_line = true })
       end,
-      "Fzf References",
+      desc = "Fzf References",
     },
     gI = {
       function()
         require("fzf-lua").lsp_implementations()
       end,
-      "Fzf Implementations",
+      desc = "Fzf Implementations",
     },
     {
       group = { "<leader>f", "Fzf" },
@@ -20,43 +20,43 @@ return {
         function()
           require("fzf-lua").global()
         end,
-        "Global Search",
+        desc = "Global Search",
       },
       e = {
         function()
           require("fzf-lua").buffers()
         end,
-        "Buffers",
+        desc = "Buffers",
       },
       g = {
         function()
           require("fzf-lua").live_grep_native()
         end,
-        "Live Grep",
+        desc = "Live Grep",
       },
       r = {
         function()
           require("fzf-lua").resume()
         end,
-        "Resume",
+        desc = "Resume",
       },
       v = {
         function()
           require("fzf-lua").grep_cword()
         end,
-        "Grep cursor",
+        desc = "Grep cursor",
       },
       s = {
         function()
           require("fzf-lua").lgrep_curbuf()
         end,
-        "Current Buffer",
+        desc = "Current Buffer",
       },
       d = {
         function()
           require("fzf-lua").diagnostics_document()
         end,
-        "Buffer Diagnostics",
+        desc = "Buffer Diagnostics",
       },
       w = {
         function()
@@ -64,7 +64,7 @@ return {
             diag_source = true,
           })
         end,
-        "Workspace Diagnostics",
+        desc = "Workspace Diagnostics",
       },
       {
         mode = "v",
@@ -72,7 +72,7 @@ return {
           function()
             require("fzf-lua").grep_visual()
           end,
-          "Grep Visual",
+          { desc = "Grep Visual" },
         },
       },
     },
@@ -136,7 +136,7 @@ return {
         previewer = false,
         actions = {
           ["ctrl-x"] = false,
-          ["ctrl-d"] = { actions.buf_del, actions.resume },
+          ["ctrl-d"] = { fn = actions.buf_del, reload = true },
           ["alt-v"] = actions.file_vsplit,
         },
         winopts = {

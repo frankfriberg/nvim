@@ -2,17 +2,27 @@ return function(event)
   local map = require("helpers.map")
 
   map.t({
-    gD = { vim.lsp.buf.declaration, "Goto Declaration", { overwrite = false } },
-    gd = { "<C-]>", "Goto Definition", { overwrite = false } },
-    gr = { vim.lsp.buf.references, "Goto References", { overwrite = false } },
-    gI = { vim.lsp.buf.implementation, "Goto Implementations", { overwrite = false } },
+    gD = { vim.lsp.buf.declaration, desc = "Goto Declaration", remap = false },
+    gd = { "<C-]>", desc = "Goto Definition", remap = false },
     {
       group = { "<leader>l", "LSP" },
-      k = { vim.lsp.buf.signature_help, "Signature Help", { overwrite = false } },
-      r = { vim.lsp.buf.rename, "Rename File", { overwrite = false } },
-      c = { vim.lsp.buf.code_action, "Code Action", { overwrite = false } },
+      k = { vim.lsp.buf.signature_help, desc = "Signature Help", remap = false },
+      r = { vim.lsp.buf.rename, desc = "Rename File", remap = false },
+      c = { vim.lsp.buf.code_action, desc = "Code Action", remap = false },
     },
   })
+
+  if vim.fn.mapcheck("gr", "n") == "" then
+    map.t({
+      gr = { vim.lsp.buf.references, desc = "Goto References", remap = false },
+    })
+  end
+
+  if vim.fn.mapcheck("gI", "n") == "" then
+    map.t({
+      gI = { vim.lsp.buf.implementation, desc = "Goto Implementations", remap = false },
+    })
+  end
 
   local client = vim.lsp.get_client_by_id(event.data.client_id)
   if not client then
@@ -38,7 +48,7 @@ return function(event)
         function()
           vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }))
         end,
-        "Toggle Inlay Hints",
+        desc = "Toggle Inlay Hints",
       },
     })
   end
@@ -48,7 +58,7 @@ return function(event)
       function()
         require("workspace-diagnostics").populate_workspace_diagnostics(client, event.buf)
       end,
-      "Load Workspace Diagnostics",
+      desc = "Load Workspace Diagnostics",
     },
   })
 end

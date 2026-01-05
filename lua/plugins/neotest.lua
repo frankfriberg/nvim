@@ -14,37 +14,37 @@ return {
       function()
         return require("neotest").run.run()
       end,
-      "Run the nearest test",
+      desc = "Run the nearest test",
     },
     f = {
       function()
         return require("neotest").run.run(vim.fn.expand("%"))
       end,
-      "Run current file",
+      desc = "Run current file",
     },
     a = {
       function()
         return require("neotest").run.run(vim.loop.cwd())
       end,
-      "Run all tests",
+      desc = "Run all tests",
     },
     w = {
       function()
         return require("neotest").run.run({ jestCommand = "jest --watch" })
       end,
-      "Run test in watch mode",
+      desc = "Run test in watch mode",
     },
     s = {
       function()
         return require("neotest").summary.toggle()
       end,
-      "Show the summary",
+      desc = "Show the summary",
     },
     o = {
       function()
         return require("neotest").output()
       end,
-      "Show the output panel",
+      desc = "Show the output panel",
     },
   }),
   config = function()

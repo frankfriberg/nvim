@@ -4,14 +4,12 @@ return {
   "folke/snacks.nvim",
   priority = 1000,
   lazy = false,
-  keys = require("helpers.map").t({
-    {
-      l_gg = {
-        function()
-          require("snacks").lazygit.open()
-        end,
-        "LazyGit",
-      },
+  keys = require("helpers.map").lazy({
+    l_gg = {
+      function()
+        require("snacks").lazygit.open()
+      end,
+      desc = "LazyGit",
     },
   }),
   init = function()

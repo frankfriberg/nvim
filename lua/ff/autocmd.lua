@@ -29,8 +29,8 @@ autocmd("FileType", {
   pattern = "man",
   callback = function()
     map.t({
-      ["<enter>"] = { "K", "Manual page", { buffer = true } },
-      ["<backspace>"] = { "<c-o>", "Manual page", { buffer = true } },
+      ["<enter>"] = { "K", desc = "Manual page", buffer = true, remap = true },
+      ["<backspace>"] = { "<c-o>", desc = "Go back", buffer = true, remap = true },
     })
   end,
 })
@@ -64,8 +64,8 @@ autocmd("FileType", {
         function()
           vim.api.nvim_win_close(0, true)
         end,
-        "Close win",
-        { buffer = true },
+        desc = "Close window",
+        buffer = true,
       },
     })
   end,

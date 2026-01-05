@@ -13,15 +13,15 @@ return {
             function()
               require("opencode").command("session.half.page.downScroll")
             end,
-            "Scroll down half page",
-            { buffer = true },
+            desc = "Scroll down half page",
+            buffer = true,
           },
           c_u = {
             function()
               require("opencode").command("session.half.page.upScroll")
             end,
-            "Scroll up half page",
-            { buffer = true },
+            desc = "Scroll up half page",
+            buffer = true,
           },
         })
       end,
@@ -33,45 +33,53 @@ return {
       function()
         require("opencode").ask("@this: ", { submit = true })
       end,
-      "Ask",
+      desc = "Ask",
     },
     s = {
       function()
         require("opencode").select()
       end,
-      "Select prompt",
+      desc = "Select prompt",
     },
     t = {
       function()
         require("opencode").toggle()
       end,
-      "Toggle",
+      desc = "Toggle",
     },
     c = {
       function()
         require("opencode").command("session.interrupt")
       end,
-      "Cancel",
+      desc = "Cancel",
     },
     u = {
       function()
         require("opencode").command("session.undo")
       end,
-      "Undo",
+      desc = "Undo",
+    },
+    l = {
+      function()
+        return require("opencode").operator("@this ") .. "_"
+      end,
+      desc = "Add line to prompt",
+      expr = true,
     },
     {
-      mode = "v",
+      mode = { "v", "x" },
       a = {
         function()
           require("opencode").ask("@this: ", { submit = true })
         end,
-        "Ask",
+        desc = "Ask",
       },
       A = {
         function()
-          require("opencode").prompt("@this")
+          return require("opencode").operator("@this")
         end,
-        "Add to prompt",
+        desc = "Add range to prompt",
+        expr = true,
       },
     },
   }),

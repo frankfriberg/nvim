@@ -25,10 +25,10 @@ local diagnostic_goto = function(next, severity)
 end
 
 map.t({
-  ["]d"] = { diagnostic_goto(true), "Next Diagnostic" },
-  ["[d"] = { diagnostic_goto(false), "Prev Diagnostic" },
-  ["]e"] = { diagnostic_goto(true, "ERROR"), "Next Error" },
-  ["[e"] = { diagnostic_goto(false, "ERROR"), "Prev Error" },
-  ["]w"] = { diagnostic_goto(true, "WARN"), "Next Warning" },
-  ["[w"] = { diagnostic_goto(false, "WARN"), "Prev Warning" },
+  ["]d"] = { diagnostic_goto(true), desc = "Next Diagnostic" },
+  ["[d"] = { diagnostic_goto(false), desc = "Prev Diagnostic" },
+  ["]e"] = { diagnostic_goto(true, "ERROR"), desc = "Next Error" },
+  ["[e"] = { diagnostic_goto(false, "ERROR"), desc = "Prev Error" },
+  ["]w"] = { diagnostic_goto(true, "WARN"), desc = "Next Warning" },
+  ["[w"] = { diagnostic_goto(false, "WARN"), desc = "Prev Warning" },
 })

@@ -6,10 +6,10 @@ return {
     local map = require("helpers.map")
 
     map.t({
-      c_h = { smart.move_cursor_left, "[S] Move cursor left" },
-      c_l = { smart.move_cursor_right, "[S] Move cursor right" },
-      c_k = { smart.move_cursor_up, "[S] Move cursor up" },
-      c_j = { smart.move_cursor_down, "[S] Move cursor down" },
+      c_h = { smart.move_cursor_left, desc = "[S] Move cursor left" },
+      c_l = { smart.move_cursor_right, desc = "[S] Move cursor right" },
+      c_k = { smart.move_cursor_up, desc = "[S] Move cursor up" },
+      c_j = { smart.move_cursor_down, desc = "[S] Move cursor down" },
     })
 
     smart.setup()
