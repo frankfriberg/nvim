@@ -6,6 +6,7 @@ return {
       "mason-org/mason-lspconfig.nvim",
       "neovim/nvim-lspconfig",
       "b0o/schemastore.nvim",
+      "artemave/workspace-diagnostics.nvim",
     },
     config = function()
       local on_attach = require("helpers.on-attach")
