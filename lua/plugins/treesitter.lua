@@ -4,50 +4,119 @@ return {
   lazy = false,
   build = ":TSUpdate",
   config = function()
+    local ts = require("nvim-treesitter")
+
+    -- Track buffers waiting for parser installation: { lang = { [buf] = true, ... } }
+    local waiting_buffers = {}
+    -- Track languages currently being installed to avoid duplicate install tasks
+    local installing_langs = {}
+
+    local group = vim.api.nvim_create_augroup("TreesitterSetup", { clear = true })
+
+    -- Enable treesitter for a buffer
+    local function enable_treesitter(buf, lang)
+      if not vim.api.nvim_buf_is_valid(buf) then
+        return false
+      end
+
+      local ok = pcall(vim.treesitter.start, buf, lang)
+      if ok then
+        vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      end
+      return ok
+    end
+
+    -- Install core parsers after lazy.nvim finishes loading all plugins
+    vim.api.nvim_create_autocmd("User", {
+      group = group,
+      pattern = "LazyDone",
+      once = true,
+      desc = "Install core treesitter parsers",
+      callback = function()
+        ts.install({
+          "bash",
+          "lua",
+          "luadoc",
+          "markdown",
+          "markdown_inline",
+          "regex",
+          "vim",
+          "vimdoc",
+        }, {
+          max_jobs = 8,
+        })
+      end,
+    })
+
+    local ignore_filetypes = {
+      checkhealth = true,
+      lazy = true,
+      mason = true,
+      qf = true,
+      snacks_dashboard = true,
+      snacks_notif = true,
+      snacks_win = true,
+      toggleterm = true,
+    }
+
+    -- Auto-install parsers and enable highlighting on FileType
     vim.api.nvim_create_autocmd("FileType", {
+      group = group,
+      desc = "Enable treesitter highlighting and indentation",
       callback = function(event)
-        local bufnr = event.buf
-        local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
-
-        -- Skip if no filetype
-        if filetype == "" then
+        if ignore_filetypes[event.match] then
           return
         end
 
-        -- Don't load treesitter for .env files even if detected as 'sh'
-        local filename = vim.api.nvim_buf_get_name(bufnr)
-        if filename:match("%.env") or filename:match("/%.env") then
-          return
+        local lang = vim.treesitter.language.get_lang(event.match) or event.match
+        local buf = event.buf
+
+        if not enable_treesitter(buf, lang) then
+          -- Parser not available, queue buffer (set handles duplicates)
+          waiting_buffers[lang] = waiting_buffers[lang] or {}
+          waiting_buffers[lang][buf] = true
+
+          -- Only start install if not already in progress
+          if not installing_langs[lang] then
+            installing_langs[lang] = true
+            local task = ts.install({ lang })
+
+            -- Register callback for when installation completes
+            if task and task.await then
+              task:await(function()
+                vim.schedule(function()
+                  installing_langs[lang] = nil
+
+                  -- Enable treesitter on all waiting buffers for this language
+                  local buffers = waiting_buffers[lang]
+                  if buffers then
+                    for b in pairs(buffers) do
+                      enable_treesitter(b, lang)
+                    end
+                    waiting_buffers[lang] = nil
+                  end
+                end)
+              end)
+            else
+              -- Fallback: clear state if task doesn't support await
+              installing_langs[lang] = nil
+              waiting_buffers[lang] = nil
+            end
+          end
         end
+      end,
+    })
 
-        -- Get parser name based on filetype
-        local parser_name = vim.treesitter.language.get_lang(filetype)
-        if not parser_name then
-          return
-        end
-
-        -- Try to get existing parser (helpful check if filetype was returned above)
-        local parser_configs = require("nvim-treesitter.parsers")
-        if not parser_configs[parser_name] then
-          return -- Parser not available, skip silently
-        end
-
-        local parser_installed = pcall(vim.treesitter.get_parser, bufnr, parser_name)
-
-        if not parser_installed then
-          vim.notify("Installing treesitter parser for " .. parser_name, vim.log.levels.INFO, { icon = "" })
-
-          -- If not installed, install parser synchronously
-          require("nvim-treesitter").install({ parser_name }):wait(30000)
-        end
-
-        -- let's check again
-        parser_installed = pcall(vim.treesitter.get_parser, bufnr, parser_name)
-
-        if parser_installed then
-          -- Start treesitter for this buffer
-          vim.treesitter.start(bufnr, parser_name)
-          vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    -- Clean up waiting buffers when buffer is deleted
+    vim.api.nvim_create_autocmd("BufDelete", {
+      group = group,
+      desc = "Clean up treesitter waiting buffers",
+      callback = function(event)
+        for lang, buffers in pairs(waiting_buffers) do
+          buffers[event.buf] = nil
+          if next(buffers) == nil then
+            waiting_buffers[lang] = nil
+          end
         end
       end,
     })
