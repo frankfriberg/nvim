@@ -41,11 +41,5 @@ return {
         },
       },
     },
-    scope = { enabled = true },
-    indent = {
-      animate = {
-        enabled = false,
-      },
-    },
   },
 }

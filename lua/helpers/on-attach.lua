@@ -52,13 +52,4 @@ return function(event)
       },
     })
   end
-
-  map.t({
-    l_lw = {
-      function()
-        require("workspace-diagnostics").populate_workspace_diagnostics(client, event.buf)
-      end,
-      desc = "Load Workspace Diagnostics",
-    },
-  })
 end

@@ -1,0 +1,88 @@
+return {
+  init = function(self)
+    self.mode = vim.fn.mode(1)
+    self.mode_short = self.mode:sub(1, 1)
+  end,
+  static = {
+    mode_name = {
+      n = "normal",
+      no = "op",
+      nov = "op",
+      noV = "op",
+      ["no"] = "op",
+      niI = "normal",
+      niR = "normal",
+      niV = "normal",
+      nt = "normal",
+      v = "visual",
+      V = "visual_lines",
+      [""] = "visual_block",
+      s = "select",
+      S = "select",
+      [""] = "block",
+      i = "insert",
+      ic = "insert",
+      ix = "insert",
+      R = "replace",
+      Rc = "replace",
+      Rv = "v_replace",
+      Rx = "replace",
+      c = "command",
+      cv = "command",
+      ce = "command",
+      r = "enter",
+      rm = "more",
+      ["r?"] = "confirm",
+      ["!"] = "shell",
+      t = "terminal",
+      ["null"] = "none",
+    },
+    mode_label = {
+      normal = "normal",
+      op = "op",
+      visual = "visual",
+      visual_lines = "visual lines",
+      visual_block = "visual block",
+      select = "select",
+      block = "block",
+      insert = "insert",
+      replace = "replace",
+      v_replace = "v-replace",
+      command = "command",
+      enter = "enter",
+      more = "more",
+      confirm = "confirm",
+      shell = "shell",
+      terminal = "terminal",
+      none = "none",
+    },
+    mode_colors = {
+      n = "fg",
+      i = "warn",
+      v = "special",
+      V = "special",
+      ["\22"] = "special",
+      c = "delimiter",
+      s = "hint",
+      S = "hint",
+      ["\19"] = "hint",
+      R = "ok",
+      r = "ok",
+      ["!"] = "macro",
+      t = "macro",
+    },
+  },
+  provider = function(self)
+    return self.mode_label[self.mode_name[self.mode]] .. " "
+  end,
+  hl = function(self)
+    return { fg = self.mode_colors[self.mode_short] }
+  end,
+  update = {
+    "ModeChanged",
+    pattern = "*:*",
+    callback = vim.schedule_wrap(function()
+      vim.cmd("redrawstatus")
+    end),
+  },
+}

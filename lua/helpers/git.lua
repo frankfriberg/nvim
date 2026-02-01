@@ -30,17 +30,6 @@ M.current_branch = function()
   end
 end
 
-M.ahead_behind = function()
-  local data = vim.fn.system("git rev-list --count --left-right HEAD...@{upstream}")
-  local ahead, behind = data:match("(%d+)%s+(%d+)")
-  local ahead_behind = {
-    ahead = tonumber(ahead),
-    behind = tonumber(behind),
-  }
-
-  return ahead_behind
-end
-
 M.changed = function()
   local current_branch = M.get_current_branch()
 
