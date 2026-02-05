@@ -19,7 +19,11 @@ return {
       bold = true,
     },
   },
-  { provider = vim.g.branch_name },
+  {
+    provider = function()
+      return vim.g.branch_name
+    end,
+  },
   hl = function()
     return {
       fg = vim.g.is_git_rebase and "warn" or "ok",
