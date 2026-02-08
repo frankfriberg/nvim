@@ -6,6 +6,7 @@ return {
     local utils = require("heirline.utils")
     local conditions = require("heirline.conditions")
 
+    local Record = require("components.record")
     local ViMode = require("components.vimode")
     local Lsp = require("components.lsp")
     local File = require("components.file")
@@ -17,6 +18,7 @@ return {
 
     local Statusline = {
       Align,
+      Record,
       ViMode,
       Lsp,
       Formatters,
